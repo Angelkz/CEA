@@ -1,0 +1,299 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>{% block cabezera %}{% endblock %}League of Legends - Draft</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="{% static 'css/business-casual.css' %}" rel="stylesheet">
+ 
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/navbar.css' %}" rel="stylesheet">
+    
+    <!-- Fonts -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <div class="brand">League of Legends - Draft</div>
+    <div class="address-bar">Tijuana, Baja California 22290 - Instituto Tecnologico de Tijuana</div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <!-- navbar-brand is hidden on larger screens, but visible when the menu is collapsed -->
+                <a class="navbar-brand" href="index.html">League of Legends - Draft</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="/index/">Inicio</a>
+                    </li>
+                    <li>
+                        <a href="/login/">Perfil</a>
+                    </li>
+                    {% if user.is_authenticated %}
+                    <li>
+                        <a href="/config/">Configuracion</a>
+                    </li>
+                    {% endif %}
+                    <li>
+                       <a href="/contact/">Contacto</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <div class="container">
+
+
+  {% block extra %}
+
+  {% endblock %}
+
+    </div>
+    <!-- /.container -->
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <p>Copyright &copy; Equipo Cafe</p>
+                </div>
+            </div>
+        </div>
+
+              {% if user.is_authenticated %}
+              <center>
+                <div class="row">
+                    <a class="btn btn-lg btn-danger" href="/logout/" role="button">Salir de la sesión</a>
+                </div>
+              </center>
+              {% endif %}
+              <br>
+    </footer>
+
+    <script src="{% static 'js/bootstrap.min.js' %}"></script> 
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="{% static 'js/ie10-viewport-bug-workaround.js' %}"></script>
+
+    <script src="{% static 'js/jquery.js' %}"></script>
+
+</body>
+
+</html>
+
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;border-color:#bbb;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#bbb;color:#594F4F;background-color:#E0FFEB;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#bbb;color:#493F3F;background-color:#9DE0AD;}
+.tg .tg-sgp5{font-size:26px;font-family:"Times New Roman", Times, serif !important;;background-color:#32cb00;text-align:center;vertical-align:top}
+.tg .tg-49xk{font-size:26px;font-family:"Times New Roman", Times, serif !important;;text-align:center;vertical-align:top}
+.tg .tg-clha{background-color:#C2FFD6;font-size:12px;font-family:"Times New Roman", Times, serif !important;;text-align:center;vertical-align:top}
+.tg .tg-hnwh{background-color:#C2FFD6;font-size:26px;font-family:"Times New Roman", Times, serif !important;;text-align:center;vertical-align:top}
+</style>
+<table class="tg" style="undefined;table-layout: fixed; width: 727px">
+<colgroup>
+<col style="width: 83px">
+<col style="width: 75px">
+<col style="width: 84px">
+<col style="width: 115px">
+<col style="width: 81px">
+<col style="width: 91px">
+<col style="width: 88px">
+<col style="width: 110px">
+</colgroup>
+  <tr>
+    <th class="tg-sgp5">Hora</th>
+    <th class="tg-49xk">Lunes</th>
+    <th class="tg-49xk">Martes</th>
+    <th class="tg-49xk">Miércoles</th>
+    <th class="tg-49xk">Jueves</th>
+    <th class="tg-49xk">Viernes</th>
+    <th class="tg-49xk">Sábado</th>
+    <th class="tg-49xk">Domingo</th>
+  </tr>
+  <tr>
+    <td class="tg-49xk">7-8</td>
+    <td class="tg-clha"></td>
+    <td class="tg-49xk"></td>
+    <td class="tg-hnwh"></td>
+    <td class="tg-49xk"></td>
+    <td class="tg-hnwh"></td>
+    <td class="tg-49xk"></td>
+    <td class="tg-hnwh"></td>
+  </tr>
+  <tr>
+    <td class="tg-49xk">8-9</td>
+    <td class="tg-hnwh"></td>
+    <td class="tg-49xk"></td>
+    <td class="tg-hnwh"></td>
+    <td class="tg-49xk"></td>
+    <td class="tg-hnwh"></td>
+    <td class="tg-49xk"></td>
+    <td class="tg-hnwh"></td>
+  </tr>
+  <tr>
+    <td class="tg-49xk">9-10</td>
+    <td class="tg-hnwh"><br></td>
+    <td class="tg-49xk"></td>
+    <td class="tg-hnwh"></td>
+    <td class="tg-49xk"></td>
+    <td class="tg-hnwh"></td>
+    <td class="tg-49xk"></td>
+    <td class="tg-hnwh"></td>
+  </tr>
+  <tr>
+    <td class="tg-49xk">10-11</td>
+    <td class="tg-hnwh"></td>
+    <td class="tg-49xk"></td>
+    <td class="tg-hnwh"></td>
+    <td class="tg-49xk"></td>
+    <td class="tg-hnwh"></td>
+    <td class="tg-49xk"></td>
+    <td class="tg-hnwh"></td>
+  </tr>
+  <tr>
+    <td class="tg-49xk">11-12</td>
+    <td class="tg-hnwh"></td>
+    <td class="tg-49xk"></td>
+    <td class="tg-hnwh"></td>
+    <td class="tg-49xk"></td>
+    <td class="tg-hnwh"></td>
+    <td class="tg-49xk"></td>
+    <td class="tg-hnwh"></td>
+  </tr>
+  <tr>
+    <td class="tg-49xk">12-13</td>
+    <td class="tg-hnwh"></td>
+    <td class="tg-49xk"></td>
+    <td class="tg-hnwh"></td>
+    <td class="tg-49xk"></td>
+    <td class="tg-hnwh"></td>
+    <td class="tg-49xk"></td>
+    <td class="tg-hnwh"></td>
+  </tr>
+  <tr>
+    <td class="tg-49xk">13-14</td>
+    <td class="tg-hnwh"></td>
+    <td class="tg-49xk"></td>
+    <td class="tg-hnwh"></td>
+    <td class="tg-49xk"></td>
+    <td class="tg-hnwh"></td>
+    <td class="tg-49xk"></td>
+    <td class="tg-hnwh"></td>
+  </tr>
+  <tr>
+    <td class="tg-49xk">14-15</td>
+    <td class="tg-hnwh"></td>
+    <td class="tg-49xk"></td>
+    <td class="tg-hnwh"></td>
+    <td class="tg-49xk"></td>
+    <td class="tg-hnwh"></td>
+    <td class="tg-49xk"></td>
+    <td class="tg-hnwh"></td>
+  </tr>
+  <tr>
+    <td class="tg-49xk">15-16</td>
+    <td class="tg-hnwh"></td>
+    <td class="tg-49xk"></td>
+    <td class="tg-hnwh"></td>
+    <td class="tg-49xk"></td>
+    <td class="tg-hnwh"></td>
+    <td class="tg-49xk"></td>
+    <td class="tg-hnwh"></td>
+  </tr>
+  <tr>
+    <td class="tg-49xk">16-17</td>
+    <td class="tg-hnwh"></td>
+    <td class="tg-49xk"></td>
+    <td class="tg-hnwh"></td>
+    <td class="tg-49xk"></td>
+    <td class="tg-hnwh"></td>
+    <td class="tg-49xk"></td>
+    <td class="tg-hnwh"></td>
+  </tr>
+  <tr>
+    <td class="tg-49xk">17-18</td>
+    <td class="tg-hnwh"></td>
+    <td class="tg-49xk"></td>
+    <td class="tg-hnwh"></td>
+    <td class="tg-49xk"></td>
+    <td class="tg-hnwh"></td>
+    <td class="tg-49xk"></td>
+    <td class="tg-hnwh"></td>
+  </tr>
+  <tr>
+    <td class="tg-49xk">18-19</td>
+    <td class="tg-hnwh"></td>
+    <td class="tg-49xk"></td>
+    <td class="tg-hnwh"></td>
+    <td class="tg-49xk"></td>
+    <td class="tg-hnwh"></td>
+    <td class="tg-49xk"></td>
+    <td class="tg-hnwh"></td>
+  </tr>
+  <tr>
+    <td class="tg-49xk">19-20</td>
+    <td class="tg-hnwh"></td>
+    <td class="tg-49xk"></td>
+    <td class="tg-hnwh"></td>
+    <td class="tg-49xk"></td>
+    <td class="tg-hnwh"></td>
+    <td class="tg-49xk"></td>
+    <td class="tg-hnwh"></td>
+  </tr>
+  <tr>
+    <td class="tg-49xk">20-21</td>
+    <td class="tg-hnwh"></td>
+    <td class="tg-49xk"></td>
+    <td class="tg-hnwh"></td>
+    <td class="tg-49xk"></td>
+    <td class="tg-hnwh"></td>
+    <td class="tg-49xk"></td>
+    <td class="tg-hnwh"></td>
+  </tr>
+  <tr>
+    <td class="tg-49xk">21-22</td>
+    <td class="tg-hnwh"></td>
+    <td class="tg-49xk"></td>
+    <td class="tg-hnwh"></td>
+    <td class="tg-49xk"></td>
+    <td class="tg-hnwh"></td>
+    <td class="tg-49xk"></td>
+    <td class="tg-hnwh"></td>
+  </tr>
+</table>

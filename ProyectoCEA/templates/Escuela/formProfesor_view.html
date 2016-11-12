@@ -1,0 +1,192 @@
+{% extends "ProyectB/base.html" %}
+
+{% load staticfiles %}
+
+{% block cabezera %}  {% endblock %}
+
+{% block extra %}
+
+<!DOCTYPE html> 
+<html>
+<head>
+
+<link rel="stylesheet" href="styles.css" async/>
+	
+   <script src="jquery1.9.js"></script>
+	<title></title>
+</head>
+<body>
+</p>
+<div class="container-fluid">
+	<br>
+	<div class="row">
+		<div class="panel panel-primary">
+			<div class="panel-heading"><strong>Datos personales de registro de profesor.</strong></div>
+			<div class="panel-body">
+
+		
+		
+
+				<div class="row-sm">					
+					<p>Campos marcados con <text style="color:red">*</text> son obligatorios.</p>
+				</div>
+					<form method='POST' action=''>
+					{% csrf_token %}
+				<div class="row">
+					<div class="col-sm-4">
+						<label class="control-label">Apellido Paterno <text style="color:red">*</text></label>
+						<div >
+							<input class="form-control" type ="text" style="width:300px" min="0" id ='id_ApellidoPaterno' name="ApellidoPaterno" placeholder="Ejemplo: Flores" required="True" onKeyPress="return soloLetras(event)" ></input>
+						</div>
+					</div>
+				    <div class="col-sm-4">
+						<label class="control-label">Apellido Materno <text style="color:red">*</text></label>
+						<div >
+							<input class="form-control" type ="text" style="width:300px" min="0" id ='id_ApellidoMaterno' name="ApellidoMaterno" placeholder="Ejemplo: Tavera" required="True" onKeyPress="return soloLetras(event)" ></input>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<label class="control-label">Nombre(s) <text style="color:red">*</text></label>
+						<div >
+							<input class="form-control" type ="text" style="width:300px" min="0" id ='Nombre' name="Nombre" placeholder="Ejemplo: Laura" required="True" onKeyPress="return soloLetras(event)" ></input>
+						</div>
+					</div>
+				</div>
+				<!---->				
+				<hr>
+				<h3>Datos de contacto</h3>
+				<div class="row">
+					<div class="col-sm-4">
+						<label class="control-label">Telefono Casa <text style="color:red">*</text></label>
+						<div class="input-group">
+						  <span class="input-group-addon" id="basic-addon1"><i class="fa fa-home"></i></span>
+						  <input class="form-control" type ="text" style="width:300px" min="0" id ='id_TelefonoCasa' name="TelefonoCasa" placeholder="Ejemplo: 6862225" required="True" onKeyPress="return soloNumeros(event)" ></input>
+						</div>
+					</div>
+				    <div class="col-sm-4">
+						<label class="control-label">Telefono Celular <text style="color:red">*</text></label>
+						<div class="input-group">
+						  <span class="input-group-addon" id="basic-addon1"><i class="fa fa-mobile fa-2"></i></span>
+						  <input class="form-control" type ="text" style="width:300px" min="0" id ='id_TelefonoCelular' name="TelefonoCelular" placeholder="Ejemplo: 6643365028" required="True" onKeyPress="return soloNumeros(event)" ></input>
+	
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<label class="control-label">Email <text style="color:red">*</text></label>
+						<div >
+							<input class="form-control" type ="text" style="width:300px" min="0" id ='id_Email' name="Email" placeholder="Ejemplo: cea@tectijuana.edu.mx" required="True" onKeyPress="return soloEmail(event)" ></input>
+						</div>
+					</div>
+				</div>
+				  
+				<hr>
+				<h3>Datos Profesionales</h3>
+				<div class="row">
+					<div class="col-sm-4">
+						<label class="control-label">Titulo <text style="color:red">*</text></label>
+						<div >
+							{{ form.FK_Titulo }}
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<label class="control-label">Grado Maximo <text style="color:red">*</text></label>
+						<div >
+							{{ form.FK_GradoMaximo }}
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<label class="control-label">Numero de Empleado <text style="color:red">*</text></label>
+						<div >
+							<input class="form-control" type ="text" style="width:300px" min="0" id ='id_NumeroEmpleado' name="NumeroEmpleado" placeholder="Ejemplo: 265" required="True" onKeyPress="return soloNumeros(event)" ></input>
+						</div>
+					</div>
+				<br>
+				<br>
+				<hr>
+				<h3>Datos De Disponibilidad</h3>
+				<div class="row">
+					<div class="col-sm-4">
+						<label class="control-label">Numero de Horas</label>
+						<div >
+							{{ form.FK_NumeroHoras }}
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<label class="control-label">Requiere laboratorio <text style="color:red">*</text></label>
+						<div >
+							{{ form.Laboratorio }}
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<label class="control-label"> Impartir Tutorias <text style="color:red">*</text></label>
+						<div >
+							{{ form.Tutorias}}
+						</div>
+					</div>
+					<hr>
+					<div class="col-sm-4">
+						<label class="control-label">Material y recursos para la materia <text style="color:red">*</text></label>
+						<div >
+							{{ form.Paquete }}
+						</div>
+					<br>
+					<h2 class="intro-text text-center"><strong>{{mensaje}}</strong>
+					<br>
+					
+				<hr>
+				<br>
+				<div class="form-group">
+				    <center>
+						<div class="form-actions">
+						<button type="submit" class="btn btn-lg btn-default">Guardar</button>
+						<a class="btn  btn-lg btn-default" href="/index/">Regresar</a>
+					</div>
+					</center>
+				</div>
+			</form>
+			<!--Fin de Forma -->
+			
+			<script type="text/javascript">
+				function inputLimiter(e,allow) {
+			    var AllowableCharacters = '';
+
+			    if (allow == 'Letters'){AllowableCharacters=' ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz';}
+			    if (allow == 'Numbers'){AllowableCharacters='1234567890';}
+			    if (allow == 'NameCharacters'){AllowableCharacters=' ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-.\'';}
+
+			    var k = document.all?parseInt(e.keyCode): parseInt(e.which);
+			    if (k!=13 && k!=8 && k!=0){
+			        if ((e.ctrlKey==false) && (e.altKey==false)) {
+			        return (AllowableCharacters.indexOf(String.fromCharCode(k))!=-1);
+			        } else {
+			        return true;
+			        }
+			    } else {
+			        return true;
+			    }
+			} 
+			</script>
+			</div>
+		</div>
+	</div>
+</div>
+<!--<script type="text/javascript">
+				$(function () {
+				  $('#registro-form').parsley().on('field:validated', function() {
+				    var ok = $('.parsley-error').length === 0;
+				    $('.bs-callout-info').toggleClass('hidden', !ok);
+				    $('.bs-callout-warning').toggleClass('hidden', ok);
+				  })
+				});
+			</script>-->
+
+<!--script para busqueda en los select-->
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#colonia").select2();
+		$("#estado").select2();
+	});
+</script>
+
+{% endblock %}

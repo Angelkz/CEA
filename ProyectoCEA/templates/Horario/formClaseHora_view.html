@@ -1,0 +1,218 @@
+{% extends "ProyectB/base.html" %}
+
+{% load staticfiles %}
+
+{% block cabezera %}  {% endblock %}
+
+{% block extra %}
+
+<div class="features">
+	<div class="container">
+		<center>
+		<div class="col-md-12 features-right">
+
+			
+		</div>
+		</center>
+		<div class="row">
+	<div class="col-lg-12 text-center">
+		<div class="box">
+			<form method='POST' action=''>
+				<center>
+					{% csrf_token %}
+					<br>
+					<h2 class="intro-text text-center">Registra una clase</strong>
+					</h2>
+					<br>
+					<h3 class="intro-text"><strong>Horario: {{ form.FK_HorarioCarrera }}</strong></h3><br>
+					<h3 class="intro-text"><strong>Hora: {{ form.FK_Hora }} </strong></h3><br>
+					<h3 class="intro-text"><strong>Dia: {{ form.FK_Dia }} </strong></h3><br>
+					<h3 class="intro-text"><strong>Salon: {{ form.FK_Salon }} </strong></h3><br>
+					<h3 class="intro-text"><strong>Profesor: {{ form.FK_Profesor }} </strong></h3><br>
+					<h3 class="intro-text"><strong>Materia: {{ form.FK_Materia }} </strong></h3><br>
+
+					<h2 class="intro-text text-center"><strong>{{mensaje}}</strong></h2>
+                    <br>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-lg btn-default">Guardar</button>
+                        <a class="btn  btn-lg btn-default" href="/index/">Regresar</a>
+                    </div>
+                    <br>
+                    <h3 class="intro-text text-center">Horario de carrera clave: {{clave}} </strong></h3>
+                    <br>
+                   <br>
+                    <table class="table table-responsive table-bordered">
+                        <thead>
+                            <tr class="info">
+                                <th class="tg-sgp5">Hora</th>
+                                <th class="tg-49xk">Lunes</th>
+                                <th class="tg-49xk">Martes</th>
+                                <th class="tg-49xk">Miércoles</th>
+                                <th class="tg-49xk">Jueves</th>
+                                <th class="tg-49xk">Viernes</th>
+                                <th class="tg-49xk">Sábado</th>
+                                <th class="tg-49xk">Domingo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                              <td class="info">7-8</td>
+                              <td class="tg-hnwh">{{ a78 }}</td>
+                              <td class="tg-49xk">{{ b78 }}</td>
+                              <td class="tg-hnwh">{{ c78 }}</td>
+                              <td class="tg-49xk">{{ d78 }}</td>
+                              <td class="tg-hnwh">{{ e78 }}</td>
+                              <td class="tg-49xk">{{ f78 }}</td>
+                              <td class="tg-hnwh">{{ g78 }}</td>
+                            </tr>
+                            <tr>
+                              <td class="info">8-9</td>
+                              <td class="tg-hnwh">{{ a89 }}</td>
+                              <td class="tg-49xk">{{ b89 }}</td>
+                              <td class="tg-hnwh">{{ c89 }}</td>
+                              <td class="tg-49xk">{{ d89 }}</td>
+                              <td class="tg-hnwh">{{ e89 }}</td>
+                              <td class="tg-49xk">{{ f89 }}</td>
+                              <td class="tg-hnwh">{{ g89 }}</td>
+                            </tr>
+                            <tr>
+                              <td class="info">9-10</td>
+                              <td class="tg-hnwh">{{ a910 }}</td>
+                              <td class="tg-49xk">{{ b910 }}</td>
+                              <td class="tg-hnwh">{{ c910 }}</td>
+                              <td class="tg-49xk">{{ d910 }}</td>
+                              <td class="tg-hnwh">{{ e910 }}</td>
+                              <td class="tg-49xk">{{ f910 }}</td>
+                              <td class="tg-hnwh">{{ g910 }}</td>
+                            </tr>
+                            <tr>
+                              <td class="info">10-11</td>
+                              <td class="tg-hnwh">{{ a1011 }}</td>
+                              <td class="tg-49xk">{{ b1011 }}</td>
+                              <td class="tg-hnwh">{{ c1011 }}</td>
+                              <td class="tg-49xk">{{ d1011 }}</td>
+                              <td class="tg-hnwh">{{ e1011 }}</td>
+                              <td class="tg-49xk">{{ f1011 }}</td>
+                              <td class="tg-hnwh">{{ g1011 }}</td>
+                            </tr>
+                            <tr>
+                              <td class="info">11-12</td>
+                              <td class="tg-hnwh">{{ a1112 }}</td>
+                              <td class="tg-49xk">{{ b1112 }}</td>
+                              <td class="tg-hnwh">{{ c1112 }}</td>
+                              <td class="tg-49xk">{{ d1112 }}</td>
+                              <td class="tg-hnwh">{{ e1112 }}</td>
+                              <td class="tg-49xk">{{ f1112 }}</td>
+                              <td class="tg-hnwh">{{ g1112 }}</td>
+                            </tr>
+                            <tr>
+                              <td class="info">12-13</td>
+                              <td class="tg-hnwh">{{ a1213 }}</td>
+                              <td class="tg-49xk">{{ b1213 }}</td>
+                              <td class="tg-hnwh">{{ c1213 }}</td>
+                              <td class="tg-49xk">{{ d1213 }}</td>
+                              <td class="tg-hnwh">{{ e1213 }}</td>
+                              <td class="tg-49xk">{{ f1213 }}</td>
+                              <td class="tg-hnwh">{{ g1213 }}</td>
+                            </tr>
+                            <tr>
+                              <td class="info">13-14</td>
+                              <td class="tg-hnwh">{{ a1314 }}</td>
+                              <td class="tg-49xk">{{ b1314 }}</td>
+                              <td class="tg-hnwh">{{ c1314 }}</td>
+                              <td class="tg-49xk">{{ d1314 }}</td>
+                              <td class="tg-hnwh">{{ e1314 }}</td>
+                              <td class="tg-49xk">{{ f1314 }}</td>
+                              <td class="tg-hnwh">{{ g1314 }}</td>
+                            </tr>
+                            <tr>
+                              <td class="info">14-15</td>
+                              <td class="tg-hnwh">{{ a1415 }}</td>
+                              <td class="tg-49xk">{{ b1415 }}</td>
+                              <td class="tg-hnwh">{{ c1415 }}</td>
+                              <td class="tg-49xk">{{ d1415 }}</td>
+                              <td class="tg-hnwh">{{ e1415 }}</td>
+                              <td class="tg-49xk">{{ f1415 }}</td>
+                              <td class="tg-hnwh">{{ g1415 }}</td>
+                            </tr>
+                            <tr>
+                              <td class="info">15-16</td>
+                              <td class="tg-hnwh">{{ a1516 }}</td>
+                              <td class="tg-49xk">{{ b1516 }}</td>
+                              <td class="tg-hnwh">{{ c1516 }}</td>
+                              <td class="tg-49xk">{{ d1516 }}</td>
+                              <td class="tg-hnwh">{{ e1516 }}</td>
+                              <td class="tg-49xk">{{ f1516 }}</td>
+                              <td class="tg-hnwh">{{ g1516 }}</td>
+                            </tr>
+                            <tr>
+                              <td class="info">16-17</td>
+                              <td class="tg-hnwh">{{ a1617 }}</td>
+                              <td class="tg-49xk">{{ b1617 }}</td>
+                              <td class="tg-hnwh">{{ c1617 }}</td>
+                              <td class="tg-49xk">{{ d1617 }}</td>
+                              <td class="tg-hnwh">{{ e1617 }}</td>
+                              <td class="tg-49xk">{{ f1617 }}</td>
+                              <td class="tg-hnwh">{{ g1617 }}</td>
+                            </tr>
+                            <tr>
+                              <td class="info">17-18</td>
+                              <td class="tg-hnwh">{{ a1718 }}</td>
+                              <td class="tg-49xk">{{ b1718 }}</td>
+                              <td class="tg-hnwh">{{ c1718 }}</td>
+                              <td class="tg-49xk">{{ d1718 }}</td>
+                              <td class="tg-hnwh">{{ e1718 }}</td>
+                              <td class="tg-49xk">{{ f1718 }}</td>
+                              <td class="tg-hnwh">{{ g1718 }}</td>
+                            </tr>
+                            <tr>
+                              <td class="info">18-19</td>
+                              <td class="tg-hnwh">{{ a1819 }}</td>
+                              <td class="tg-49xk">{{ b1819 }}</td>
+                              <td class="tg-hnwh">{{ c1819 }}</td>
+                              <td class="tg-49xk">{{ d1819 }}</td>
+                              <td class="tg-hnwh">{{ e1819 }}</td>
+                              <td class="tg-49xk">{{ f1819 }}</td>
+                              <td class="tg-hnwh">{{ g1819 }}</td>
+                            </tr>
+                            <tr>
+                              <td class="info">19-20</td>
+                              <td class="tg-hnwh">{{ a1920 }}</td>
+                              <td class="tg-49xk">{{ b1920 }}</td>
+                              <td class="tg-hnwh">{{ c1920 }}</td>
+                              <td class="tg-49xk">{{ d1920 }}</td>
+                              <td class="tg-hnwh">{{ e1920 }}</td>
+                              <td class="tg-49xk">{{ f1920 }}</td>
+                              <td class="tg-hnwh">{{ g1920 }}</td>
+                            </tr>
+                            <tr>
+                              <td class="info">20-21</td>
+                              <td class="tg-hnwh">{{ a2021 }}</td>
+                              <td class="tg-49xk">{{ b2021 }}</td>
+                              <td class="tg-hnwh">{{ c2021 }}</td>
+                              <td class="tg-49xk">{{ d2021 }}</td>
+                              <td class="tg-hnwh">{{ e2021 }}</td>
+                              <td class="tg-49xk">{{ f2021 }}</td>
+                              <td class="tg-hnwh">{{ g2021 }}</td>
+                            </tr>
+                            <tr>
+                              <td class="info">21-22</td>
+                              <td class="tg-hnwh">{{ a2122 }}</td>
+                              <td class="tg-49xk">{{ b2122 }}</td>
+                              <td class="tg-hnwh">{{ c2122 }}</td>
+                              <td class="tg-49xk">{{ d2122 }}</td>
+                              <td class="tg-hnwh">{{ e2122 }}</td>
+                              <td class="tg-49xk">{{ f2122 }}</td>
+                              <td class="tg-hnwh">{{ g2122 }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+    				</center>
+    				</form>
+    			</div>
+    		</div>
+    	</div>
+    		<div class="clearfix"></div>
+    	</div>
+    </div>
+{% endblock %}

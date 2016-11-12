@@ -1,0 +1,50 @@
+{% extends "ProyectB/base.html" %}
+{% load staticfiles %}
+{% load table_tags %}
+{% block cabezera %}  {% endblock %}
+{% block extra %}
+
+<div class="features">
+	<div class="container">
+		<div class="row">
+	<div class="col-lg-12 text-center">
+		<div class="box">
+			<form method='POST' action=''>
+				<center>
+					{% csrf_token %}
+					<h2 class="intro-text text-center">Registro de materia</strong>
+					</h2>
+					<br>
+					<h3 class="intro-text"><strong>Nombre:</strong><input class="form-control" type ="text" style="width:400px" min="0" id ='id_Nombre' name="Nombre" placeholder="Ejemplo: Calculo Integral" required="True" onKeyPress="return soloLetrasNumeros(event)"></input></h3>
+					<br>
+					<h3 class="intro-text"><strong>Serie:</strong> <input class="form-control" type ="text" style="width:400px" min="0" id ='id_Serie' name="Serie" placeholder="Ejemplo: 1B" required="True" onKeyPress="return soloLetrasNumeros(event)"  ></input></h3>
+					<br>
+					<h3 class="intro-text"><strong>Horas Teóricas: </strong><input class="form-control" type ="text" style="width:400px" min="0" id ='id_HorasTeoricas' name="HorasTeoricas" placeholder="Ejemplo: 4" required="True" onKeyPress="return soloNumeros(event)"></input> </h3>
+					<br>
+					<h3 class="intro-text"><strong>Horas Prácticas </strong> <input class="form-control" type ="text" style="width:400px" min="0" id ='id_HorasPracticas' name="HorasPracticas" placeholder="Ejemplo: 6" required="True" onKeyPress="return soloNumeros(event)"></input></h3>
+					<br>
+					<h3 class="intro-text"><strong>Créditos: </strong> <input class="form-control" type ="text" style="width:400px" min="0" id ='id_Creditos' name="Creditos" placeholder="Ejemplo: 10" required="True" onKeyPress="return soloNumeros(event)"></input> </h3>
+					<br>
+					<h3 class="intro-text"><strong>Carrera: </strong> {{ form.FK_Carrera }} </h3>
+					<br>
+					<h2 class="intro-text text-center"><strong>{{mensaje}}</strong>
+					<br>	
+					<br>
+					<div class="form-actions">
+						<button type="submit" class="btn btn-lg btn-default">Guardar</button>
+						<a class="btn  btn-lg btn-default" href="/index/">Regresar</a>
+					</div>
+					</h2>
+					<br>
+					{% render_table reporte %}
+				</center>
+				</form>
+			</div>
+		</div>
+	</div>
+		<div class="clearfix"></div>
+	</div>
+</div>
+
+
+{% endblock %}
