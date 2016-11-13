@@ -22,7 +22,9 @@ class PeriodoForm(forms.ModelForm):
 			}
 
 class PeriodoDelForm(forms.Form):
-	Nombre= forms.ModelChoiceField(queryset=Periodo.objects.all()) 
+#	Nombre= forms.ModelChoiceField(queryset=Periodo.objects.all()) 
+	Nombre= forms.ModelChoiceField(widget=forms.Select(attrs={'class':'form-control','style':'width: 21em;','required':'true',}),queryset=Periodo.objects.all())
+
 
 	class Meta:
 	    model = Periodo
@@ -50,7 +52,9 @@ class SemestreForm(forms.ModelForm):
 			}
 
 class SemestreDelForm(forms.Form):
-	Nombre= forms.ModelChoiceField(queryset=Semestre.objects.all()) 
+#	Nombre= forms.ModelChoiceField(queryset=Semestre.objects.all())
+	Nombre= forms.ModelChoiceField(widget=forms.Select(attrs={'class':'form-control','style':'width: 21em;','required':'true',}),queryset=Semestre.objects.all())
+ 
 
 	class Meta:
 	    model = Semestre
@@ -78,7 +82,9 @@ class SalonForm(forms.ModelForm):
 			}
 
 class SalonDelForm(forms.Form):
-	Nombre= forms.ModelChoiceField(queryset=Salon.objects.all()) 
+#	Nombre= forms.ModelChoiceField(queryset=Salon.objects.all())
+	Nombre= forms.ModelChoiceField(widget=forms.Select(attrs={'class':'form-control','style':'width: 21em;','required':'true',}),queryset=Salon.objects.all())
+
 
 	class Meta:
 	    model = Salon
@@ -108,7 +114,9 @@ class HorarioCarreraForm(forms.ModelForm):
 			}
 
 class HorarioCarreraDelForm(forms.Form):
-	Clave= forms.ModelChoiceField(queryset=HorarioCarrera.objects.all()) 
+#	Clave= forms.ModelChoiceField(queryset=HorarioCarrera.objects.all()) 
+	Nombre= forms.ModelChoiceField(widget=forms.Select(attrs={'class':'form-control','style':'width: 21em;','required':'true',}),queryset=HorarioCarrera.objects.all())
+
 
 	class Meta:
 	    model = HorarioCarrera

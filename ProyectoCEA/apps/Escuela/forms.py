@@ -27,7 +27,10 @@ class TituloForm(forms.ModelForm):
 			}
 
 class TituloDelForm(forms.Form):
-	Nombre= forms.ModelChoiceField(queryset=Titulo.objects.all()) 
+	#Nombre= forms.ModelChoiceField(queryset=Titulo.objects.all())
+	Nombre= forms.ModelChoiceField(widget=forms.Select(attrs={'class':'form-control','style':'width: 21em;','required':'true',}),queryset=Titulo.objects.all())
+
+
 
 	class Meta:
 	    model = Titulo
@@ -55,7 +58,9 @@ class GradoMaximoForm(forms.ModelForm):
 			}
 
 class GradoMaximoDelForm(forms.Form):
-	Nombre= forms.ModelChoiceField(queryset=GradoMaximo.objects.all()) 
+	#Nombre= forms.ModelChoiceField(queryset=GradoMaximo.objects.all())
+	Nombre= forms.ModelChoiceField(widget=forms.Select(attrs={'class':'form-control','style':'width: 21em;','required':'true',}),queryset=GradoMaximo.objects.all())
+ 
 
 	class Meta:
 	    model = GradoMaximo
@@ -96,7 +101,10 @@ class CarreraForm(forms.ModelForm):
 			}
 
 class CarreraDelForm(forms.Form):
-	Nombre= forms.ModelChoiceField(queryset=Carrera.objects.all()) 
+
+	#Nombre= forms.ModelChoiceField(queryset=Carrera.objects.all())
+	Nombre= forms.ModelChoiceField(widget=forms.Select(attrs={'class':'form-control','style':'width: 21em;','required':'true',}),queryset=Carrera.objects.all())
+ 
 
 	class Meta:
 	    model = Carrera
@@ -109,7 +117,9 @@ class CarreraReporte(Table):
 		model = Carrera
 
 class CarreraDelForm(forms.Form):
-	Nombre= forms.ModelChoiceField(queryset=Carrera.objects.all()) 
+	#Nombre= forms.ModelChoiceField(queryset=Carrera.objects.all())
+	Nombre= forms.ModelChoiceField(widget=forms.Select(attrs={'class':'form-control','style':'width: 21em;','required':'true',}),queryset=Carrera.objects.all())
+
 
 	class Meta:
 	    model = Carrera
@@ -127,7 +137,7 @@ class HoraForm(forms.ModelForm):
 
 #Formulario Profesor ***Falta cambio  a registro de usuario******			
 
-class ProfesorForm(forms.ModelForm):
+class ProfesorForm(forms.ModelForm): 
 	class Meta:
 			model = Profesor
 			fields = ('Nombre','ApellidoPaterno','ApellidoMaterno','FK_Titulo','FK_GradoMaximo','TelefonoCelular','TelefonoCasa','Email','Tutorias','NumeroEmpleado','FK_NumeroHoras','Laboratorio','Paquete',)
@@ -144,18 +154,22 @@ class ProfesorForm(forms.ModelForm):
 			}
 
 class ProfesorDelForm(forms.Form):
-	Nombre= forms.ModelChoiceField(queryset=Profesor.objects.all()) 
+	#Nombre= forms.ModelChoiceField(queryset=Profesor.objects.all()) 
+	Nombre= forms.ModelChoiceField(widget=forms.Select(attrs={'class':'form-control','style':'width: 21em;','required':'true',}),queryset=Profesor.objects.all())
+
 
 	class Meta:
 	    model = Profesor
 	    fields = '__all__'
 
 class ProfesorAutForm(forms.Form):
-	Nombre= forms.ModelChoiceField(queryset=Profesor.objects.all().filter(Autorizado=False)) 
+	Nombre= forms.ModelChoiceField(widget=forms.Select(attrs={'class':'form-control','style':'width: 21em;','required':'true',}),queryset=Profesor.objects.all().filter(Autorizado=False)) 
 
 	class Meta:
 	    model = Profesor
 	    fields = '__all__'
+	    widgets = {'Nombre':Select(attrs={'class':'form-control','style':'width: 21em;','title':'Titulo','required':'true'}),
+	    }
 
 class ProfesorReporteContacto(Table):
 	Autorizado = Column(field='Autorizado', header=u'Autorizado')
@@ -221,7 +235,8 @@ class MateriaReporte(Table):
 		model = Materia
 
 class MateriaDelForm(forms.Form):
-	Nombre= forms.ModelChoiceField(queryset=Materia.objects.all()) 
+	Nombre= forms.ModelChoiceField(widget=forms.Select(attrs={'class':'form-control','style':'width: 21em;','required':'true',}),queryset=Materia.objects.all())
+	#Nombre= forms.ModelChoiceField(queryset=Materia.objects.all()) 
 
 	class Meta:
 	    model = Materia
@@ -244,7 +259,9 @@ class ProfesorMateriaReporte(Table):
 		model = ProfesorMateria
 
 class ProfesorMateriaDelForm(forms.Form):
-	Nombre= forms.ModelChoiceField(queryset=ProfesorMateria.objects.all()) 
+	#Nombre= forms.ModelChoiceField(queryset=ProfesorMateria.objects.all()) 
+	Nombre= forms.ModelChoiceField(widget=forms.Select(attrs={'class':'form-control','style':'width: 21em;','required':'true',}),queryset=ProfesorMateria.objects.all())
+
 
 	class Meta:
 	    model = ProfesorMateria

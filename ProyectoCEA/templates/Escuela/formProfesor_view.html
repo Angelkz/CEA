@@ -20,7 +20,7 @@
 <div class="container-fluid">
 	<br>
 	<div class="row">
-		<div class="panel panel-primary">
+		<div class="panel panel-success">
 			<div class="panel-heading"><strong>Datos personales de registro de profesor.</strong></div>
 			<div class="panel-body">
 
@@ -28,25 +28,25 @@
 		
 
 				<div class="row-sm">					
-					<p>Campos marcados con <text style="color:red">*</text> son obligatorios.</p>
+					
 				</div>
 					<form method='POST' action=''>
 					{% csrf_token %}
 				<div class="row">
 					<div class="col-sm-4">
-						<label class="control-label">Apellido Paterno <text style="color:red">*</text></label>
+						<label class="control-label">Apellido Paterno</label>
 						<div >
 							<input class="form-control" type ="text" style="width:300px" min="0" id ='id_ApellidoPaterno' name="ApellidoPaterno" placeholder="Ejemplo: Flores" required="True" onKeyPress="return soloLetras(event)" ></input>
 						</div>
 					</div>
 				    <div class="col-sm-4">
-						<label class="control-label">Apellido Materno <text style="color:red">*</text></label>
+						<label class="control-label">Apellido Materno </label>
 						<div >
 							<input class="form-control" type ="text" style="width:300px" min="0" id ='id_ApellidoMaterno' name="ApellidoMaterno" placeholder="Ejemplo: Tavera" required="True" onKeyPress="return soloLetras(event)" ></input>
 						</div>
 					</div>
 					<div class="col-sm-4">
-						<label class="control-label">Nombre(s) <text style="color:red">*</text></label>
+						<label class="control-label">Nombre(s) </label>
 						<div >
 							<input class="form-control" type ="text" style="width:300px" min="0" id ='Nombre' name="Nombre" placeholder="Ejemplo: Laura" required="True" onKeyPress="return soloLetras(event)" ></input>
 						</div>
@@ -57,14 +57,14 @@
 				<h3>Datos de contacto</h3>
 				<div class="row">
 					<div class="col-sm-4">
-						<label class="control-label">Telefono Casa <text style="color:red">*</text></label>
+						<label class="control-label">Telefono Casa </label>
 						<div class="input-group">
 						  <span class="input-group-addon" id="basic-addon1"><i class="fa fa-home"></i></span>
 						  <input class="form-control" type ="text" style="width:300px" min="0" id ='id_TelefonoCasa' name="TelefonoCasa" placeholder="Ejemplo: 6862225" required="True" onKeyPress="return soloNumeros(event)" ></input>
 						</div>
 					</div>
 				    <div class="col-sm-4">
-						<label class="control-label">Telefono Celular <text style="color:red">*</text></label>
+						<label class="control-label">Telefono Celular </label>
 						<div class="input-group">
 						  <span class="input-group-addon" id="basic-addon1"><i class="fa fa-mobile fa-2"></i></span>
 						  <input class="form-control" type ="text" style="width:300px" min="0" id ='id_TelefonoCelular' name="TelefonoCelular" placeholder="Ejemplo: 6643365028" required="True" onKeyPress="return soloNumeros(event)" ></input>
@@ -72,7 +72,7 @@
 						</div>
 					</div>
 					<div class="col-sm-4">
-						<label class="control-label">Email <text style="color:red">*</text></label>
+						<label class="control-label">Email </label>
 						<div >
 							<input class="form-control" type ="text" style="width:300px" min="0" id ='id_Email' name="Email" placeholder="Ejemplo: cea@tectijuana.edu.mx" required="True" onKeyPress="return soloEmail(event)" ></input>
 						</div>
@@ -83,19 +83,19 @@
 				<h3>Datos Profesionales</h3>
 				<div class="row">
 					<div class="col-sm-4">
-						<label class="control-label">Titulo <text style="color:red">*</text></label>
+						<label class="control-label">Titulo</label>
 						<div >
 							{{ form.FK_Titulo }}
 						</div>
 					</div>
 					<div class="col-sm-4">
-						<label class="control-label">Grado Maximo <text style="color:red">*</text></label>
+						<label class="control-label">Grado Maximo</label>
 						<div >
 							{{ form.FK_GradoMaximo }}
 						</div>
 					</div>
 					<div class="col-sm-4">
-						<label class="control-label">Numero de Empleado <text style="color:red">*</text></label>
+						<label class="control-label">Numero de Empleado </label>
 						<div >
 							<input class="form-control" type ="text" style="width:300px" min="0" id ='id_NumeroEmpleado' name="NumeroEmpleado" placeholder="Ejemplo: 265" required="True" onKeyPress="return soloNumeros(event)" ></input>
 						</div>
@@ -112,20 +112,20 @@
 						</div>
 					</div>
 					<div class="col-sm-4">
-						<label class="control-label">Requiere laboratorio <text style="color:red">*</text></label>
+						<label class="control-label">Requiere laboratorio </label>
 						<div >
 							{{ form.Laboratorio }}
 						</div>
 					</div>
 					<div class="col-sm-4">
-						<label class="control-label"> Impartir Tutorias <text style="color:red">*</text></label>
+						<label class="control-label"> Impartir Tutorias </label>
 						<div >
 							{{ form.Tutorias}}
 						</div>
 					</div>
 					<hr>
 					<div class="col-sm-4">
-						<label class="control-label">Material y recursos para la materia <text style="color:red">*</text></label>
+						<label class="control-label">Material y recursos para la materia </label>
 						<div >
 							{{ form.Paquete }}
 						</div>
