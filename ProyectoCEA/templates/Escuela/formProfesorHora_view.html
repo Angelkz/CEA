@@ -352,17 +352,53 @@
 								</td>
 								{% endif %}
 					        </tr>
-					        
-					        <tr>
-					          <td class="info">9-10</td>
-					          <td class="tg-hnwh">{{ a910 }}</td>
-					          <td class="tg-49xk">{{ b910 }}</td>
-					          <td class="tg-hnwh">{{ c910 }}</td>
-					          <td class="tg-49xk">{{ d910 }}</td>
-					          <td class="tg-hnwh">{{ e910 }}</td>
-					          <td class="tg-49xk">{{ f910 }}</td>
-					          <td class="tg-hnwh">{{ g910 }}</td>
+
+					        <!-- aqui empezo leslie  -->
+					        <td class="info">9-10</td>
+					          	{% if a910 == "-" %}
+					          	<td class="">
+					          	<form method="post">
+					          		{% csrf_token %}
+										<input type="text" name="GHora" value="9-10" hidden="True">
+										<input type="text" name="GDia" value="Lunes" hidden="True">
+										<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+										<input type="submit" value="Disponible">
+								</form>
+								</td>
+								{% elif a910 == "D" %}
+								<td class="success">
+								<form method="post">
+									{% csrf_token %}
+										<input type="text" name="EHora" value="9-10" hidden="True">
+										<input type="text" name="EDia" value="Lunes" hidden="True">
+										<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+										<input type="submit" value="Eliminar">
+								</form>
+								</td>
+								{% endif %}
 					        </tr>
+					       		{% if b910 == "-" %}
+					          	<td class="">
+					          	<form method="post">
+					          		{% csrf_token %}
+										<input type="text" name="GHora" value="9-10" hidden="True">
+										<input type="text" name="GDia" value="Martes" hidden="True">
+										<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+										<input type="submit" value="Disponible">
+								</form>
+								</td>
+								{% elif b910 == "D" %}
+								<td class="success">
+								<form method="post">
+									{% csrf_token %}
+										<input type="text" name="EHora" value="9-10" hidden="True">
+										<input type="text" name="EDia" value="Martes" hidden="True">
+										<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+										<input type="submit" value="Eliminar">
+								</form>
+								</td>
+								{% endif %}
+
 					        <tr>
 					          <td class="info">10-11</td>
 					          <td class="tg-hnwh">{{ a1011 }}</td>
