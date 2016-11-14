@@ -1,535 +1,2330 @@
 {% extends "ProyectB/base.html" %}
-
 {% load staticfiles %}
-
 {% block cabezera %}  {% endblock %}
-
 {% block extra %}
 
-<div class="features">
-	<div class="container">
+<div class="container-fluid">
+	<form method='POST' action=''>
 		<center>
-		<div class="col-md-12 features-right">
-
-		</div>
-		</center>
-		<div class="row">
-	<div class="col-lg-12 text-center">
-		<div class="box">
-			<form method='POST' action=''>
-				<center>
-					{% csrf_token %}
-					<br>
-					<h2 class="intro-text text-center">Registro de horas disponibles por el profesor.</strong>
-					</h2>
-					<br>
-					{% if fase %}
-					<h3 class="intro-text"><strong>Profesor:</strong> {{ formP.FK_Profesor }}</h3>
-					<br>
-					<h2 class="intro-text text-center"><strong>{{mensaje}}</strong></h2>
-					<br>
-					<div class="form-actions">
-						<button type="submit" class="btn btn-lg btn-default">Seleccionar</button>
-						<a class="btn  btn-lg btn-default" href="/index/">Regresar</a>
-					</div>
-					<br>
-					{% else %}
-					<h3 class="intro-text text-center">Horario disponible por profesor: {{profesor}} </strong></h3>
-					<br>
-					<br>
-					<table class="table table-responsive table-bordered">
-					    <thead>
-					        <tr class="info">
-					        	<th class="">Hora</th>
-					          	<th class="">Lunes</th>
-					            <th class="">Martes</th>
-					            <th class="">Miércoles</th>
-					            <th class="">Jueves</th>
-					            <th class="">Viernes</th>
-					            <th class="">Sábado</th>
-					            <th class="">Domingo</th>
-					        </tr>
-					    </thead>
-					    <tbody>
-					        <tr>
-					          <td class="info">7-8</td>
-					          	{% if a78 == "-" %}
-					          	<td class="">
-					          	<form method="post">
-					          		{% csrf_token %}
-										<input type="text" name="GHora" value="7-8" hidden="True">
-										<input type="text" name="GDia" value="Lunes" hidden="True">
-										<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
-										<input type="submit" value="Disponible">
-								</form>
-								</td>
-								{% elif a78 == "D" %}
-								<td class="success">
-								<form method="post">
-									{% csrf_token %}
-										<input type="text" name="EHora" value="7-8" hidden="True">
-										<input type="text" name="EDia" value="Lunes" hidden="True">
-										<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
-										<input type="submit" value="Eliminar">
-								</form>
-								</td>
-								{% endif %}
-					          	{% if b78 == "-" %}
-					          	<td class="">
-					          	<form method="post">
-					          		{% csrf_token %}
-										<input type="text" name="GHora" value="7-8" hidden="True">
-										<input type="text" name="GDia" value="Martes" hidden="True">
-										<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
-										<input type="submit" value="Disponible">
-								</form>
-								</td>
-								{% elif b78 == "D" %}
-								<td class="success">
-								<form method="post">
-									{% csrf_token %}
-										<input type="text" name="EHora" value="7-8" hidden="True">
-										<input type="text" name="EDia" value="Martes" hidden="True">
-										<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
-										<input type="submit" value="Eliminar">
-								</form>
-								</td>
-								{% endif %}
-					          	{% if c78 == "-" %}
-					          	<td class="">
-					          	<form method="post">
-					          		{% csrf_token %}
-										<input type="text" name="GHora" value="7-8" hidden="True">
-										<input type="text" name="GDia" value="Miercoles" hidden="True">
-										<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
-										<input type="submit" value="Disponible">
-								</form>
-								</td>
-								{% elif c78 == "D" %}
-								<td class="success">
-								<form method="post">
-									{% csrf_token %}
-										<input type="text" name="EHora" value="7-8" hidden="True">
-										<input type="text" name="EDia" value="Miercoles" hidden="True">
-										<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
-										<input type="submit" value="Eliminar">
-								</form>
-								</td>
-								{% endif %}
-					         	{% if d78 == "-" %}
-					          	<td class="">
-					          	<form method="post">
-					          		{% csrf_token %}
-										<input type="text" name="GHora" value="7-8" hidden="True">
-										<input type="text" name="GDia" value="Jueves" hidden="True">
-										<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
-										<input type="submit" value="Disponible">
-								</form>
-								</td>
-								{% elif d78 == "D" %}
-								<td class="success">
-								<form method="post">
-									{% csrf_token %}
-										<input type="text" name="EHora" value="7-8" hidden="True">
-										<input type="text" name="EDia" value="Jueves" hidden="True">
-										<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
-										<input type="submit" value="Eliminar">
-								</form>
-								</td>
-								{% endif %}
-					            {% if e78 == "-" %}
-					          	<td class="">
-					          	<form method="post">
-					          		{% csrf_token %}
-										<input type="text" name="GHora" value="7-8" hidden="True">
-										<input type="text" name="GDia" value="Viernes" hidden="True">
-										<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
-										<input type="submit" value="Disponible">
-								</form>
-								</td>
-								{% elif e78 == "D" %}
-								<td class="success">
-								<form method="post">
-									{% csrf_token %}
-										<input type="text" name="EHora" value="7-8" hidden="True">
-										<input type="text" name="EDia" value="Viernes" hidden="True">
-										<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
-										<input type="submit" value="Eliminar">
-								</form>
-								</td>
-								{% endif %}
-					            {% if f78 == "-" %}
-					          	<td class="">
-					          	<form method="post">
-					          		{% csrf_token %}
-										<input type="text" name="GHora" value="7-8" hidden="True">
-										<input type="text" name="GDia" value="Sabado" hidden="True">
-										<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
-										<input type="submit" value="Disponible">
-								</form>
-								</td>
-								{% elif f78 == "D" %}
-								<td class="success">
-								<form method="post">
-									{% csrf_token %}
-										<input type="text" name="EHora" value="7-8" hidden="True">
-										<input type="text" name="EDia" value="Sabado" hidden="True">
-										<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
-										<input type="submit" value="Eliminar">
-								</form>
-								</td>
-								{% endif %}
-					            {% if g78 == "-" %}
-					          	<td class="">
-					          	<form method="post">
-					          		{% csrf_token %}
-										<input type="text" name="GHora" value="7-8" hidden="True">
-										<input type="text" name="GDia" value="Domingo" hidden="True">
-										<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
-										<input type="submit" value="Disponible">
-								</form>
-								</td>
-								{% elif g78 == "D" %}
-								<td class="success">
-								<form method="post">
-									{% csrf_token %}
-										<input type="text" name="EHora" value="7-8" hidden="True">
-										<input type="text" name="EDia" value="Domingo" hidden="True">
-										<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
-										<input type="submit" value="Eliminar">
-								</form>
-								</td>
-								{% endif %}
-					        </tr>
-
-					       <tr>
-					          <td class="info">8-9</td>
-					          	{% if a89 == "-" %}
-					          	<td class="">
-					          	<form method="post">
-					          		{% csrf_token %}
-										<input type="text" name="GHora" value="8-9" hidden="True">
-										<input type="text" name="GDia" value="Lunes" hidden="True">
-										<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
-										<input type="submit" value="Disponible">
-								</form>
-								</td>
-								{% elif a89 == "D" %}
-								<td class="success">
-								<form method="post">
-									{% csrf_token %}
-										<input type="text" name="EHora" value="8-9" hidden="True">
-										<input type="text" name="EDia" value="Lunes" hidden="True">
-										<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
-										<input type="submit" value="Eliminar">
-								</form>
-								</td>
-								{% endif %}
-					          	{% if b89 == "-" %}
-					          	<td class="">
-					          	<form method="post">
-					          		{% csrf_token %}
-										<input type="text" name="GHora" value="8-9" hidden="True">
-										<input type="text" name="GDia" value="Martes" hidden="True">
-										<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
-										<input type="submit" value="Disponible">
-								</form>
-								</td>
-								{% elif b89 == "D" %}
-								<td class="success">
-								<form method="post">
-									{% csrf_token %}
-										<input type="text" name="EHora" value="8-9" hidden="True">
-										<input type="text" name="EDia" value="Martes" hidden="True">
-										<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
-										<input type="submit" value="Eliminar">
-								</form>
-								</td>
-								{% endif %}
-					          	{% if c89 == "-" %}
-					          	<td class="">
-					          	<form method="post">
-					          		{% csrf_token %}
-										<input type="text" name="GHora" value="8-9" hidden="True">
-										<input type="text" name="GDia" value="Miercoles" hidden="True">
-										<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
-										<input type="submit" value="Disponible">
-								</form>
-								</td>
-								{% elif c89 == "D" %}
-								<td class="success">
-								<form method="post">
-									{% csrf_token %}
-										<input type="text" name="EHora" value="8-9" hidden="True">
-										<input type="text" name="EDia" value="Miercoles" hidden="True">
-										<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
-										<input type="submit" value="Eliminar">
-								</form>
-								</td>
-								{% endif %}
-					         	{% if d89 == "-" %}
-					          	<td class="">
-					          	<form method="post">
-					          		{% csrf_token %}
-										<input type="text" name="GHora" value="8-9" hidden="True">
-										<input type="text" name="GDia" value="Jueves" hidden="True">
-										<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
-										<input type="submit" value="Disponible">
-								</form>
-								</td>
-								{% elif d89 == "D" %}
-								<td class="success">
-								<form method="post">
-									{% csrf_token %}
-										<input type="text" name="EHora" value="8-9" hidden="True">
-										<input type="text" name="EDia" value="Jueves" hidden="True">
-										<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
-										<input type="submit" value="Eliminar">
-								</form>
-								</td>
-								{% endif %}
-					            {% if e89 == "-" %}
-					          	<td class="">
-					          	<form method="post">
-					          		{% csrf_token %}
-										<input type="text" name="GHora" value="8-9" hidden="True">
-										<input type="text" name="GDia" value="Viernes" hidden="True">
-										<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
-										<input type="submit" value="Disponible">
-								</form>
-								</td>
-								{% elif e89 == "D" %}
-								<td class="success">
-								<form method="post">
-									{% csrf_token %}
-										<input type="text" name="EHora" value="8-9" hidden="True">
-										<input type="text" name="EDia" value="Viernes" hidden="True">
-										<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
-										<input type="submit" value="Eliminar">
-								</form>
-								</td>
-								{% endif %}
-					            {% if f89 == "-" %}
-					          	<td class="">
-					          	<form method="post">
-					          		{% csrf_token %}
-										<input type="text" name="GHora" value="8-9" hidden="True">
-										<input type="text" name="GDia" value="Sabado" hidden="True">
-										<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
-										<input type="submit" value="Disponible">
-								</form>
-								</td>
-								{% elif f89 == "D" %}
-								<td class="success">
-								<form method="post">
-									{% csrf_token %}
-										<input type="text" name="EHora" value="8-9" hidden="True">
-										<input type="text" name="EDia" value="Sabado" hidden="True">
-										<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
-										<input type="submit" value="Eliminar">
-								</form>
-								</td>
-								{% endif %}
-					            {% if g89 == "-" %}
-					          	<td class="">
-					          	<form method="post">
-					          		{% csrf_token %}
-										<input type="text" name="GHora" value="8-9" hidden="True">
-										<input type="text" name="GDia" value="Domingo" hidden="True">
-										<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
-										<input type="submit" value="Disponible">
-								</form>
-								</td>
-								{% elif g89 == "D" %}
-								<td class="success">
-								<form method="post">
-									{% csrf_token %}
-										<input type="text" name="EHora" value="8-9" hidden="True">
-										<input type="text" name="EDia" value="Domingo" hidden="True">
-										<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
-										<input type="submit" value="Eliminar">
-								</form>
-								</td>
-								{% endif %}
-					        </tr>
-
-					        <!-- aqui empezo leslie  -->
-					        <td class="info">9-10</td>
-					          	{% if a910 == "-" %}
-					          	<td class="">
-					          	<form method="post">
-					          		{% csrf_token %}
-										<input type="text" name="GHora" value="9-10" hidden="True">
-										<input type="text" name="GDia" value="Lunes" hidden="True">
-										<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
-										<input type="submit" value="Disponible">
-								</form>
-								</td>
-								{% elif a910 == "D" %}
-								<td class="success">
-								<form method="post">
-									{% csrf_token %}
-										<input type="text" name="EHora" value="9-10" hidden="True">
-										<input type="text" name="EDia" value="Lunes" hidden="True">
-										<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
-										<input type="submit" value="Eliminar">
-								</form>
-								</td>
-								{% endif %}
-					        </tr>
-					       		{% if b910 == "-" %}
-					          	<td class="">
-					          	<form method="post">
-					          		{% csrf_token %}
-										<input type="text" name="GHora" value="9-10" hidden="True">
-										<input type="text" name="GDia" value="Martes" hidden="True">
-										<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
-										<input type="submit" value="Disponible">
-								</form>
-								</td>
-								{% elif b910 == "D" %}
-								<td class="success">
-								<form method="post">
-									{% csrf_token %}
-										<input type="text" name="EHora" value="9-10" hidden="True">
-										<input type="text" name="EDia" value="Martes" hidden="True">
-										<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
-										<input type="submit" value="Eliminar">
-								</form>
-								</td>
-								{% endif %}
-
-					        <tr>
-					          <td class="info">10-11</td>
-					          <td class="tg-hnwh">{{ a1011 }}</td>
-					          <td class="tg-49xk">{{ b1011 }}</td>
-					          <td class="tg-hnwh">{{ c1011 }}</td>
-					          <td class="tg-49xk">{{ d1011 }}</td>
-					          <td class="tg-hnwh">{{ e1011 }}</td>
-					          <td class="tg-49xk">{{ f1011 }}</td>
-					          <td class="tg-hnwh">{{ g1011 }}</td>
-					        </tr>
-					        <tr>
-					          <td class="info">11-12</td>
-					          <td class="tg-hnwh">{{ a1112 }}</td>
-					          <td class="tg-49xk">{{ b1112 }}</td>
-					          <td class="tg-hnwh">{{ c1112 }}</td>
-					          <td class="tg-49xk">{{ d1112 }}</td>
-					          <td class="tg-hnwh">{{ e1112 }}</td>
-					          <td class="tg-49xk">{{ f1112 }}</td>
-					          <td class="tg-hnwh">{{ g1112 }}</td>
-					        </tr>
-					        <tr>
-					          <td class="info">12-13</td>
-					          <td class="tg-hnwh">{{ a1213 }}</td>
-					          <td class="tg-49xk">{{ b1213 }}</td>
-					          <td class="tg-hnwh">{{ c1213 }}</td>
-					          <td class="tg-49xk">{{ d1213 }}</td>
-					          <td class="tg-hnwh">{{ e1213 }}</td>
-					          <td class="tg-49xk">{{ f1213 }}</td>
-					          <td class="tg-hnwh">{{ g1213 }}</td>
-					        </tr>
-					        <tr>
-					          <td class="info">13-14</td>
-					          <td class="tg-hnwh">{{ a1314 }}</td>
-					          <td class="tg-49xk">{{ b1314 }}</td>
-					          <td class="tg-hnwh">{{ c1314 }}</td>
-					          <td class="tg-49xk">{{ d1314 }}</td>
-					          <td class="tg-hnwh">{{ e1314 }}</td>
-					          <td class="tg-49xk">{{ f1314 }}</td>
-					          <td class="tg-hnwh">{{ g1314 }}</td>
-					        </tr>
-					        <tr>
-					          <td class="info">14-15</td>
-					          <td class="tg-hnwh">{{ a1415 }}</td>
-					          <td class="tg-49xk">{{ b1415 }}</td>
-					          <td class="tg-hnwh">{{ c1415 }}</td>
-					          <td class="tg-49xk">{{ d1415 }}</td>
-					          <td class="tg-hnwh">{{ e1415 }}</td>
-					          <td class="tg-49xk">{{ f1415 }}</td>
-					          <td class="tg-hnwh">{{ g1415 }}</td>
-					        </tr>
-					        <tr>
-					          <td class="info">15-16</td>
-					          <td class="tg-hnwh">{{ a1516 }}</td>
-					          <td class="tg-49xk">{{ b1516 }}</td>
-					          <td class="tg-hnwh">{{ c1516 }}</td>
-					          <td class="tg-49xk">{{ d1516 }}</td>
-					          <td class="tg-hnwh">{{ e1516 }}</td>
-					          <td class="tg-49xk">{{ f1516 }}</td>
-					          <td class="tg-hnwh">{{ g1516 }}</td>
-					        </tr>
-					        <tr>
-					          <td class="info">16-17</td>
-					          <td class="tg-hnwh">{{ a1617 }}</td>
-					          <td class="tg-49xk">{{ b1617 }}</td>
-					          <td class="tg-hnwh">{{ c1617 }}</td>
-					          <td class="tg-49xk">{{ d1617 }}</td>
-					          <td class="tg-hnwh">{{ e1617 }}</td>
-					          <td class="tg-49xk">{{ f1617 }}</td>
-					          <td class="tg-hnwh">{{ g1617 }}</td>
-					        </tr>
-					        <tr>
-					          <td class="info">17-18</td>
-					          <td class="tg-hnwh">{{ a1718 }}</td>
-					          <td class="tg-49xk">{{ b1718 }}</td>
-					          <td class="tg-hnwh">{{ c1718 }}</td>
-					          <td class="tg-49xk">{{ d1718 }}</td>
-					          <td class="tg-hnwh">{{ e1718 }}</td>
-					          <td class="tg-49xk">{{ f1718 }}</td>
-					          <td class="tg-hnwh">{{ g1718 }}</td>
-					        </tr>
-					        <tr>
-					          <td class="info">18-19</td>
-					          <td class="tg-hnwh">{{ a1819 }}</td>
-					          <td class="tg-49xk">{{ b1819 }}</td>
-					          <td class="tg-hnwh">{{ c1819 }}</td>
-					          <td class="tg-49xk">{{ d1819 }}</td>
-					          <td class="tg-hnwh">{{ e1819 }}</td>
-					          <td class="tg-49xk">{{ f1819 }}</td>
-					          <td class="tg-hnwh">{{ g1819 }}</td>
-					        </tr>
-					        <tr>
-					          <td class="info">19-20</td>
-					          <td class="tg-hnwh">{{ a1920 }}</td>
-					          <td class="tg-49xk">{{ b1920 }}</td>
-					          <td class="tg-hnwh">{{ c1920 }}</td>
-					          <td class="tg-49xk">{{ d1920 }}</td>
-					          <td class="tg-hnwh">{{ e1920 }}</td>
-					          <td class="tg-49xk">{{ f1920 }}</td>
-					          <td class="tg-hnwh">{{ g1920 }}</td>
-					        </tr>
-					        <tr>
-					          <td class="info">20-21</td>
-					          <td class="tg-hnwh">{{ a2021 }}</td>
-					          <td class="tg-49xk">{{ b2021 }}</td>
-					          <td class="tg-hnwh">{{ c2021 }}</td>
-					          <td class="tg-49xk">{{ d2021 }}</td>
-					          <td class="tg-hnwh">{{ e2021 }}</td>
-					          <td class="tg-49xk">{{ f2021 }}</td>
-					          <td class="tg-hnwh">{{ g2021 }}</td>
-					        </tr>
-					        <tr>
-					          <td class="info">21-22</td>
-					          <td class="tg-hnwh">{{ a2122 }}</td>
-					          <td class="tg-49xk">{{ b2122 }}</td>
-					          <td class="tg-hnwh">{{ c2122 }}</td>
-					          <td class="tg-49xk">{{ d2122 }}</td>
-					          <td class="tg-hnwh">{{ e2122 }}</td>
-					          <td class="tg-49xk">{{ f2122 }}</td>
-					          <td class="tg-hnwh">{{ g2122 }}</td>
-					        </tr>
-					    </tbody>
-					</table>
-					<a class="btn  btn-lg btn-default" href="/profesorhora/">Regresar</a>
-					{% endif %}
-				</center>
-				</form>
+			{% csrf_token %}
+			{% if fase %}
+			<br>
+			<h2 class="intro-text text-center">Registro de horas disponibles por el profesor.</strong>
+			</h2>
+			<br>
+			<h3 class="intro-text"><strong>Profesor:</strong> {{ formP.FK_Profesor }}</h3>
+			<br>
+			<h2 class="intro-text text-center"><strong>{{mensaje}}</strong></h2>
+			<br>
+			<div class="form-actions">
+				<button type="submit" class="btn btn-lg btn-default">Seleccionar</button>
+				<a class="btn  btn-lg btn-default" href="/index/">Regresar</a>
 			</div>
-		</div>
-	</div>	
-</div>
-</div>
+			<br>
+			{% else %}
+			<br>
+			<h3 class="intro-text text-center">Horario disponible por profesor: {{profesor}} </strong></h3>
+			<br>
+			<table class="table table-responsive table-bordered">
+				<thead>
+					<tr class="info">
+						<th class="">Hora</th>
+						<th class="">Lunes</th>
+						<th class="">Martes</th>
+						<th class="">Miércoles</th>
+						<th class="">Jueves</th>
+						<th class="">Viernes</th>
+						<th class="">Sábado</th>
+						<th class="">Domingo</th>
+					</tr>
+				</thead>
+				<tbody>
+					<!-- Vista con acomodo: 7-8 (78)  -->
+					<tr>
+						<td class="info">7-8</td>
+						{% if a78 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="7-8" hidden="True">
+								<input type="text" name="GDia" value="Lunes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif a78 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="7-8" hidden="True">
+								<input type="text" name="EDia" value="Lunes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if b78 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="7-8" hidden="True">
+								<input type="text" name="GDia" value="Martes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif b78 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="7-8" hidden="True">
+								<input type="text" name="EDia" value="Martes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if c78 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="7-8" hidden="True">
+								<input type="text" name="GDia" value="Miercoles" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif c78 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="7-8" hidden="True">
+								<input type="text" name="EDia" value="Miercoles" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if d78 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="7-8" hidden="True">
+								<input type="text" name="GDia" value="Jueves" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif d78 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="7-8" hidden="True">
+								<input type="text" name="EDia" value="Jueves" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if e78 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="7-8" hidden="True">
+								<input type="text" name="GDia" value="Viernes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif e78 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="7-8" hidden="True">
+								<input type="text" name="EDia" value="Viernes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if f78 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="7-8" hidden="True">
+								<input type="text" name="GDia" value="Sabado" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif f78 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="7-8" hidden="True">
+								<input type="text" name="EDia" value="Sabado" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if g78 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="7-8" hidden="True">
+								<input type="text" name="GDia" value="Domingo" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif g78 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="7-8" hidden="True">
+								<input type="text" name="EDia" value="Domingo" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+					</tr>
 
+					<!-- Vista con acomodo: 8-9 (89)  -->
+					<tr>
+						<td class="info">8-9</td>
+						{% if a89 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="8-9" hidden="True">
+								<input type="text" name="GDia" value="Lunes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif a89 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="8-9" hidden="True">
+								<input type="text" name="EDia" value="Lunes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if b89 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="8-9" hidden="True">
+								<input type="text" name="GDia" value="Martes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif b89 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="8-9" hidden="True">
+								<input type="text" name="EDia" value="Martes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if c89 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="8-9" hidden="True">
+								<input type="text" name="GDia" value="Miercoles" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif c89 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="8-9" hidden="True">
+								<input type="text" name="EDia" value="Miercoles" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if d89 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="8-9" hidden="True">
+								<input type="text" name="GDia" value="Jueves" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif d89 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="8-9" hidden="True">
+								<input type="text" name="EDia" value="Jueves" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if e89 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="8-9" hidden="True">
+								<input type="text" name="GDia" value="Viernes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif e89 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="8-9" hidden="True">
+								<input type="text" name="EDia" value="Viernes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if f89 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="8-9" hidden="True">
+								<input type="text" name="GDia" value="Sabado" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif f89 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="8-9" hidden="True">
+								<input type="text" name="EDia" value="Sabado" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if g89 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="8-9" hidden="True">
+								<input type="text" name="GDia" value="Domingo" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif g89 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="8-9" hidden="True">
+								<input type="text" name="EDia" value="Domingo" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+					</tr>
 
+					<!-- Vista con acomodo: 9-10 (910) -->
+					<tr>
+						<td class="info">9-10</td>
+						{% if a910 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="9-10" hidden="True">
+								<input type="text" name="GDia" value="Lunes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif a910 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="9-10" hidden="True">
+								<input type="text" name="EDia" value="Lunes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if b910 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="9-10" hidden="True">
+								<input type="text" name="GDia" value="Martes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif b910 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="9-10" hidden="True">
+								<input type="text" name="EDia" value="Martes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if c910 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="9-10" hidden="True">
+								<input type="text" name="GDia" value="Miercoles" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif c910 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="9-10" hidden="True">
+								<input type="text" name="EDia" value="Miercoles" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if d910 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="9-10" hidden="True">
+								<input type="text" name="GDia" value="Jueves" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif d910 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="9-10" hidden="True">
+								<input type="text" name="EDia" value="Jueves" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if e910 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="9-10" hidden="True">
+								<input type="text" name="GDia" value="Viernes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif e910 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="9-10" hidden="True">
+								<input type="text" name="EDia" value="Viernes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if f910 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="9-10" hidden="True">
+								<input type="text" name="GDia" value="Sabado" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif f910 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="9-10" hidden="True">
+								<input type="text" name="EDia" value="Sabado" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if g910 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="9-10" hidden="True">
+								<input type="text" name="GDia" value="Domingo" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif g910 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="9-10" hidden="True">
+								<input type="text" name="EDia" value="Domingo" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+					</tr>
+
+					<!-- Vista con acomodo: 10-11 (1011)  -->
+					<tr>
+						<td class="info">10-11</td>
+						{% if a1011 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="10-11" hidden="True">
+								<input type="text" name="GDia" value="Lunes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif a1011 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="10-11" hidden="True">
+								<input type="text" name="EDia" value="Lunes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if b1011 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="10-11" hidden="True">
+								<input type="text" name="GDia" value="Martes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif b1011 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="10-11" hidden="True">
+								<input type="text" name="EDia" value="Martes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if c1011 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="10-11" hidden="True">
+								<input type="text" name="GDia" value="Miercoles" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif c1011 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="10-11" hidden="True">
+								<input type="text" name="EDia" value="Miercoles" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if d1011 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="10-11" hidden="True">
+								<input type="text" name="GDia" value="Jueves" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif d1011 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="10-11" hidden="True">
+								<input type="text" name="EDia" value="Jueves" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if e1011 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="10-11" hidden="True">
+								<input type="text" name="GDia" value="Viernes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif e1011 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="10-11" hidden="True">
+								<input type="text" name="EDia" value="Viernes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if f1011 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="10-11" hidden="True">
+								<input type="text" name="GDia" value="Sabado" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif f1011 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="10-11" hidden="True">
+								<input type="text" name="EDia" value="Sabado" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if g1011 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="10-11" hidden="True">
+								<input type="text" name="GDia" value="Domingo" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif g1011 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="10-11" hidden="True">
+								<input type="text" name="EDia" value="Domingo" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+					</tr>
+
+					<!-- Vista con acomodo: 11-12 (1112)  -->
+					<tr>
+						<td class="info">11-12</td>
+						{% if a1112 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="11-12" hidden="True">
+								<input type="text" name="GDia" value="Lunes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif a1112 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="11-12" hidden="True">
+								<input type="text" name="EDia" value="Lunes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if b1112 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="11-12" hidden="True">
+								<input type="text" name="GDia" value="Martes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif b1112 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="11-12" hidden="True">
+								<input type="text" name="EDia" value="Martes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if c1112 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="11-12" hidden="True">
+								<input type="text" name="GDia" value="Miercoles" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif c1112 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="11-12" hidden="True">
+								<input type="text" name="EDia" value="Miercoles" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if d1112 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="11-12" hidden="True">
+								<input type="text" name="GDia" value="Jueves" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif d1112 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="11-12" hidden="True">
+								<input type="text" name="EDia" value="Jueves" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if e1112 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="11-12" hidden="True">
+								<input type="text" name="GDia" value="Viernes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif e1112 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="11-12" hidden="True">
+								<input type="text" name="EDia" value="Viernes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if f1112 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="11-12" hidden="True">
+								<input type="text" name="GDia" value="Sabado" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif f1112 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="11-12" hidden="True">
+								<input type="text" name="EDia" value="Sabado" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if g1112 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="11-12" hidden="True">
+								<input type="text" name="GDia" value="Domingo" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif g1112 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="11-12" hidden="True">
+								<input type="text" name="EDia" value="Domingo" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+					</tr>
+
+					<!-- Vista con acomodo: 12-13 (1213)  -->
+					<tr>
+						<td class="info">12-13</td>
+						{% if a1213 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="12-13" hidden="True">
+								<input type="text" name="GDia" value="Lunes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif a1213 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="12-13" hidden="True">
+								<input type="text" name="EDia" value="Lunes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if b1213 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="12-13" hidden="True">
+								<input type="text" name="GDia" value="Martes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif b1213 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="12-13" hidden="True">
+								<input type="text" name="EDia" value="Martes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if c1213 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="12-13" hidden="True">
+								<input type="text" name="GDia" value="Miercoles" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif c1213 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="12-13" hidden="True">
+								<input type="text" name="EDia" value="Miercoles" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if d1213 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="12-13" hidden="True">
+								<input type="text" name="GDia" value="Jueves" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif d1213 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="12-13" hidden="True">
+								<input type="text" name="EDia" value="Jueves" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if e1213 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="12-13" hidden="True">
+								<input type="text" name="GDia" value="Viernes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif e1213 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="12-13" hidden="True">
+								<input type="text" name="EDia" value="Viernes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if f1213 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="12-13" hidden="True">
+								<input type="text" name="GDia" value="Sabado" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif f1213 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="12-13" hidden="True">
+								<input type="text" name="EDia" value="Sabado" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if g1213 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="12-13" hidden="True">
+								<input type="text" name="GDia" value="Domingo" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif g1213 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="12-13" hidden="True">
+								<input type="text" name="EDia" value="Domingo" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+					</tr>
+
+					<!-- Vista con acomodo: 13-14 (1314)  -->
+					<tr>
+						<td class="info">13-14</td>
+						{% if a1314 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="13-14" hidden="True">
+								<input type="text" name="GDia" value="Lunes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif a1314 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="13-14" hidden="True">
+								<input type="text" name="EDia" value="Lunes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if b1314 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="13-14" hidden="True">
+								<input type="text" name="GDia" value="Martes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif b1314 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="13-14" hidden="True">
+								<input type="text" name="EDia" value="Martes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if c1314 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="13-14" hidden="True">
+								<input type="text" name="GDia" value="Miercoles" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif c1314 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="13-14" hidden="True">
+								<input type="text" name="EDia" value="Miercoles" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if d1314 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="13-14" hidden="True">
+								<input type="text" name="GDia" value="Jueves" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif d1314 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="13-14" hidden="True">
+								<input type="text" name="EDia" value="Jueves" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if e1314 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="13-14" hidden="True">
+								<input type="text" name="GDia" value="Viernes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif e1314 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="13-14" hidden="True">
+								<input type="text" name="EDia" value="Viernes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if f1314 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="13-14" hidden="True">
+								<input type="text" name="GDia" value="Sabado" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif f1314 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="13-14" hidden="True">
+								<input type="text" name="EDia" value="Sabado" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if g1314 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="13-14" hidden="True">
+								<input type="text" name="GDia" value="Domingo" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif g1314 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="13-14" hidden="True">
+								<input type="text" name="EDia" value="Domingo" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+					</tr>
+
+					<!-- Vista con acomodo: 14-15 (1415)  -->
+					<tr>
+						<td class="info">14-15</td>
+						{% if a1415 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="14-15" hidden="True">
+								<input type="text" name="GDia" value="Lunes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif a1415 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="14-15" hidden="True">
+								<input type="text" name="EDia" value="Lunes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if b1415 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="14-15" hidden="True">
+								<input type="text" name="GDia" value="Martes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif b1415 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="14-15" hidden="True">
+								<input type="text" name="EDia" value="Martes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if c1415 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="14-15" hidden="True">
+								<input type="text" name="GDia" value="Miercoles" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif c1415 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="14-15" hidden="True">
+								<input type="text" name="EDia" value="Miercoles" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if d1415 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="14-15" hidden="True">
+								<input type="text" name="GDia" value="Jueves" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif d1415 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="14-15" hidden="True">
+								<input type="text" name="EDia" value="Jueves" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if e1415 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="14-15" hidden="True">
+								<input type="text" name="GDia" value="Viernes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif e1415 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="14-15" hidden="True">
+								<input type="text" name="EDia" value="Viernes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if f1415 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="14-15" hidden="True">
+								<input type="text" name="GDia" value="Sabado" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif f1415 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="14-15" hidden="True">
+								<input type="text" name="EDia" value="Sabado" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if g1415 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="14-15" hidden="True">
+								<input type="text" name="GDia" value="Domingo" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif g1415 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="14-15" hidden="True">
+								<input type="text" name="EDia" value="Domingo" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+					</tr>
+
+					<!-- Vista con acomodo: 15-16 (1516)  -->
+					<tr>
+						<td class="info">15-16</td>
+						{% if a1516 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="15-16" hidden="True">
+								<input type="text" name="GDia" value="Lunes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif a1516 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="15-16" hidden="True">
+								<input type="text" name="EDia" value="Lunes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if b1516 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="15-16" hidden="True">
+								<input type="text" name="GDia" value="Martes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif b1516 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="15-16" hidden="True">
+								<input type="text" name="EDia" value="Martes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if c1516 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="15-16" hidden="True">
+								<input type="text" name="GDia" value="Miercoles" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif c1516 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="15-16" hidden="True">
+								<input type="text" name="EDia" value="Miercoles" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if d1516 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="15-16" hidden="True">
+								<input type="text" name="GDia" value="Jueves" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif d1516 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="15-16" hidden="True">
+								<input type="text" name="EDia" value="Jueves" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if e1516 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="15-16" hidden="True">
+								<input type="text" name="GDia" value="Viernes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif e1516 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="15-16" hidden="True">
+								<input type="text" name="EDia" value="Viernes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if f1516 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="15-16" hidden="True">
+								<input type="text" name="GDia" value="Sabado" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif f1516 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="15-16" hidden="True">
+								<input type="text" name="EDia" value="Sabado" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if g1516 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="15-16" hidden="True">
+								<input type="text" name="GDia" value="Domingo" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif g1516 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="15-16" hidden="True">
+								<input type="text" name="EDia" value="Domingo" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+					</tr>
+
+					<!-- Vista con acomodo: 16-17 (1617)  -->
+					<tr>
+						<td class="info">16-17</td>
+						{% if a1617 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="16-17" hidden="True">
+								<input type="text" name="GDia" value="Lunes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif a1617 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="16-17" hidden="True">
+								<input type="text" name="EDia" value="Lunes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if b1617 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="16-17" hidden="True">
+								<input type="text" name="GDia" value="Martes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif b1617 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="16-17" hidden="True">
+								<input type="text" name="EDia" value="Martes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if c1617 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="16-17" hidden="True">
+								<input type="text" name="GDia" value="Miercoles" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif c1617 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="16-17" hidden="True">
+								<input type="text" name="EDia" value="Miercoles" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if d1617 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="16-17" hidden="True">
+								<input type="text" name="GDia" value="Jueves" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif d1617 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="16-17" hidden="True">
+								<input type="text" name="EDia" value="Jueves" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if e1617 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="16-17" hidden="True">
+								<input type="text" name="GDia" value="Viernes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif e1617 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="16-17" hidden="True">
+								<input type="text" name="EDia" value="Viernes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if f1617 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="16-17" hidden="True">
+								<input type="text" name="GDia" value="Sabado" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif f1617 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="16-17" hidden="True">
+								<input type="text" name="EDia" value="Sabado" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if g1617 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="16-17" hidden="True">
+								<input type="text" name="GDia" value="Domingo" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif g1617 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="16-17" hidden="True">
+								<input type="text" name="EDia" value="Domingo" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+					</tr>
+
+					<!-- Vista con acomodo: 17-18 (1718)  -->
+					<tr>
+						<td class="info">17-18</td>
+						{% if a1718 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="17-18" hidden="True">
+								<input type="text" name="GDia" value="Lunes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif a1718 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="17-18" hidden="True">
+								<input type="text" name="EDia" value="Lunes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if b1718 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="17-18" hidden="True">
+								<input type="text" name="GDia" value="Martes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif b1718 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="17-18" hidden="True">
+								<input type="text" name="EDia" value="Martes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if c1718 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="17-18" hidden="True">
+								<input type="text" name="GDia" value="Miercoles" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif c1718 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="17-18" hidden="True">
+								<input type="text" name="EDia" value="Miercoles" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if d1718 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="17-18" hidden="True">
+								<input type="text" name="GDia" value="Jueves" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif d1718 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="17-18" hidden="True">
+								<input type="text" name="EDia" value="Jueves" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if e1718 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="17-18" hidden="True">
+								<input type="text" name="GDia" value="Viernes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif e1718 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="17-18" hidden="True">
+								<input type="text" name="EDia" value="Viernes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if f1718 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="17-18" hidden="True">
+								<input type="text" name="GDia" value="Sabado" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif f1718 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="17-18" hidden="True">
+								<input type="text" name="EDia" value="Sabado" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if g1718 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="17-18" hidden="True">
+								<input type="text" name="GDia" value="Domingo" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif g1718 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="17-18" hidden="True">
+								<input type="text" name="EDia" value="Domingo" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+					</tr>
+
+					<!-- Vista con acomodo: 18-19 (1819)  -->
+					<tr>
+						<td class="info">18-19</td>
+						{% if a1819 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="18-19" hidden="True">
+								<input type="text" name="GDia" value="Lunes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif a1819 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="18-19" hidden="True">
+								<input type="text" name="EDia" value="Lunes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if b1819 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="18-19" hidden="True">
+								<input type="text" name="GDia" value="Martes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif b1819 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="18-19" hidden="True">
+								<input type="text" name="EDia" value="Martes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if c1819 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="18-19" hidden="True">
+								<input type="text" name="GDia" value="Miercoles" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif c1819 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="18-19" hidden="True">
+								<input type="text" name="EDia" value="Miercoles" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if d1819 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="18-19" hidden="True">
+								<input type="text" name="GDia" value="Jueves" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif d1819 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="18-19" hidden="True">
+								<input type="text" name="EDia" value="Jueves" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if e1819 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="18-19" hidden="True">
+								<input type="text" name="GDia" value="Viernes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif e1819 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="18-19" hidden="True">
+								<input type="text" name="EDia" value="Viernes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if f1819 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="18-19" hidden="True">
+								<input type="text" name="GDia" value="Sabado" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif f1819 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="18-19" hidden="True">
+								<input type="text" name="EDia" value="Sabado" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if g1819 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="18-19" hidden="True">
+								<input type="text" name="GDia" value="Domingo" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif g1819 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="18-19" hidden="True">
+								<input type="text" name="EDia" value="Domingo" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+					</tr>
+
+					<!-- Vista con acomodo: 19-20 (1920)  -->
+					<tr>
+						<td class="info">19-20</td>
+						{% if a1920 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="19-20" hidden="True">
+								<input type="text" name="GDia" value="Lunes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif a1920 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="19-20" hidden="True">
+								<input type="text" name="EDia" value="Lunes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if b1920 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="19-20" hidden="True">
+								<input type="text" name="GDia" value="Martes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif b1920 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="19-20" hidden="True">
+								<input type="text" name="EDia" value="Martes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if c1920 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="19-20" hidden="True">
+								<input type="text" name="GDia" value="Miercoles" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif c1920 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="19-20" hidden="True">
+								<input type="text" name="EDia" value="Miercoles" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if d1920 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="19-20" hidden="True">
+								<input type="text" name="GDia" value="Jueves" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif d1920 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="19-20" hidden="True">
+								<input type="text" name="EDia" value="Jueves" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if e1920 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="19-20" hidden="True">
+								<input type="text" name="GDia" value="Viernes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif e1920 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="19-20" hidden="True">
+								<input type="text" name="EDia" value="Viernes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if f1920 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="19-20" hidden="True">
+								<input type="text" name="GDia" value="Sabado" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif f1920 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="19-20" hidden="True">
+								<input type="text" name="EDia" value="Sabado" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if g1920 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="19-20" hidden="True">
+								<input type="text" name="GDia" value="Domingo" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif g1920 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="19-20" hidden="True">
+								<input type="text" name="EDia" value="Domingo" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+					</tr>
+
+					<!-- Vista con acomodo: 20-21 (2021)  -->
+					<tr>
+						<td class="info">20-21</td>
+						{% if a2021 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="20-21" hidden="True">
+								<input type="text" name="GDia" value="Lunes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif a2021 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="20-21" hidden="True">
+								<input type="text" name="EDia" value="Lunes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if b2021 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="20-21" hidden="True">
+								<input type="text" name="GDia" value="Martes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif b2021 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="20-21" hidden="True">
+								<input type="text" name="EDia" value="Martes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if c2021 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="20-21" hidden="True">
+								<input type="text" name="GDia" value="Miercoles" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif c2021 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="20-21" hidden="True">
+								<input type="text" name="EDia" value="Miercoles" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if d2021 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="20-21" hidden="True">
+								<input type="text" name="GDia" value="Jueves" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif d2021 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="20-21" hidden="True">
+								<input type="text" name="EDia" value="Jueves" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if e2021 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="20-21" hidden="True">
+								<input type="text" name="GDia" value="Viernes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif e2021 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="20-21" hidden="True">
+								<input type="text" name="EDia" value="Viernes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if f2021 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="20-21" hidden="True">
+								<input type="text" name="GDia" value="Sabado" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif f2021 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="20-21" hidden="True">
+								<input type="text" name="EDia" value="Sabado" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if g2021 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="20-21" hidden="True">
+								<input type="text" name="GDia" value="Domingo" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif g2021 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="20-21" hidden="True">
+								<input type="text" name="EDia" value="Domingo" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+					</tr>
+
+					<!-- Vista con acomodo: 21-22 (2122)  -->
+					<tr>
+						<td class="info">21-22</td>
+						{% if a2122 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="21-22" hidden="True">
+								<input type="text" name="GDia" value="Lunes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif a2122 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="21-22" hidden="True">
+								<input type="text" name="EDia" value="Lunes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if b2122 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="21-22" hidden="True">
+								<input type="text" name="GDia" value="Martes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif b2122 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="21-22" hidden="True">
+								<input type="text" name="EDia" value="Martes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if c2122 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="21-22" hidden="True">
+								<input type="text" name="GDia" value="Miercoles" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif c2122 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="21-22" hidden="True">
+								<input type="text" name="EDia" value="Miercoles" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if d2122 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="21-22" hidden="True">
+								<input type="text" name="GDia" value="Jueves" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif d2122 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="21-22" hidden="True">
+								<input type="text" name="EDia" value="Jueves" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if e2122 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="21-22" hidden="True">
+								<input type="text" name="GDia" value="Viernes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif e2122 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="21-22" hidden="True">
+								<input type="text" name="EDia" value="Viernes" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if f2122 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="21-22" hidden="True">
+								<input type="text" name="GDia" value="Sabado" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif f2122 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="21-22" hidden="True">
+								<input type="text" name="EDia" value="Sabado" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+						{% if g2122 == "-" %}
+						<td class="">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="GHora" value="21-22" hidden="True">
+								<input type="text" name="GDia" value="Domingo" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Disponible">
+							</form>
+						</td>
+						{% elif g2122 == "D" %}
+						<td class="success">
+							<form method="post">
+								{% csrf_token %}
+								<input type="text" name="EHora" value="21-22" hidden="True">
+								<input type="text" name="EDia" value="Domingo" hidden="True">
+								<input type="text" name="Profesor" value="{{profesor}}" hidden="True">
+								<input type="submit" value="Eliminar">
+							</form>
+						</td>
+						{% endif %}
+					</tr>
+				</tbody>
+			</table>
+			<a class="btn  btn-lg btn-default" href="/profesorhora/">Regresar</a>
+			<br>
+			<br>
+			{% endif %}
+		</center>
+	</form>
+</div>	
 {% endblock %}
