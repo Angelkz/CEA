@@ -91,7 +91,7 @@ class Materia(models.Model):
 	FecAct = models.DateTimeField(auto_now_add=True)
 
 	def __unicode__(self):
-		return  self.Nombre
+		return u'%s %s' % (self.Serie, self.Nombre)
 
 class ProfesorMateria(models.Model):
 	FK_Profesor = models.ForeignKey('Profesor')
