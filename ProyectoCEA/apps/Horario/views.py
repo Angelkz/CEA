@@ -175,7 +175,7 @@ def formHorarioCarreraDel(request):
 		form = HorarioCarreraDelForm(request.POST, request.FILES)
 		
 		if (form.is_valid()):
-			dato = form.cleaned_data['Clave']
+			dato = form.cleaned_data['Nombre']
 			formDel = HorarioCarrera.objects.get(Clave=dato)
 			formDel.delete()
 
