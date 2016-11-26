@@ -22,7 +22,6 @@ class PeriodoForm(forms.ModelForm):
 			}
 
 class PeriodoDelForm(forms.Form):
-#	Nombre= forms.ModelChoiceField(queryset=Periodo.objects.all()) 
 	Nombre= forms.ModelChoiceField(widget=forms.Select(attrs={'class':'form-control','style':'width: 21em;','required':'true',}),queryset=Periodo.objects.all())
 
 
@@ -52,7 +51,6 @@ class SemestreForm(forms.ModelForm):
 			}
 
 class SemestreDelForm(forms.Form):
-#	Nombre= forms.ModelChoiceField(queryset=Semestre.objects.all())
 	Nombre= forms.ModelChoiceField(widget=forms.Select(attrs={'class':'form-control','style':'width: 21em;','required':'true',}),queryset=Semestre.objects.all())
  
 
@@ -82,7 +80,6 @@ class SalonForm(forms.ModelForm):
 			}
 
 class SalonDelForm(forms.Form):
-#	Nombre= forms.ModelChoiceField(queryset=Salon.objects.all())
 	Nombre= forms.ModelChoiceField(widget=forms.Select(attrs={'class':'form-control','style':'width: 21em;','required':'true',}),queryset=Salon.objects.all())
 
 
@@ -114,7 +111,6 @@ class HorarioCarreraForm(forms.ModelForm):
 			}
 
 class HorarioCarreraDelForm(forms.Form):
-#	Clave= forms.ModelChoiceField(queryset=HorarioCarrera.objects.all()) 
 	Nombre= forms.ModelChoiceField(widget=forms.Select(attrs={'class':'form-control','style':'width: 21em;','required':'true',}),queryset=HorarioCarrera.objects.all())
 
 
@@ -137,14 +133,18 @@ class HorarioCarreraReporte(Table):
 class ClaseHoraForm(forms.ModelForm):
 	class Meta:
 			model = ClaseHora
-			fields = ('FK_HorarioCarrera','FK_Dia','FK_Hora','FK_Salon','FK_Profesor','FK_Materia',)
-			widgets = {'FK_HorarioCarrera':Select(attrs={'class':'form-control','style':'width: 15em;','title':'HorarioCarrera','required':'true'}),
-			'FK_Dia': Select(attrs={'class':'form-control','style':'width: 15em;','title':'Dia','required':'true'}),
-			'FK_Hora': Select(attrs={'class':'form-control','style':'width: 15em;','title':'Hora','required':'true'}),
+			fields = ('FK_Salon','FK_Profesor','FK_Materia',)
+			widgets = {
 			'FK_Salon': Select(attrs={'class':'form-control','style':'width: 15em;','title':'Salon','required':'true'}),
 			'FK_Profesor': Select(attrs={'class':'form-control','style':'width: 15em;','title':'Profesor','required':'true'}),
 			'FK_Materia': Select(attrs={'class':'form-control','style':'width: 15em;','title':'Materia','required':'true'}),
+			}
 
+class ClaseHoraSelForm(forms.ModelForm):
+	class Meta:
+			model = ClaseHora
+			fields = ('FK_HorarioCarrera',)
+			widgets = {'FK_HorarioCarrera':Select(attrs={'class':'form-control','style':'width: 15em;','title':'HorarioCarrera','required':'true'}),
 			}
 
 class HorarioFiltroForm(forms.Form):

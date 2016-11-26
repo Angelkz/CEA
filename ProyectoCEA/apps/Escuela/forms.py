@@ -245,10 +245,9 @@ class MateriaDelForm(forms.Form):
 class ProfesorMateriaForm(forms.ModelForm):
 	class Meta:
 			model = ProfesorMateria
-			fields = ('FK_Profesor','FK_Materia',)
-			widgets = {'FK_Profesor': Select(attrs={'class':'form-control','style':'width: 15em;','title':'Profesor','required':'true'}),
+			fields = ('FK_Materia',)
+			widgets = {
 			'FK_Materia': Select(attrs={'class':'form-control','style':'width: 15em;','title':'Materia','required':'true'}),
-
 			}
 
 class ProfesorMateriaReporte(Table):
@@ -258,14 +257,11 @@ class ProfesorMateriaReporte(Table):
 	class Meta:
 		model = ProfesorMateria
 
-class ProfesorMateriaDelForm(forms.Form):
-	#Nombre= forms.ModelChoiceField(queryset=ProfesorMateria.objects.all()) 
-	Nombre= forms.ModelChoiceField(widget=forms.Select(attrs={'class':'form-control','style':'width: 21em;','required':'true',}),queryset=ProfesorMateria.objects.all())
-
-
+class ProfesorMateriaConForm(forms.ModelForm):
 	class Meta:
 	    model = ProfesorMateria
-	    fields = '__all__'
+	    fields = ('FK_Profesor',)
+	    widgets = {'FK_Profesor': Select(attrs={'class':'form-control','style':'width: 15em;','title':'Profesor','required':'true'}),}
 
 class ProfesorHoraForm(forms.ModelForm):
 	class Meta:

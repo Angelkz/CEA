@@ -17,7 +17,6 @@ urlpatterns = [
  		url(r'^materia/$', formMateria, name = 'formMateria'),
  		url(r'^materiadel/$', formMateriaDel, name = 'formMateriaDel'),
  		url(r'^profesormateria/$', formProfesorMateria, name = 'formProfesorMateria'),
- 		url(r'^profesormateriadel/$', formProfesorMateriaDel, name = 'formProfesorMateriaDel'),
  		url(r'^profesorhora/$', formProfesorHora, name = 'formProfesorHora'),
  		url(r'^registroUsu/$', registroUsu, name = 'registroUsu'),
 ]

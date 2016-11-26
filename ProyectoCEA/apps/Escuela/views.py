@@ -402,69 +402,65 @@ def formMateriaDel(request):
 	return render(request, "Escuela/formMateriaDel_view.html", ctx)
 
 def formProfesorMateria(request):
+	
 	if request.method == 'POST':
 
-		form = ProfesorMateriaForm(request.POST)
+		formP = ProfesorMateriaConForm(request.POST)
+		formM = ProfesorMateriaForm(request.POST)
+		Pro = request.POST.get('Pro')
+		Mat =request.POST.get('Mat')
 		
-		if (form.is_valid()):
-			varValPro= form.cleaned_data['FK_Profesor']
-			varValMat= form.cleaned_data['FK_Materia']
-			objV = ProfesorMateria.objects.filter(FK_Profesor=varValPro).filter(FK_Materia=varValMat)
-			if objV:
-				form = ProfesorMateriaForm(request.POST)
-				reporte = ProfesorMateriaReporte(ProfesorMateria.objects.all())
-				ctx = {
-				"mensaje": "Materia en el profesor ya registrada, ingresar otra", "form": form, "reporte": reporte
-				}
-			else:
-				form.save()
-				form = ProfesorMateriaForm()
-				reporte = ProfesorMateriaReporte(ProfesorMateria.objects.all())
-				ctx = {
-					"mensaje": "Guardado", "form": form, "reporte": reporte
-				}
-		else:
-			form = ProfesorMateriaForm()
-			reporte = ProfesorMateriaReporte(ProfesorMateria.objects.all())
+		if (formP.is_valid()):
+			
+			reporte = ProfesorMateria.objects.all().filter(FK_Profesor=formP.cleaned_data['FK_Profesor'])
 			ctx = {
-				"mensaje": "Formulario incompleto", "form": form, "reporte": reporte
+				"formM": formM, "reporte": reporte, "fase": False, "profesor": formP.cleaned_data['FK_Profesor']
+			}
+
+		elif(formM.is_valid()):
+				datoP = Pro.partition(" ")
+				varValPro = Profesor.objects.get(NumeroEmpleado=datoP[0])
+				varValMat= formM.cleaned_data['FK_Materia']
+				objV = ProfesorMateria.objects.filter(FK_Profesor=varValPro).filter(FK_Materia=varValMat)
+				if objV:
+					formM = ProfesorMateriaForm()
+					reporte = ProfesorMateria.objects.all().filter(FK_Profesor=varValPro)
+					ctx = {
+					"mensaje": "Materia en el profesor ya registrada, ingresar otra", "formM": formM, "reporte": reporte, "fase": False, "profesor": Pro
+					}
+				else:
+					obj = ProfesorMateria()
+					obj.FK_Profesor = varValPro
+					obj.FK_Materia = varValMat
+					obj.save()
+					formM = ProfesorMateriaForm()
+					reporte = ProfesorMateria.objects.all().filter(FK_Profesor=varValPro)
+					ctx = {
+						"mensaje": "Guardado", "formM": formM, "reporte": reporte, "fase": False, "profesor": Pro
+					}
+
+		elif(Pro and Mat):
+			datoP = Pro.partition(" ")
+			objPro = Profesor.objects.get(NumeroEmpleado=datoP[0])
+			obj = ProfesorMateria.objects.filter(FK_Profesor = objPro).filter(FK_Materia__Nombre = Mat)
+			obj.delete()
+			reporte = ProfesorMateria.objects.all().filter(FK_Profesor=objPro)
+			ctx = {
+				"mensaje": "Eliminado", "reporte": reporte, "formM": formM, "fase": False, "profesor": Pro
+			}
+
+		else:
+			formP = ProfesorMateriaConForm()
+			formM = ProfesorMateriaForm()
+			ctx = {
+				"mensaje": "Sin seleccion", "formP": formP, "fase": True
 			}
 
 	else:
-		form = ProfesorMateriaForm()
-		reporte = ProfesorMateriaReporte(ProfesorMateria.objects.all())
-		ctx = { "form": form, "reporte": reporte }
+		formP = ProfesorMateriaConForm()
+		ctx = { "formP": formP, "fase": True }
 
 	return render(request, "Escuela/formProfesorMateria_view.html", ctx)
-
-def formProfesorMateriaDel(request):
-	if request.method == 'POST':
-
-		form = ProfesorMateriaDelForm(request.POST, request.FILES)
-		
-		if (form.is_valid()):
-			dato = form.cleaned_data['Nombre']
-			formDel = ProfesorMateria.objects.get(Nombre=dato)
-			formDel.delete()
-
-			form = ProfesorMateriaDelForm()
-			reporte = ProfesorMateriaReporte(ProfesorMateria.objects.all())
-			ctx = {
-				"mensaje": "Eliminado", "form": form, "reporte": reporte
-			}
-		else:
-			form = ProfesorMateriaDelForm()
-			reporte = ProfesorMateriaReporte(ProfesorMateria.objects.all())
-			ctx = {
-				"mensaje": "Sin seleccion", "form": form, "reporte": reporte
-			}
-
-	else:
-		form = ProfesorMateriaDelForm()
-		reporte = ProfesorMateriaReporte(ProfesorMateria.objects.all())
-		ctx = { "form": form, "reporte": reporte }
-
-	return render(request, "Escuela/formProfesorMateriaDel_view.html", ctx)
 
 def formProfesorHora(request):
 	
@@ -1397,9 +1393,8 @@ def formProfesorHora(request):
 			else:
 				g2122 = "-"
 
-			form = ProfesorHoraConForm()
 			ctx = {
-				 "form": form, "fase": False, "profesor": Pro, "a78": a78,  "a89": a89,  "a910": a910,  "a1011": a1011,  "a1112": a1112, 
+				 "fase": False, "profesor": Pro, "a78": a78,  "a89": a89,  "a910": a910,  "a1011": a1011,  "a1112": a1112, 
 				 "a1213": a1213, "a1314": a1314, "a1415": a1415, "a1516": a1516, "a1617": a1617, "a1718": a1718, "a1819": a1819,
 				 "a1920": a1920, "a2021": a2021, "a2122": a2122, "b78": b78,  "b89": b89,  "b910": b910,  "b1011": b1011,  "b1112": b1112, 
 				 "b1213": b1213, "b1314": b1314, "b1415": b1415, "b1516": b1516, "b1617": b1617, "b1718": b1718, "b1819": b1819,
@@ -1865,9 +1860,8 @@ def formProfesorHora(request):
 			else:
 				g2122 = "-"
 
-			form = ProfesorHoraConForm()
 			ctx = {
-				 "form": form, "fase": False, "profesor": Pro, "a78": a78,  "a89": a89,  "a910": a910,  "a1011": a1011,  "a1112": a1112, 
+				 "fase": False, "profesor": Pro, "a78": a78,  "a89": a89,  "a910": a910,  "a1011": a1011,  "a1112": a1112, 
 				 "a1213": a1213, "a1314": a1314, "a1415": a1415, "a1516": a1516, "a1617": a1617, "a1718": a1718, "a1819": a1819,
 				 "a1920": a1920, "a2021": a2021, "a2122": a2122, "b78": b78,  "b89": b89,  "b910": b910,  "b1011": b1011,  "b1112": b1112, 
 				 "b1213": b1213, "b1314": b1314, "b1415": b1415, "b1516": b1516, "b1617": b1617, "b1718": b1718, "b1819": b1819,

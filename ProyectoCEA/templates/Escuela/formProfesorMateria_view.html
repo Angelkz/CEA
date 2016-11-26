@@ -4,44 +4,78 @@
 {% block cabezera %}  {% endblock %}
 {% block extra %}
 
-<div class="features">
-	<div class="container">
+<<div class="container-fluid">
+	<form method='POST' action=''>
 		<center>
-		<div class="col-md-12 features-right">
-
-			
-		</div>
-		</center>
-		<div class="row">
-	<div class="col-lg-12 text-center">
-		<div class="box">
-			<form method='POST' action=''>
-				<center>
-					{% csrf_token %}
-					<br>
-					<h2 class="intro-text text-center">Registro de materias disponibles por el profesor</strong>
-					</h2>
-					<br>
-					<h3 class="intro-text"><strong>Profesor:</strong> {{ form.FK_Profesor }}</h3>
-					<br>
-					<h3 class="intro-text"><strong>Materia:</strong> {{ form.FK_Materia }} </h3>
-					<br>
-					<h2 class="intro-text text-center"><strong>{{mensaje}}</strong></h2>
-					<br>
-					<div class="form-actions">
-						<button type="submit" class="btn btn-lg btn-default">Guardar</button>
-						<a class="btn  btn-lg btn-default" href="/index/">Regresar</a>
-					</div>
-					<br>
-					{% render_table reporte %}
-				</center>
-				</form>
+			{% csrf_token %}
+			{% if fase %}
+			<h2 class="intro-text text-center">Registro de materias disponibles por el profesor.
+			</h2>
+			<br>
+			<br>
+			<h3 class="intro-text"><strong>Profesor:</strong> {{ formP.FK_Profesor }}</h3>
+			<br>
+			<h2 class="intro-text text-center"><strong>{{mensaje}}</strong></h2>
+			<br>
+			<div class="form-actions">
+				<button type="submit" class="btn btn-lg btn-default">Guardar</button>
+				<a class="btn  btn-lg btn-default" href="/index/">Regresar</a>
 			</div>
-		</div>
-	</div>
-		<div class="clearfix"></div>
-	</div>
-</div>
-
-
+			<br>
+			{% else %}
+			<br>
+			<h3 class="intro-text text-center">Seleccione la materia a registrar para el profesor disponible </strong>
+			</h3>
+			<br>
+			<h3 class="intro-text"><strong>Materia:</strong> {{ formM.FK_Materia }}</h3>
+			<br>
+			<h2 class="intro-text text-center"><strong>{{mensaje}}</strong></h2>
+			<br>
+			<form method="post">
+			{% csrf_token %}
+			<div class="form-actions">
+				<input type="text" name="Pro" value="{{profesor}}" hidden="True">
+				<button type="submit" class="btn btn-lg btn-default">Seleccionar</button>
+				<a class="btn  btn-lg btn-default" href="/profesormateria/">Regresar</a>
+			</div>
+			</form>
+			<br>
+			<div class="container">
+			<section class="row">
+			<div class="panel panel-default">
+			<div class="panel-heading">Materias disponibles por: {{profesor}} </div>
+				<table class="table">
+					<thead>
+					<tr>
+            			<th>Profesor</th>
+						<th>Materia</th>
+            			<th>Opción</th>
+					</tr>
+					</thead>
+					<tbody>
+						{% for i in reporte%}
+							<tr>
+                				<td>{{i.FK_Profesor}}</td>
+								<td>{{i.FK_Materia}}</td>
+                				<td>
+									<form method="post">
+										{% csrf_token %}
+										<input type="text" name="Pro" value="{{i.FK_Profesor}}" hidden="True">
+										<input type="text" name="Mat" value="{{i.FK_Materia}}" hidden="True">
+										<input type="submit" value="Eliminar">
+									</form>
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+			</section>
+			</div>
+			<br>
+			<br>
+			{% endif %}
+		</center>
+	</form>
+</div>	
 {% endblock %}

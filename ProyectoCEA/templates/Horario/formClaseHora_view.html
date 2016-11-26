@@ -1,218 +1,3108 @@
-{% extends "ProyectB/base.html" %}
+  {% extends "ProyectB/base.html" %}
 
-{% load staticfiles %}
+  {% load staticfiles %}
 
-{% block cabezera %}  {% endblock %}
+  {% block cabezera %}  {% endblock %}
 
-{% block extra %}
+  {% block extra %}
 
-<div class="features">
-	<div class="container">
-		<center>
-		<div class="col-md-12 features-right">
+  <div class="container-fluid">
+    <form method='POST' action=''>
+      <center>
+        {% csrf_token %}
+        {% if fase == "fase1" %}
+        <br>
+        <h2 class="intro-text text-center">Seleccione el grupo para agregar clases.</strong>
+        </h2>
+        <br>
+        <h3 class="intro-text"><strong>Grupo:</strong> {{ form.FK_HorarioCarrera }}</h3>
+        <br>
+        <h2 class="intro-text text-center"><strong>{{mensaje}}</strong></h2>
+        <br>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-lg btn-default">Seleccionar</button>
+          <a class="btn  btn-lg btn-default" href="/index/">Regresar</a>
+        </div>
+      </center>
+      <br>
+      {% elif fase == "fase2" %}
+     <br>
+      <h3 class="intro-text text-center">Clave de Grupo: {{grupo}} </strong></h3>
+      <br>
+      <table class="table table-responsive table-bordered">
+        <thead>
+          <tr class="info">
+            <th class="">Hora</th>
+            <th class="">Lunes</th>
+            <th class="">Martes</th>
+            <th class="">Miércoles</th>
+            <th class="">Jueves</th>
+            <th class="">Viernes</th>
+            <th class="">Sábado</th>
+            <th class="">Domingo</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+          <!-- Vista con acomodo: 7-8 (78)  -->
+          <tr>
+            <td class="info">7-8</td>
+            <!-- Lunes  -->
+            {% if a78  %}
+            <td class="">
+              {% for i in a78%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+                <form method="post">
+                  {% csrf_token %}
+                  <input type="text" name="EHora" value="7-8" hidden="True">
+                  <input type="text" name="EDia" value="Lunes" hidden="True">
+                  <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                  <p align="center"><input type="submit" value="Eliminar"></p>
+                </form>
+              </p>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="7-8" hidden="True">
+                <input type="text" name="GDia" value="Lunes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Martes  -->
+            {% if b78  %}
+            <td class="">
+              {% for i in b78%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="7-8" hidden="True">
+                <input type="text" name="EDia" value="Martes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="7-8" hidden="True">
+                <input type="text" name="GDia" value="Martes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Miercoles  -->
+            {% if c78  %}
+            <td class="">
+              {% for i in c78%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="7-8" hidden="True">
+                <input type="text" name="EDia" value="Miercoles" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="7-8" hidden="True">
+                <input type="text" name="GDia" value="Miercoles" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Jueves  -->
+            {% if d78  %}
+            <td class="">
+              {% for i in d78%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="7-8" hidden="True">
+                <input type="text" name="EDia" value="Jueves" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="7-8" hidden="True">
+                <input type="text" name="GDia" value="Jueves" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Viernes  -->
+            {% if e78  %}
+            <td class="">
+              {% for i in e78%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="7-8" hidden="True">
+                <input type="text" name="EDia" value="Viernes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="7-8" hidden="True">
+                <input type="text" name="GDia" value="Viernes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Sabado  -->
+            {% if f78  %}
+            <td class="">
+              {% for i in f78%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="7-8" hidden="True">
+                <input type="text" name="EDia" value="Sabado" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="7-8" hidden="True">
+                <input type="text" name="GDia" value="Sabado" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Domingo  -->
+            {% if g78  %}
+            <td class="">
+              {% for i in g78%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="7-8" hidden="True">
+                <input type="text" name="EDia" value="Domingo" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="7-8" hidden="True">
+                <input type="text" name="GDia" value="Domingo" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+          </tr>
 
-			
-		</div>
-		</center>
-		<div class="row">
-	<div class="col-lg-12 text-center">
-		<div class="box">
-			<form method='POST' action=''>
-				<center>
-					{% csrf_token %}
-					<br>
-					<h2 class="intro-text text-center">Registra una clase</strong>
-					</h2>
-					<br>
-					<h3 class="intro-text"><strong>Horario: {{ form.FK_HorarioCarrera }}</strong></h3><br>
-					<h3 class="intro-text"><strong>Hora: {{ form.FK_Hora }} </strong></h3><br>
-					<h3 class="intro-text"><strong>Dia: {{ form.FK_Dia }} </strong></h3><br>
-					<h3 class="intro-text"><strong>Salon: {{ form.FK_Salon }} </strong></h3><br>
-					<h3 class="intro-text"><strong>Profesor: {{ form.FK_Profesor }} </strong></h3><br>
-					<h3 class="intro-text"><strong>Materia: {{ form.FK_Materia }} </strong></h3><br>
+          <!-- Vista con acomodo: 8-9 (89)  -->
+          <tr>
+            <td class="info">8-9</td>
+            <!-- Lunes  -->
+            {% if a89  %}
+            <td class="">
+              {% for i in a89%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+                <form method="post">
+                  {% csrf_token %}
+                  <input type="text" name="EHora" value="8-9" hidden="True">
+                  <input type="text" name="EDia" value="Lunes" hidden="True">
+                  <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                  <p align="center"><input type="submit" value="Eliminar"></p>
+                </form>
+              </p>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="8-9" hidden="True">
+                <input type="text" name="GDia" value="Lunes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Martes  -->
+            {% if b89  %}
+            <td class="">
+              {% for i in b89%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="8-9" hidden="True">
+                <input type="text" name="EDia" value="Martes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="8-9" hidden="True">
+                <input type="text" name="GDia" value="Martes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Miercoles  -->
+            {% if c89  %}
+            <td class="">
+              {% for i in c89%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="8-9" hidden="True">
+                <input type="text" name="EDia" value="Miercoles" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="8-9" hidden="True">
+                <input type="text" name="GDia" value="Miercoles" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Jueves  -->
+            {% if d89  %}
+            <td class="">
+              {% for i in d89%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="8-9" hidden="True">
+                <input type="text" name="EDia" value="Jueves" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="8-9" hidden="True">
+                <input type="text" name="GDia" value="Jueves" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Viernes  -->
+            {% if e89  %}
+            <td class="">
+              {% for i in e89%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="8-9" hidden="True">
+                <input type="text" name="EDia" value="Viernes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="8-9" hidden="True">
+                <input type="text" name="GDia" value="Viernes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Sabado  -->
+            {% if f89  %}
+            <td class="">
+              {% for i in f89%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="8-9" hidden="True">
+                <input type="text" name="EDia" value="Sabado" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="8-9" hidden="True">
+                <input type="text" name="GDia" value="Sabado" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Domingo  -->
+            {% if g89  %}
+            <td class="">
+              {% for i in g89%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="8-9" hidden="True">
+                <input type="text" name="EDia" value="Domingo" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="8-9" hidden="True">
+                <input type="text" name="GDia" value="Domingo" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+          </tr>
 
-					<h2 class="intro-text text-center"><strong>{{mensaje}}</strong></h2>
-                    <br>
-                    <div class="form-actions">
-                        <button type="submit" class="btn btn-lg btn-default">Guardar</button>
-                        <a class="btn  btn-lg btn-default" href="/index/">Regresar</a>
-                    </div>
-                    <br>
-                    <h3 class="intro-text text-center">Horario de carrera clave: {{clave}} </strong></h3>
-                    <br>
-                   <br>
-                    <table class="table table-responsive table-bordered">
-                        <thead>
-                            <tr class="info">
-                                <th class="tg-sgp5">Hora</th>
-                                <th class="tg-49xk">Lunes</th>
-                                <th class="tg-49xk">Martes</th>
-                                <th class="tg-49xk">Miércoles</th>
-                                <th class="tg-49xk">Jueves</th>
-                                <th class="tg-49xk">Viernes</th>
-                                <th class="tg-49xk">Sábado</th>
-                                <th class="tg-49xk">Domingo</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                              <td class="info">7-8</td>
-                              <td class="tg-hnwh">{{ a78 }}</td>
-                              <td class="tg-49xk">{{ b78 }}</td>
-                              <td class="tg-hnwh">{{ c78 }}</td>
-                              <td class="tg-49xk">{{ d78 }}</td>
-                              <td class="tg-hnwh">{{ e78 }}</td>
-                              <td class="tg-49xk">{{ f78 }}</td>
-                              <td class="tg-hnwh">{{ g78 }}</td>
-                            </tr>
-                            <tr>
-                              <td class="info">8-9</td>
-                              <td class="tg-hnwh">{{ a89 }}</td>
-                              <td class="tg-49xk">{{ b89 }}</td>
-                              <td class="tg-hnwh">{{ c89 }}</td>
-                              <td class="tg-49xk">{{ d89 }}</td>
-                              <td class="tg-hnwh">{{ e89 }}</td>
-                              <td class="tg-49xk">{{ f89 }}</td>
-                              <td class="tg-hnwh">{{ g89 }}</td>
-                            </tr>
-                            <tr>
-                              <td class="info">9-10</td>
-                              <td class="tg-hnwh">{{ a910 }}</td>
-                              <td class="tg-49xk">{{ b910 }}</td>
-                              <td class="tg-hnwh">{{ c910 }}</td>
-                              <td class="tg-49xk">{{ d910 }}</td>
-                              <td class="tg-hnwh">{{ e910 }}</td>
-                              <td class="tg-49xk">{{ f910 }}</td>
-                              <td class="tg-hnwh">{{ g910 }}</td>
-                            </tr>
-                            <tr>
-                              <td class="info">10-11</td>
-                              <td class="tg-hnwh">{{ a1011 }}</td>
-                              <td class="tg-49xk">{{ b1011 }}</td>
-                              <td class="tg-hnwh">{{ c1011 }}</td>
-                              <td class="tg-49xk">{{ d1011 }}</td>
-                              <td class="tg-hnwh">{{ e1011 }}</td>
-                              <td class="tg-49xk">{{ f1011 }}</td>
-                              <td class="tg-hnwh">{{ g1011 }}</td>
-                            </tr>
-                            <tr>
-                              <td class="info">11-12</td>
-                              <td class="tg-hnwh">{{ a1112 }}</td>
-                              <td class="tg-49xk">{{ b1112 }}</td>
-                              <td class="tg-hnwh">{{ c1112 }}</td>
-                              <td class="tg-49xk">{{ d1112 }}</td>
-                              <td class="tg-hnwh">{{ e1112 }}</td>
-                              <td class="tg-49xk">{{ f1112 }}</td>
-                              <td class="tg-hnwh">{{ g1112 }}</td>
-                            </tr>
-                            <tr>
-                              <td class="info">12-13</td>
-                              <td class="tg-hnwh">{{ a1213 }}</td>
-                              <td class="tg-49xk">{{ b1213 }}</td>
-                              <td class="tg-hnwh">{{ c1213 }}</td>
-                              <td class="tg-49xk">{{ d1213 }}</td>
-                              <td class="tg-hnwh">{{ e1213 }}</td>
-                              <td class="tg-49xk">{{ f1213 }}</td>
-                              <td class="tg-hnwh">{{ g1213 }}</td>
-                            </tr>
-                            <tr>
-                              <td class="info">13-14</td>
-                              <td class="tg-hnwh">{{ a1314 }}</td>
-                              <td class="tg-49xk">{{ b1314 }}</td>
-                              <td class="tg-hnwh">{{ c1314 }}</td>
-                              <td class="tg-49xk">{{ d1314 }}</td>
-                              <td class="tg-hnwh">{{ e1314 }}</td>
-                              <td class="tg-49xk">{{ f1314 }}</td>
-                              <td class="tg-hnwh">{{ g1314 }}</td>
-                            </tr>
-                            <tr>
-                              <td class="info">14-15</td>
-                              <td class="tg-hnwh">{{ a1415 }}</td>
-                              <td class="tg-49xk">{{ b1415 }}</td>
-                              <td class="tg-hnwh">{{ c1415 }}</td>
-                              <td class="tg-49xk">{{ d1415 }}</td>
-                              <td class="tg-hnwh">{{ e1415 }}</td>
-                              <td class="tg-49xk">{{ f1415 }}</td>
-                              <td class="tg-hnwh">{{ g1415 }}</td>
-                            </tr>
-                            <tr>
-                              <td class="info">15-16</td>
-                              <td class="tg-hnwh">{{ a1516 }}</td>
-                              <td class="tg-49xk">{{ b1516 }}</td>
-                              <td class="tg-hnwh">{{ c1516 }}</td>
-                              <td class="tg-49xk">{{ d1516 }}</td>
-                              <td class="tg-hnwh">{{ e1516 }}</td>
-                              <td class="tg-49xk">{{ f1516 }}</td>
-                              <td class="tg-hnwh">{{ g1516 }}</td>
-                            </tr>
-                            <tr>
-                              <td class="info">16-17</td>
-                              <td class="tg-hnwh">{{ a1617 }}</td>
-                              <td class="tg-49xk">{{ b1617 }}</td>
-                              <td class="tg-hnwh">{{ c1617 }}</td>
-                              <td class="tg-49xk">{{ d1617 }}</td>
-                              <td class="tg-hnwh">{{ e1617 }}</td>
-                              <td class="tg-49xk">{{ f1617 }}</td>
-                              <td class="tg-hnwh">{{ g1617 }}</td>
-                            </tr>
-                            <tr>
-                              <td class="info">17-18</td>
-                              <td class="tg-hnwh">{{ a1718 }}</td>
-                              <td class="tg-49xk">{{ b1718 }}</td>
-                              <td class="tg-hnwh">{{ c1718 }}</td>
-                              <td class="tg-49xk">{{ d1718 }}</td>
-                              <td class="tg-hnwh">{{ e1718 }}</td>
-                              <td class="tg-49xk">{{ f1718 }}</td>
-                              <td class="tg-hnwh">{{ g1718 }}</td>
-                            </tr>
-                            <tr>
-                              <td class="info">18-19</td>
-                              <td class="tg-hnwh">{{ a1819 }}</td>
-                              <td class="tg-49xk">{{ b1819 }}</td>
-                              <td class="tg-hnwh">{{ c1819 }}</td>
-                              <td class="tg-49xk">{{ d1819 }}</td>
-                              <td class="tg-hnwh">{{ e1819 }}</td>
-                              <td class="tg-49xk">{{ f1819 }}</td>
-                              <td class="tg-hnwh">{{ g1819 }}</td>
-                            </tr>
-                            <tr>
-                              <td class="info">19-20</td>
-                              <td class="tg-hnwh">{{ a1920 }}</td>
-                              <td class="tg-49xk">{{ b1920 }}</td>
-                              <td class="tg-hnwh">{{ c1920 }}</td>
-                              <td class="tg-49xk">{{ d1920 }}</td>
-                              <td class="tg-hnwh">{{ e1920 }}</td>
-                              <td class="tg-49xk">{{ f1920 }}</td>
-                              <td class="tg-hnwh">{{ g1920 }}</td>
-                            </tr>
-                            <tr>
-                              <td class="info">20-21</td>
-                              <td class="tg-hnwh">{{ a2021 }}</td>
-                              <td class="tg-49xk">{{ b2021 }}</td>
-                              <td class="tg-hnwh">{{ c2021 }}</td>
-                              <td class="tg-49xk">{{ d2021 }}</td>
-                              <td class="tg-hnwh">{{ e2021 }}</td>
-                              <td class="tg-49xk">{{ f2021 }}</td>
-                              <td class="tg-hnwh">{{ g2021 }}</td>
-                            </tr>
-                            <tr>
-                              <td class="info">21-22</td>
-                              <td class="tg-hnwh">{{ a2122 }}</td>
-                              <td class="tg-49xk">{{ b2122 }}</td>
-                              <td class="tg-hnwh">{{ c2122 }}</td>
-                              <td class="tg-49xk">{{ d2122 }}</td>
-                              <td class="tg-hnwh">{{ e2122 }}</td>
-                              <td class="tg-49xk">{{ f2122 }}</td>
-                              <td class="tg-hnwh">{{ g2122 }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-    				</center>
-    				</form>
-    			</div>
-    		</div>
-    	</div>
-    		<div class="clearfix"></div>
-    	</div>
-    </div>
+          <!-- Vista con acomodo: 9-10 (910) -->
+          <tr>
+            <td class="info">9-10</td>
+            <!-- Lunes  -->
+            {% if a910  %}
+            <td class="">
+              {% for i in a910%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+                <form method="post">
+                  {% csrf_token %}
+                  <input type="text" name="EHora" value="9-10" hidden="True">
+                  <input type="text" name="EDia" value="Lunes" hidden="True">
+                  <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                  <p align="center"><input type="submit" value="Eliminar"></p>
+                </form>
+              </p>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="9-10" hidden="True">
+                <input type="text" name="GDia" value="Lunes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Martes  -->
+            {% if b910  %}
+            <td class="">
+              {% for i in b910%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="9-10" hidden="True">
+                <input type="text" name="EDia" value="Martes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="9-10" hidden="True">
+                <input type="text" name="GDia" value="Martes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Miercoles  -->
+            {% if c910  %}
+            <td class="">
+              {% for i in c910%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="9-10" hidden="True">
+                <input type="text" name="EDia" value="Miercoles" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="9-10" hidden="True">
+                <input type="text" name="GDia" value="Miercoles" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Jueves  -->
+            {% if d910  %}
+            <td class="">
+              {% for i in d910%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="9-10" hidden="True">
+                <input type="text" name="EDia" value="Jueves" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="9-10" hidden="True">
+                <input type="text" name="GDia" value="Jueves" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Viernes  -->
+            {% if e910  %}
+            <td class="">
+              {% for i in e910%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="9-10" hidden="True">
+                <input type="text" name="EDia" value="Viernes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="9-10" hidden="True">
+                <input type="text" name="GDia" value="Viernes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Sabado  -->
+            {% if f910  %}
+            <td class="">
+              {% for i in f910%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="9-10" hidden="True">
+                <input type="text" name="EDia" value="Sabado" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="9-10" hidden="True">
+                <input type="text" name="GDia" value="Sabado" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Domingo  -->
+            {% if g910  %}
+            <td class="">
+              {% for i in g910%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="9-10" hidden="True">
+                <input type="text" name="EDia" value="Domingo" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="9-10" hidden="True">
+                <input type="text" name="GDia" value="Domingo" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+          </tr>
+
+          <!-- Vista con acomodo: 10-11 (1011)  -->
+          <tr>
+            <td class="info">10-11</td>
+            <!-- Lunes  -->
+            {% if a1011  %}
+            <td class="">
+              {% for i in a1011%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+                <form method="post">
+                  {% csrf_token %}
+                  <input type="text" name="EHora" value="10-11" hidden="True">
+                  <input type="text" name="EDia" value="Lunes" hidden="True">
+                  <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                  <p align="center"><input type="submit" value="Eliminar"></p>
+                </form>
+              </p>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="10-11" hidden="True">
+                <input type="text" name="GDia" value="Lunes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Martes  -->
+            {% if b1011  %}
+            <td class="">
+              {% for i in b1011%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="10-11" hidden="True">
+                <input type="text" name="EDia" value="Martes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="10-11" hidden="True">
+                <input type="text" name="GDia" value="Martes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Miercoles  -->
+            {% if c1011  %}
+            <td class="">
+              {% for i in c1011%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="10-11" hidden="True">
+                <input type="text" name="EDia" value="Miercoles" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="10-11" hidden="True">
+                <input type="text" name="GDia" value="Miercoles" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Jueves  -->
+            {% if d1011  %}
+            <td class="">
+              {% for i in d1011%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="10-11" hidden="True">
+                <input type="text" name="EDia" value="Jueves" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="10-11" hidden="True">
+                <input type="text" name="GDia" value="Jueves" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Viernes  -->
+            {% if e1011  %}
+            <td class="">
+              {% for i in e1011%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="10-11" hidden="True">
+                <input type="text" name="EDia" value="Viernes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="10-11" hidden="True">
+                <input type="text" name="GDia" value="Viernes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Sabado  -->
+            {% if f1011  %}
+            <td class="">
+              {% for i in f1011%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="10-11" hidden="True">
+                <input type="text" name="EDia" value="Sabado" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="10-11" hidden="True">
+                <input type="text" name="GDia" value="Sabado" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Domingo  -->
+            {% if g1011  %}
+            <td class="">
+              {% for i in g1011%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="10-11" hidden="True">
+                <input type="text" name="EDia" value="Domingo" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="10-11" hidden="True">
+                <input type="text" name="GDia" value="Domingo" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+          </tr>
+
+          <!-- Vista con acomodo: 11-12 (1112)  -->
+          <tr>
+            <td class="info">11-12</td>
+            <!-- Lunes  -->
+            {% if a1112  %}
+            <td class="">
+              {% for i in a1112%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+                <form method="post">
+                  {% csrf_token %}
+                  <input type="text" name="EHora" value="11-12" hidden="True">
+                  <input type="text" name="EDia" value="Lunes" hidden="True">
+                  <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                  <p align="center"><input type="submit" value="Eliminar"></p>
+                </form>
+              </p>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="11-12" hidden="True">
+                <input type="text" name="GDia" value="Lunes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Martes  -->
+            {% if b1112  %}
+            <td class="">
+              {% for i in b1112%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="11-12" hidden="True">
+                <input type="text" name="EDia" value="Martes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="11-12" hidden="True">
+                <input type="text" name="GDia" value="Martes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Miercoles  -->
+            {% if c1112  %}
+            <td class="">
+              {% for i in c1112%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="11-12" hidden="True">
+                <input type="text" name="EDia" value="Miercoles" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="11-12" hidden="True">
+                <input type="text" name="GDia" value="Miercoles" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Jueves  -->
+            {% if d1112  %}
+            <td class="">
+              {% for i in d1112%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="11-12" hidden="True">
+                <input type="text" name="EDia" value="Jueves" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="11-12" hidden="True">
+                <input type="text" name="GDia" value="Jueves" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Viernes  -->
+            {% if e1112  %}
+            <td class="">
+              {% for i in e1112%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="11-12" hidden="True">
+                <input type="text" name="EDia" value="Viernes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="11-12" hidden="True">
+                <input type="text" name="GDia" value="Viernes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Sabado  -->
+            {% if f1112  %}
+            <td class="">
+              {% for i in f1112%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="11-12" hidden="True">
+                <input type="text" name="EDia" value="Sabado" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="11-12" hidden="True">
+                <input type="text" name="GDia" value="Sabado" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Domingo  -->
+            {% if g1112  %}
+            <td class="">
+              {% for i in g1112%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="11-12" hidden="True">
+                <input type="text" name="EDia" value="Domingo" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="11-12" hidden="True">
+                <input type="text" name="GDia" value="Domingo" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+          </tr>
+
+          <!-- Vista con acomodo: 12-13 (1213)  -->
+          <tr>
+            <td class="info">12-13</td>
+            <!-- Lunes  -->
+            {% if a1213  %}
+            <td class="">
+              {% for i in a1213%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+                <form method="post">
+                  {% csrf_token %}
+                  <input type="text" name="EHora" value="12-13" hidden="True">
+                  <input type="text" name="EDia" value="Lunes" hidden="True">
+                  <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                  <p align="center"><input type="submit" value="Eliminar"></p>
+                </form>
+              </p>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="12-13" hidden="True">
+                <input type="text" name="GDia" value="Lunes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Martes  -->
+            {% if b1213  %}
+            <td class="">
+              {% for i in b1213%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="12-13" hidden="True">
+                <input type="text" name="EDia" value="Martes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="12-13" hidden="True">
+                <input type="text" name="GDia" value="Martes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Miercoles  -->
+            {% if c1213  %}
+            <td class="">
+              {% for i in c1213%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="12-13" hidden="True">
+                <input type="text" name="EDia" value="Miercoles" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="12-13" hidden="True">
+                <input type="text" name="GDia" value="Miercoles" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Jueves  -->
+            {% if d1213  %}
+            <td class="">
+              {% for i in d1213%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="12-13" hidden="True">
+                <input type="text" name="EDia" value="Jueves" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="12-13" hidden="True">
+                <input type="text" name="GDia" value="Jueves" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Viernes  -->
+            {% if e1213  %}
+            <td class="">
+              {% for i in e1213%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="12-13" hidden="True">
+                <input type="text" name="EDia" value="Viernes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="12-13" hidden="True">
+                <input type="text" name="GDia" value="Viernes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Sabado  -->
+            {% if f1213  %}
+            <td class="">
+              {% for i in f1213%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="12-13" hidden="True">
+                <input type="text" name="EDia" value="Sabado" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="12-13" hidden="True">
+                <input type="text" name="GDia" value="Sabado" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Domingo  -->
+            {% if g1213  %}
+            <td class="">
+              {% for i in g1213%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="12-13" hidden="True">
+                <input type="text" name="EDia" value="Domingo" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="12-13" hidden="True">
+                <input type="text" name="GDia" value="Domingo" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+          </tr>
+
+          <!-- Vista con acomodo: 13-14 (1314)  -->
+          <tr>
+            <td class="info">13-14</td>
+            <!-- Lunes  -->
+            {% if a1314  %}
+            <td class="">
+              {% for i in a1314%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+                <form method="post">
+                  {% csrf_token %}
+                  <input type="text" name="EHora" value="13-14" hidden="True">
+                  <input type="text" name="EDia" value="Lunes" hidden="True">
+                  <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                  <p align="center"><input type="submit" value="Eliminar"></p>
+                </form>
+              </p>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="13-14" hidden="True">
+                <input type="text" name="GDia" value="Lunes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Martes  -->
+            {% if b1314  %}
+            <td class="">
+              {% for i in b1314%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="13-14" hidden="True">
+                <input type="text" name="EDia" value="Martes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="13-14" hidden="True">
+                <input type="text" name="GDia" value="Martes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Miercoles  -->
+            {% if c1314  %}
+            <td class="">
+              {% for i in c1314%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="13-14" hidden="True">
+                <input type="text" name="EDia" value="Miercoles" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="13-14" hidden="True">
+                <input type="text" name="GDia" value="Miercoles" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Jueves  -->
+            {% if d1314  %}
+            <td class="">
+              {% for i in d1314%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="13-14" hidden="True">
+                <input type="text" name="EDia" value="Jueves" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="13-14" hidden="True">
+                <input type="text" name="GDia" value="Jueves" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Viernes  -->
+            {% if e1314  %}
+            <td class="">
+              {% for i in e1314%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="13-14" hidden="True">
+                <input type="text" name="EDia" value="Viernes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="13-14" hidden="True">
+                <input type="text" name="GDia" value="Viernes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Sabado  -->
+            {% if f1314  %}
+            <td class="">
+              {% for i in f1314%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="13-14" hidden="True">
+                <input type="text" name="EDia" value="Sabado" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="13-14" hidden="True">
+                <input type="text" name="GDia" value="Sabado" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Domingo  -->
+            {% if g1314  %}
+            <td class="">
+              {% for i in g1314%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="13-14" hidden="True">
+                <input type="text" name="EDia" value="Domingo" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="13-14" hidden="True">
+                <input type="text" name="GDia" value="Domingo" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+          </tr>
+
+          <!-- Vista con acomodo: 14-15 (1415)  -->
+          <tr>
+            <td class="info">14-15</td>
+            <!-- Lunes  -->
+            {% if a1415  %}
+            <td class="">
+              {% for i in a1415%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+                <form method="post">
+                  {% csrf_token %}
+                  <input type="text" name="EHora" value="14-15" hidden="True">
+                  <input type="text" name="EDia" value="Lunes" hidden="True">
+                  <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                  <p align="center"><input type="submit" value="Eliminar"></p>
+                </form>
+              </p>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="14-15" hidden="True">
+                <input type="text" name="GDia" value="Lunes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Martes  -->
+            {% if b1415  %}
+            <td class="">
+              {% for i in b1415%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="14-15" hidden="True">
+                <input type="text" name="EDia" value="Martes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="14-15" hidden="True">
+                <input type="text" name="GDia" value="Martes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Miercoles  -->
+            {% if c1415  %}
+            <td class="">
+              {% for i in c1415%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="14-15" hidden="True">
+                <input type="text" name="EDia" value="Miercoles" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="14-15" hidden="True">
+                <input type="text" name="GDia" value="Miercoles" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Jueves  -->
+            {% if d1415  %}
+            <td class="">
+              {% for i in d1415%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="14-15" hidden="True">
+                <input type="text" name="EDia" value="Jueves" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="14-15" hidden="True">
+                <input type="text" name="GDia" value="Jueves" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Viernes  -->
+            {% if e1415  %}
+            <td class="">
+              {% for i in e1415%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="14-15" hidden="True">
+                <input type="text" name="EDia" value="Viernes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="14-15" hidden="True">
+                <input type="text" name="GDia" value="Viernes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Sabado  -->
+            {% if f1415  %}
+            <td class="">
+              {% for i in f1415%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="14-15" hidden="True">
+                <input type="text" name="EDia" value="Sabado" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="14-15" hidden="True">
+                <input type="text" name="GDia" value="Sabado" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Domingo  -->
+            {% if g1415  %}
+            <td class="">
+              {% for i in g1415%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="14-15" hidden="True">
+                <input type="text" name="EDia" value="Domingo" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="14-15" hidden="True">
+                <input type="text" name="GDia" value="Domingo" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+          </tr>
+
+          <!-- Vista con acomodo: 15-16 (1516)  -->
+          <tr>
+            <td class="info">15-16</td>
+            <!-- Lunes  -->
+            {% if a1516  %}
+            <td class="">
+              {% for i in a1516%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+                <form method="post">
+                  {% csrf_token %}
+                  <input type="text" name="EHora" value="15-16" hidden="True">
+                  <input type="text" name="EDia" value="Lunes" hidden="True">
+                  <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                  <p align="center"><input type="submit" value="Eliminar"></p>
+                </form>
+              </p>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="15-16" hidden="True">
+                <input type="text" name="GDia" value="Lunes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Martes  -->
+            {% if b1516  %}
+            <td class="">
+              {% for i in b1516%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="15-16" hidden="True">
+                <input type="text" name="EDia" value="Martes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="15-16" hidden="True">
+                <input type="text" name="GDia" value="Martes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Miercoles  -->
+            {% if c1516  %}
+            <td class="">
+              {% for i in c1516%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="15-16" hidden="True">
+                <input type="text" name="EDia" value="Miercoles" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="15-16" hidden="True">
+                <input type="text" name="GDia" value="Miercoles" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Jueves  -->
+            {% if d1516  %}
+            <td class="">
+              {% for i in d1516%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="15-16" hidden="True">
+                <input type="text" name="EDia" value="Jueves" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="15-16" hidden="True">
+                <input type="text" name="GDia" value="Jueves" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Viernes  -->
+            {% if e1516  %}
+            <td class="">
+              {% for i in e1516%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="15-16" hidden="True">
+                <input type="text" name="EDia" value="Viernes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="15-16" hidden="True">
+                <input type="text" name="GDia" value="Viernes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Sabado  -->
+            {% if f1516  %}
+            <td class="">
+              {% for i in f1516%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="15-16" hidden="True">
+                <input type="text" name="EDia" value="Sabado" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="15-16" hidden="True">
+                <input type="text" name="GDia" value="Sabado" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Domingo  -->
+            {% if g1516  %}
+            <td class="">
+              {% for i in g1516%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="15-16" hidden="True">
+                <input type="text" name="EDia" value="Domingo" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="15-16" hidden="True">
+                <input type="text" name="GDia" value="Domingo" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+          </tr>
+
+          <!-- Vista con acomodo: 16-17 (1617)  -->
+          <tr>
+            <td class="info">16-17</td>
+            <!-- Lunes  -->
+            {% if a1617  %}
+            <td class="">
+              {% for i in a1617%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+                <form method="post">
+                  {% csrf_token %}
+                  <input type="text" name="EHora" value="16-17" hidden="True">
+                  <input type="text" name="EDia" value="Lunes" hidden="True">
+                  <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                  <p align="center"><input type="submit" value="Eliminar"></p>
+                </form>
+              </p>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="16-17" hidden="True">
+                <input type="text" name="GDia" value="Lunes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Martes  -->
+            {% if b1617  %}
+            <td class="">
+              {% for i in b1617%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="16-17" hidden="True">
+                <input type="text" name="EDia" value="Martes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="16-17" hidden="True">
+                <input type="text" name="GDia" value="Martes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Miercoles  -->
+            {% if c1617  %}
+            <td class="">
+              {% for i in c1617%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="16-17" hidden="True">
+                <input type="text" name="EDia" value="Miercoles" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="16-17" hidden="True">
+                <input type="text" name="GDia" value="Miercoles" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Jueves  -->
+            {% if d1617  %}
+            <td class="">
+              {% for i in d1617%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="16-17" hidden="True">
+                <input type="text" name="EDia" value="Jueves" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="16-17" hidden="True">
+                <input type="text" name="GDia" value="Jueves" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Viernes  -->
+            {% if e1617  %}
+            <td class="">
+              {% for i in e1617%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="16-17" hidden="True">
+                <input type="text" name="EDia" value="Viernes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="16-17" hidden="True">
+                <input type="text" name="GDia" value="Viernes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Sabado  -->
+            {% if f1617  %}
+            <td class="">
+              {% for i in f1617%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="16-17" hidden="True">
+                <input type="text" name="EDia" value="Sabado" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="16-17" hidden="True">
+                <input type="text" name="GDia" value="Sabado" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Domingo  -->
+            {% if g1617  %}
+            <td class="">
+              {% for i in g1617%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="16-17" hidden="True">
+                <input type="text" name="EDia" value="Domingo" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="16-17" hidden="True">
+                <input type="text" name="GDia" value="Domingo" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+          </tr>
+
+          <!-- Vista con acomodo: 17-18 (1718)  -->
+          <tr>
+            <td class="info">17-18</td>
+            <!-- Lunes  -->
+            {% if a1718  %}
+            <td class="">
+              {% for i in a1718%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+                <form method="post">
+                  {% csrf_token %}
+                  <input type="text" name="EHora" value="17-18" hidden="True">
+                  <input type="text" name="EDia" value="Lunes" hidden="True">
+                  <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                  <p align="center"><input type="submit" value="Eliminar"></p>
+                </form>
+              </p>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="17-18" hidden="True">
+                <input type="text" name="GDia" value="Lunes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Martes  -->
+            {% if b1718  %}
+            <td class="">
+              {% for i in b1718%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="17-18" hidden="True">
+                <input type="text" name="EDia" value="Martes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="17-18" hidden="True">
+                <input type="text" name="GDia" value="Martes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Miercoles  -->
+            {% if c1718  %}
+            <td class="">
+              {% for i in c1718%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="17-18" hidden="True">
+                <input type="text" name="EDia" value="Miercoles" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="17-18" hidden="True">
+                <input type="text" name="GDia" value="Miercoles" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Jueves  -->
+            {% if d1718  %}
+            <td class="">
+              {% for i in d1718%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="17-18" hidden="True">
+                <input type="text" name="EDia" value="Jueves" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="17-18" hidden="True">
+                <input type="text" name="GDia" value="Jueves" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Viernes  -->
+            {% if e1718  %}
+            <td class="">
+              {% for i in e1718%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="17-18" hidden="True">
+                <input type="text" name="EDia" value="Viernes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="17-18" hidden="True">
+                <input type="text" name="GDia" value="Viernes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Sabado  -->
+            {% if f1718  %}
+            <td class="">
+              {% for i in f1718%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="17-18" hidden="True">
+                <input type="text" name="EDia" value="Sabado" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="17-18" hidden="True">
+                <input type="text" name="GDia" value="Sabado" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Domingo  -->
+            {% if g1718  %}
+            <td class="">
+              {% for i in g1718%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="17-18" hidden="True">
+                <input type="text" name="EDia" value="Domingo" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="17-18" hidden="True">
+                <input type="text" name="GDia" value="Domingo" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+          </tr>
+
+          <!-- Vista con acomodo: 18-19 (1819)  -->
+          <tr>
+            <td class="info">18-19</td>
+            <!-- Lunes  -->
+            {% if a1819  %}
+            <td class="">
+              {% for i in a1819%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+                <form method="post">
+                  {% csrf_token %}
+                  <input type="text" name="EHora" value="18-19" hidden="True">
+                  <input type="text" name="EDia" value="Lunes" hidden="True">
+                  <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                  <p align="center"><input type="submit" value="Eliminar"></p>
+                </form>
+              </p>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="18-19" hidden="True">
+                <input type="text" name="GDia" value="Lunes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Martes  -->
+            {% if b1819  %}
+            <td class="">
+              {% for i in b1819%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="18-19" hidden="True">
+                <input type="text" name="EDia" value="Martes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="18-19" hidden="True">
+                <input type="text" name="GDia" value="Martes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Miercoles  -->
+            {% if c1819  %}
+            <td class="">
+              {% for i in c1819%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="18-19" hidden="True">
+                <input type="text" name="EDia" value="Miercoles" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="18-19" hidden="True">
+                <input type="text" name="GDia" value="Miercoles" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Jueves  -->
+            {% if d1819  %}
+            <td class="">
+              {% for i in d1819%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="18-19" hidden="True">
+                <input type="text" name="EDia" value="Jueves" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="18-19" hidden="True">
+                <input type="text" name="GDia" value="Jueves" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Viernes  -->
+            {% if e1819  %}
+            <td class="">
+              {% for i in e1819%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="18-19" hidden="True">
+                <input type="text" name="EDia" value="Viernes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="18-19" hidden="True">
+                <input type="text" name="GDia" value="Viernes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Sabado  -->
+            {% if f1819  %}
+            <td class="">
+              {% for i in f1819%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="18-19" hidden="True">
+                <input type="text" name="EDia" value="Sabado" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="18-19" hidden="True">
+                <input type="text" name="GDia" value="Sabado" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Domingo  -->
+            {% if g1819  %}
+            <td class="">
+              {% for i in g1819%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="18-19" hidden="True">
+                <input type="text" name="EDia" value="Domingo" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="18-19" hidden="True">
+                <input type="text" name="GDia" value="Domingo" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+          </tr>
+
+          <!-- Vista con acomodo: 19-20 (1920)  -->
+          <tr>
+            <td class="info">19-20</td>
+            <!-- Lunes  -->
+            {% if a1920  %}
+            <td class="">
+              {% for i in a1920%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+                <form method="post">
+                  {% csrf_token %}
+                  <input type="text" name="EHora" value="19-20" hidden="True">
+                  <input type="text" name="EDia" value="Lunes" hidden="True">
+                  <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                  <p align="center"><input type="submit" value="Eliminar"></p>
+                </form>
+              </p>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="19-20" hidden="True">
+                <input type="text" name="GDia" value="Lunes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Martes  -->
+            {% if b1920  %}
+            <td class="">
+              {% for i in b1920%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="19-20" hidden="True">
+                <input type="text" name="EDia" value="Martes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="19-20" hidden="True">
+                <input type="text" name="GDia" value="Martes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Miercoles  -->
+            {% if c1920  %}
+            <td class="">
+              {% for i in c1920%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="19-20" hidden="True">
+                <input type="text" name="EDia" value="Miercoles" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="19-20" hidden="True">
+                <input type="text" name="GDia" value="Miercoles" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Jueves  -->
+            {% if d1920  %}
+            <td class="">
+              {% for i in d1920%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="19-20" hidden="True">
+                <input type="text" name="EDia" value="Jueves" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="19-20" hidden="True">
+                <input type="text" name="GDia" value="Jueves" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Viernes  -->
+            {% if e1920  %}
+            <td class="">
+              {% for i in e1920%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="19-20" hidden="True">
+                <input type="text" name="EDia" value="Viernes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="19-20" hidden="True">
+                <input type="text" name="GDia" value="Viernes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Sabado  -->
+            {% if f1920  %}
+            <td class="">
+              {% for i in f1920%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="19-20" hidden="True">
+                <input type="text" name="EDia" value="Sabado" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="19-20" hidden="True">
+                <input type="text" name="GDia" value="Sabado" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Domingo  -->
+            {% if g1920  %}
+            <td class="">
+              {% for i in g1920%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="19-20" hidden="True">
+                <input type="text" name="EDia" value="Domingo" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="19-20" hidden="True">
+                <input type="text" name="GDia" value="Domingo" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+          </tr>
+
+          <!-- Vista con acomodo: 20-21 (2021)  -->
+          <tr>
+            <td class="info">20-21</td>
+            <!-- Lunes  -->
+            {% if a2021  %}
+            <td class="">
+              {% for i in a2021%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+                <form method="post">
+                  {% csrf_token %}
+                  <input type="text" name="EHora" value="20-21" hidden="True">
+                  <input type="text" name="EDia" value="Lunes" hidden="True">
+                  <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                  <p align="center"><input type="submit" value="Eliminar"></p>
+                </form>
+              </p>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="20-21" hidden="True">
+                <input type="text" name="GDia" value="Lunes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Martes  -->
+            {% if b2021  %}
+            <td class="">
+              {% for i in b2021%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="20-21" hidden="True">
+                <input type="text" name="EDia" value="Martes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="20-21" hidden="True">
+                <input type="text" name="GDia" value="Martes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Miercoles  -->
+            {% if c2021  %}
+            <td class="">
+              {% for i in c2021%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="20-21" hidden="True">
+                <input type="text" name="EDia" value="Miercoles" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="20-21" hidden="True">
+                <input type="text" name="GDia" value="Miercoles" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Jueves  -->
+            {% if d2021  %}
+            <td class="">
+              {% for i in d2021%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="20-21" hidden="True">
+                <input type="text" name="EDia" value="Jueves" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="20-21" hidden="True">
+                <input type="text" name="GDia" value="Jueves" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Viernes  -->
+            {% if e2021  %}
+            <td class="">
+              {% for i in e2021%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="20-21" hidden="True">
+                <input type="text" name="EDia" value="Viernes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="20-21" hidden="True">
+                <input type="text" name="GDia" value="Viernes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Sabado  -->
+            {% if f2021  %}
+            <td class="">
+              {% for i in f2021%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="20-21" hidden="True">
+                <input type="text" name="EDia" value="Sabado" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="20-21" hidden="True">
+                <input type="text" name="GDia" value="Sabado" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Domingo  -->
+            {% if g2021  %}
+            <td class="">
+              {% for i in g2021%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="20-21" hidden="True">
+                <input type="text" name="EDia" value="Domingo" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="20-21" hidden="True">
+                <input type="text" name="GDia" value="Domingo" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+          </tr>
+
+          <!-- Vista con acomodo: 21-22 (2122)  -->
+          <tr>
+            <td class="info">21-22</td>
+            <!-- Lunes  -->
+            {% if a2122  %}
+            <td class="">
+              {% for i in a2122%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+                <form method="post">
+                  {% csrf_token %}
+                  <input type="text" name="EHora" value="21-22" hidden="True">
+                  <input type="text" name="EDia" value="Lunes" hidden="True">
+                  <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                  <p align="center"><input type="submit" value="Eliminar"></p>
+                </form>
+              </p>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="21-22" hidden="True">
+                <input type="text" name="GDia" value="Lunes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Martes  -->
+            {% if b2122  %}
+            <td class="">
+              {% for i in b2122%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="21-22" hidden="True">
+                <input type="text" name="EDia" value="Martes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="21-22" hidden="True">
+                <input type="text" name="GDia" value="Martes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Miercoles  -->
+            {% if c2122  %}
+            <td class="">
+              {% for i in c2122%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="21-22" hidden="True">
+                <input type="text" name="EDia" value="Miercoles" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="21-22" hidden="True">
+                <input type="text" name="GDia" value="Miercoles" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Jueves  -->
+            {% if d2122  %}
+            <td class="">
+              {% for i in d2122%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="21-22" hidden="True">
+                <input type="text" name="EDia" value="Jueves" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="21-22" hidden="True">
+                <input type="text" name="GDia" value="Jueves" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Viernes  -->
+            {% if e2122  %}
+            <td class="">
+              {% for i in e2122%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="21-22" hidden="True">
+                <input type="text" name="EDia" value="Viernes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="21-22" hidden="True">
+                <input type="text" name="GDia" value="Viernes" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Sabado  -->
+            {% if f2122  %}
+            <td class="">
+              {% for i in f2122%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="21-22" hidden="True">
+                <input type="text" name="EDia" value="Sabado" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="21-22" hidden="True">
+                <input type="text" name="GDia" value="Sabado" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+            <!-- Domingo  -->
+            {% if g2122  %}
+            <td class="">
+              {% for i in g2122%}
+              <p align="center">{{ i.FK_Profesor }}</p>
+              <p align="center">{{ i.FK_Materia }}</p>
+              <p align="center"> Salón: {{ i.FK_Salon }}</p>
+              {% endfor %}
+              <p align="center">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="EHora" value="21-22" hidden="True">
+                <input type="text" name="EDia" value="Domingo" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Eliminar"></p>
+              </form>
+            </td>
+            {% else %}
+            <td class="">
+              <form method="post">
+                {% csrf_token %}
+                <input type="text" name="GHora" value="21-22" hidden="True">
+                <input type="text" name="GDia" value="Domingo" hidden="True">
+                <input type="text" name="Grupo" value="{{grupo}}" hidden="True">
+                <p align="center"><input type="submit" value="Disponible"></p>
+              </form>
+            </td>
+            {% endif %}
+          </tr>
+
+        </tbody>
+      </table>
+      <a class="btn  btn-lg btn-default" href="/clasehora/">Regresar</a>
+      <br>
+      <br>
+      {% elif fase == "fase3" %}
+       <br>
+      <h2 class="intro-text text-center">Registra la clase del lugar seleccionado:</strong>
+      </h2>
+      <br>
+      <h3 class="intro-text"><strong>Grupo: {{ varGrupo }}</strong></h3><br>
+      <h3 class="intro-text"><strong>Hora: {{ varHora }} </strong></h3><br>
+      <h3 class="intro-text"><strong>Dia: {{ varDia }} </strong></h3><br>
+      <h3 class="intro-text"><strong>Salon: {{ formG.FK_Salon }} </strong></h3><br>
+      <h3 class="intro-text"><strong>Profesor: {{ formG.FK_Profesor }} </strong></h3><br>
+      <h3 class="intro-text"><strong>Materia: {{ formG.FK_Materia }} </strong></h3><br>
+      <br>
+      <h2 class="intro-text text-center"><strong>{{mensaje}}</strong></h2>
+      <br>
+      <div class="form-actions">
+        <input type="text" name="varGrupo" value="{{varGrupo}}" hidden="True">
+        <input type="text" name="varHora" value="{{varHora}}" hidden="True">
+        <input type="text" name="varDia" value="{{varDia}}" hidden="True">
+        <button type="submit" class="btn btn-lg btn-default">Guardar</button>
+        <a class="btn  btn-lg btn-default" href="/clasehora/">Cancelar</a>
+      </div>
+      <br>
+      {% endif %}
+    </form>
+  </div>
+</div>
 {% endblock %}
