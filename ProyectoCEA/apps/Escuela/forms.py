@@ -277,16 +277,3 @@ class ProfesorHoraConForm(forms.ModelForm):
 	    model = ProfesorHora
 	    fields = ('FK_Profesor',)
 	    widgets = {'FK_Profesor': Select(attrs={'class':'form-control','style':'width: 15em;','title':'Profesor','required':'true'}),}
-
-# class UsuBuildNom(forms.Form):
-# 	Build= forms.ModelChoiceField(queryset=UsuBuild.objects.all()) 
-# 	Build_Oponente= forms.ModelChoiceField(queryset=UsuBuild.objects.all())
-# 	Niveles 	= (
-# 		(1,1), (2,2), (3,3), (4,4), (5,5), (6,6), (7,7), (8,8), (9,9), (10,10), (11,11), (12,12), (13,13), (14,14), (15,15), (16,16), (17,17), (18,18)
-# 			  )
-# 	Nivel	=	forms.ChoiceField(choices = Niveles)
-# 	Nivel_Oponente	=	forms.ChoiceField(choices = Niveles)
-
-# 	class Meta:
-# 	    model = UsuBuild
-# 	    fields = '__all__'

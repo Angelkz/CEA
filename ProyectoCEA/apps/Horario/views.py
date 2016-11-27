@@ -1,9 +1,23 @@
-from django.shortcuts import render
+from django.shortcuts import render, RequestContext, render_to_response, redirect
+from django.http import HttpResponse
 
 from .forms import *
 from .models import *
 from apps.Escuela.forms import *
 from apps.Escuela.models import *
+#para el pdf
+from django.db import connection
+from io import BytesIO
+#report lab
+from reportlab.platypus import SimpleDocTemplate, Paragraph, TableStyle
+from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.lib import colors
+from reportlab.lib.pagesizes import *
+from reportlab.platypus import Table
+from reportlab.pdfgen import canvas
+from reportlab.lib.units import inch
+
+
 
 def formPeriodo(request):	
 	if request.method == 'POST':
@@ -130,6 +144,42 @@ def formSalonDel(request):
 		ctx = { "form": form, "reporte": reporte }
 
 	return render(request, "Horario/formSalonDel_view.html", ctx)
+
+#pdf salon
+def salones(request):
+	print "Genero pdf"
+	response = HttpResponse(content_type = 'application/pdf')
+	pdf_name = "salones.pdf"
+	buffe = BytesIO()
+	doc = SimpleDocTemplate(buffe,
+							pagesizes= landscape(A4),
+							rightMargin=40,
+                            leftMargin=40,
+                            topMargin=60,
+                            bottomMargin=18,
+                            )
+	salones = []
+	styles = getSampleStyleSheet()
+	header = Paragraph("Departamento de Ciencias Economico Adminsitrativas: Salones", styles['Heading1'])
+	salones.append(header)
+	headings = ('NUMERO DE SALON','CAPACIDADES POR GRUPO')
+	allsalones = [(a.Nombre,a.Capacidad) for a in Salon.objects.all()]
+	print allsalones
+	t = Table([headings]+ allsalones)
+	t.setStyle(TableStyle(
+		[
+			('GRID', (0, 0), (14, -1), 1, colors.green),
+            ('LINEBELOW', (0, 0), (-1, 0), 2, colors.darkgreen),
+            ('BACKGROUND', (0, 0), (-1, 0), colors.azure)
+		]
+	))
+	salones.append(t)
+	doc.build(salones)
+	doc.pagesize = landscape(A4)
+	response.write(buffe.getvalue())
+	buffe.close()
+	return response
+
 
 
 def formHorarioCarrera(request):
