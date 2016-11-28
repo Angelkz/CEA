@@ -29,6 +29,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 <!-- //js -->
 <script src="{% static 'js/modernizr.custom.js' %}"></script>
+
+<!-- login -->
+<script type="text/javascript" src="{% static 'js/easyResponsiveTabs.js' %}"></script>
+
 <!-- fonts -->
 <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
 <link href='//fonts.googleapis.com/css?family=Alegreya:400,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
@@ -85,8 +89,8 @@ function soloNumeros(e){
 
        key = e.keyCode || e.which;
        tecla = String.fromCharCode(key).toLowerCase();
-       letras = " abcdefghijklmnñopqrstuvwxyz-1234567890";
-       especiales = "8-37-39-46";
+       letras = " abcdefghijklmnñopqrstuvwxyz1234567890 -";
+       especiales = "8-37-39";
 
        tecla_especial = false
        for(var i in especiales){
@@ -277,7 +281,7 @@ function soloEmail2(elemento) {
 
 <!-- //footer -->
 <!-- for bootstrap working -->
-
+	<script src="{% static 'js/bootstrap.js' %}"></script>
 <!-- //for bootstrap working -->
 <!-- smooth scrolling -->
 	<script type="text/javascript">

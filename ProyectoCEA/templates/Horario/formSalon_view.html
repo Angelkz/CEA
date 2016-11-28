@@ -21,13 +21,17 @@
 					<h2 class="intro-text text-center">Registre un salon de clases</strong>
 					</h2>
 					<br>
-					<input class="form-control" type ="text" style="width:350px" min="0" id ='id_Nombre' name="Nombre" placeholder="Ejemplo: 505" required="True" onKeyPress="return soloLetrasNumeros(event)"></input> 
+					<input class="form-control" type ="text" style="width:350px" min="0" id ='id_Nombre' name="Nombre" placeholder="Ejemplo: 505" required="True" onKeyPress="return soloLetrasNumeros(event)"></input>
+					<br>
+					<input class="form-control" type ="text" style="width:350px" min="0" id ='id_Capacidad' name="Capacidad" placeholder="Ejemplo: 40" required="True" onKeyPress="return soloNumeros(event)"></input> 
+
 
 					<h2 class="intro-text text-center"><strong>{{mensaje}}</strong>
 					<br>
 					<br>
 					<div class="form-actions">
 						<button type="submit" class="btn btn-lg btn-default">Guardar</button>
+						<a class="btn  btn-lg btn-default" href="/pdf2/">Generar Reporte</a>
 						<a class="btn  btn-lg btn-default" href="/index/">Regresar</a>
 					</div>
 					</h2>

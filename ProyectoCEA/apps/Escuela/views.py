@@ -1,4 +1,4 @@
-from django.shortcuts import render, RequestContext, render_to_response
+from django.shortcuts import render, RequestContext, render_to_response, redirect
 from .forms import *
 from .models import *
 from django.contrib.auth.models import User
@@ -6,6 +6,19 @@ from django.http import HttpResponse
 from django.views.generic import TemplateView,ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
+from django.conf import settings
+#para el pdf
+from django.db import connection
+from io import BytesIO
+#report lab
+from reportlab.platypus import SimpleDocTemplate, Paragraph, TableStyle
+from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.lib import colors
+from reportlab.lib.pagesizes import *
+from reportlab.platypus import Table
+from reportlab.pdfgen import canvas
+from reportlab.lib.units import inch
+
 
 
 # Create your views here.
@@ -301,6 +314,47 @@ def formProfesorAut(request):
 
 	return render(request, "Escuela/formProfesorAut_view.html", ctx)
 
+
+#Reporte todos los profesores
+def imprimir(request):
+	#c=canvas.Canvas("test.pdf", pagesize = A4)
+	#c.drawImage("static/images/1.png", 0, A4[1]/2, width=400, height=400)
+	#c.showPage()
+	#c.save()
+
+	print "Genero pdf"
+	response = HttpResponse(content_type = 'application/pdf')
+	pdf_name = "profesores.pdf"
+	buff = BytesIO()
+	doc = SimpleDocTemplate(buff,
+							pagesizes= landscape(A4),
+							rightMargin=40,
+                            leftMargin=40,
+                            topMargin=60,
+                            bottomMargin=18,
+                            )
+	profes = []
+	styles = getSampleStyleSheet()
+	header = Paragraph("Departamento de Ciencias Economico Administravivas", styles['Heading1'])
+	profes.append(header)
+	headings = ('# Empleado',' Nombre','A Paterno','A Materno','titulo','Grado','Celular','T Casa','Email','Tutorias','Horario','Lab','Paqueteria')
+	allprofes = [(p.NumeroEmpleado, p.Nombre , p.ApellidoPaterno, p.ApellidoMaterno, p.FK_Titulo, p.FK_GradoMaximo, p.TelefonoCelular, p.TelefonoCasa, p.Email, p.Tutorias, p.FK_NumeroHoras, p.Laboratorio, p.Paquete) for p in Profesor.objects.all()]
+	print allprofes
+	t = Table([headings]+ allprofes)
+	t.setStyle(TableStyle(
+		[
+			('GRID', (0, 0), (14, -1), 1, colors.green),
+            ('LINEBELOW', (0, 0), (-1, 0), 2, colors.darkgreen),
+            ('BACKGROUND', (0, 0), (-1, 0), colors.azure)
+		]
+	))
+	profes.append(t)
+	doc.pagesize = landscape(A4)
+	doc.build(profes)
+	response.write(buff.getvalue())
+	buff.close()
+	return response
+
 def formProfesorDel(request):
 	if request.method == 'POST':
 
@@ -400,6 +454,47 @@ def formMateriaDel(request):
 		ctx = { "form": form, "reporte": reporte }
 
 	return render(request, "Escuela/formMateriaDel_view.html", ctx)
+
+#pdf materia 
+#Reporte todos los profesores
+def imprimirmateria(request):
+	#c=canvas.Canvas("test.pdf", pagesize = A4)
+	#c.drawImage("static/images/1.png", 0, A4[1]/2, width=400, height=400)
+	#c.showPage()
+	#c.save()
+
+	print "Genero pdf"
+	response = HttpResponse(content_type = 'application/pdf')
+	pdf_name = "materias.pdf"
+	buf = BytesIO()
+	doc = SimpleDocTemplate(buf,
+							pagesizes= landscape(A4),
+							rightMargin=40,
+                            leftMargin=40,
+                            topMargin=60,
+                            bottomMargin=18,
+                            )
+	materias = []
+	styles = getSampleStyleSheet()
+	header = Paragraph(" Departamento de Ciencias Economico Administravivas: Materias", styles['Heading2'])
+	materias.append(header)
+	headings = ('Nombre','Clave','HorasTeoricas','HorasPracticas','Creditos','Carrera')
+	allmaterias = [(m.Nombre,m.Serie,m.HorasTeoricas,m.HorasPracticas,m.Creditos,m.FK_Carrera) for m in Materia.objects.all()]
+	print allmaterias
+	t = Table([headings]+ allmaterias)
+	t.setStyle(TableStyle(
+		[
+			('GRID', (0, 0), (14, -1), 1, colors.green),
+            ('LINEBELOW', (0, 0), (-1, 0), 2, colors.darkgreen),
+            ('BACKGROUND', (0, 0), (-1, 0), colors.azure)
+		]
+	))
+	materias.append(t)
+	doc.pagesize = landscape(A4)
+	doc.build(materias)
+	response.write(buf.getvalue())
+	buf.close()
+	return response
 
 def formProfesorMateria(request):
 	

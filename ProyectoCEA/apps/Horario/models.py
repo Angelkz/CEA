@@ -14,11 +14,12 @@ class Semestre(models.Model):
 	Nombre = models.CharField(max_length = 48)
 	FecAct = models.DateTimeField(auto_now_add=True)
 
-	def __unicode__(self):
+	def __unicode__(self): 
 		return  self.Nombre
 
 class Salon(models.Model):
 	Nombre = models.CharField(max_length = 48)
+	Capacidad = models.IntegerField(default = "0")
 	FecAct = models.DateTimeField(auto_now_add=True)
 
 	def __unicode__(self):

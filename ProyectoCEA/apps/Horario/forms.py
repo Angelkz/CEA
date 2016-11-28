@@ -67,13 +67,14 @@ class SemestreReporte(Table):
 class SalonForm(forms.ModelForm):
 	class Meta:
 			model = Salon
-			fields = ('Nombre',)
+			fields = ('Nombre', "Capacidad")
 			error_messages = {
 				'Nombre':{
 				'required':_("Ingrese Nombre"),
 				},
 			}
 			widgets = {'Nombre': TextInput(attrs={'class': 'form-control','placeholder':'Ejemplo: "1200"','title':'Nombre','required':'true','size': 10,' style' : ' width:  400px'}),
+			'Capacidad': TextInput(attrs={'class': 'form-control','placeholder':'Ejemplo: "40"','title':'Capacidad','required':'true','size': 10,' style' : ' width:  400px'}),
 			}
 			labels ={
 			'Nombre':_('Nombre'),

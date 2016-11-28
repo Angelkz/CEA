@@ -22,7 +22,8 @@
 					<h2 class="intro-text text-center">Registra un horario para un grupo de una carrera</strong>
 					</h2>
 					<br>
-					<h2 class="intro-text"><strong>Clave: </strong><input class="form-control" type ="text" style="width:220px" min="0" id ='id_Nombre' name="Nombre" placeholder="Ejemplo: SC1B" required="True" onKeyPress="return soloLetrasNumeros(event)"  ></input> </h2>
+					<h3 class="intro-text"><strong>Serie:</strong> <input class="form-control" type ="text" style="width:220px" min="0" id ='id_Clave' name="Clave" placeholder="Ejemplo: SC2B" required="True" onKeyPress="return soloPeriodo(event)"  ></input></h3>
+					<!--<h2 class="intro-text"><strong>Serie: </strong>{{ form.Clave }} </h2> -->
 					<br>
 					<h3 class="intro-text"><strong>Periodo: </strong>{{ form.FK_Periodo }}</h3>
 					<br>
