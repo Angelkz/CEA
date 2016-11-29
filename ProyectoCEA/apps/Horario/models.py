@@ -26,14 +26,14 @@ class Salon(models.Model):
 		return  self.Nombre
 
 class HorarioCarrera(models.Model):
-	Clave = models.CharField(max_length = 48)
+	Serie = models.CharField(max_length = 48)
 	FK_Periodo = models.ForeignKey('Periodo')
 	FK_Semestre = models.ForeignKey('Semestre')
 	FK_Carrera = models.ForeignKey('Escuela.Carrera')
 	FecAct = models.DateTimeField(auto_now_add=True)
 
 	def __unicode__(self):
-		return self.Clave 
+		return self.Serie 
 
 class ClaseHora(models.Model):
 	FK_HorarioCarrera = models.ForeignKey('HorarioCarrera')

@@ -71,19 +71,19 @@ class Profesor(models.Model):
 	TelefonoCasa = models.IntegerField()
 	Email = models.EmailField()
 	Tutorias = models.BooleanField()
-	NumeroEmpleado = models.CharField(max_length = 48)
+	NumeroDocente = models.CharField(max_length = 48)
 	FK_NumeroHoras = models.ForeignKey('NumeroHoras', null=True, blank=True)
 	Laboratorio = models.BooleanField()
-	Paquete = models.TextField(max_length = 200)
-	Autorizado = models.BooleanField(default=False)
+	Paquete = models.TextField(max_length = 200, null=True, blank=True)
+	Autorizado = models.CharField(max_length = 48, default="No")
 	FecAct = models.DateTimeField(auto_now_add=True)
 
 	def __unicode__(self):
-		return u'%s %s %s %s' % (self.NumeroEmpleado, self.Nombre, self.ApellidoPaterno, self.ApellidoMaterno)
+		return u'%s %s %s %s' % (self.NumeroDocente, self.Nombre, self.ApellidoPaterno, self.ApellidoMaterno)
 
 class Materia(models.Model):
 	Nombre = models.CharField(max_length = 48)
-	Serie = models.CharField(max_length = 48)
+	Clave = models.CharField(max_length = 48)
 	HorasTeoricas = models.IntegerField()
 	HorasPracticas = models.IntegerField()
 	Creditos = models.IntegerField()
@@ -91,7 +91,7 @@ class Materia(models.Model):
 	FecAct = models.DateTimeField(auto_now_add=True)
 
 	def __unicode__(self):
-		return u'%s %s' % (self.Serie, self.Nombre)
+		return u'%s %s' % (self.Clave, self.Nombre)
 
 class ProfesorMateria(models.Model):
 	FK_Profesor = models.ForeignKey('Profesor')

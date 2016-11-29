@@ -187,17 +187,17 @@ def formHorarioCarrera(request):
 		form = HorarioCarreraForm(request.POST)
 		if form.is_valid():
 			obj = HorarioCarrera()
-			obj.Clave  = form.cleaned_data['Clave']
+			obj.Serie  = form.cleaned_data['Serie']
 			obj.FK_Semestre  = form.cleaned_data['FK_Semestre']
 			obj.FK_Periodo  = form.cleaned_data['FK_Periodo']
 			obj.FK_Carrera  = form.cleaned_data['FK_Carrera']
 
-			filtro = HorarioCarrera.objects.all().filter(Clave=obj.Clave)
+			filtro = HorarioCarrera.objects.all().filter(Serie=obj.Serie)
 			if filtro:
 				form = HorarioCarreraForm()
 				reporte = HorarioCarreraReporte(HorarioCarrera.objects.all())
 				ctx = {
-				"mensaje": "Clave de horario existente, ingresar otro", "form": form, "reporte": reporte
+				"mensaje": "Serie de horario existente, ingresar otro", "form": form, "reporte": reporte
 				}
 			else:
 				obj.save()
@@ -226,7 +226,7 @@ def formHorarioCarreraDel(request):
 		
 		if (form.is_valid()):
 			dato = form.cleaned_data['Nombre']
-			formDel = HorarioCarrera.objects.get(Clave=dato)
+			formDel = HorarioCarrera.objects.get(Serie=dato)
 			formDel.delete()
 
 			form = HorarioCarreraDelForm()
@@ -394,7 +394,7 @@ def formClaseHora(request):
 				}
 
 		elif (EDia and EHora and Grupo):
-			objGru = HorarioCarrera.objects.get(Clave=Grupo)
+			objGru = HorarioCarrera.objects.get(Serie=Grupo)
 			obj = ClaseHora.objects.filter(FK_HorarioCarrera = objGru).filter(FK_Hora__Nombre = EHora).filter(FK_Dia__Nombre = EDia)
 			obj.delete()
 
@@ -525,12 +525,13 @@ def formClaseHora(request):
 
 		elif (GDia and GHora and Grupo):
 			formG = ClaseHoraForm()
+			formG.fields["FK_Profesor"].queryset = Profesor.objects.filter(Autorizado="Si")
 			ctx = { "formG": formG, "fase": "fase3", "varGrupo":Grupo, "varDia":GDia, "varHora":GHora, }
 
 		elif (formG.is_valid() and varGrupo and varDia and varHora):
 
 			obj = ClaseHora()
-			objHorCar = HorarioCarrera.objects.get(Clave=varGrupo)
+			objHorCar = HorarioCarrera.objects.get(Serie=varGrupo)
 			objHora = Hora.objects.get(Nombre=varHora)
 			objDia = Dia.objects.get(Nombre=varDia)
 

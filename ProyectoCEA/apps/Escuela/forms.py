@@ -140,7 +140,7 @@ class HoraForm(forms.ModelForm):
 class ProfesorForm(forms.ModelForm): 
 	class Meta:
 			model = Profesor
-			fields = ('Nombre','ApellidoPaterno','ApellidoMaterno','FK_Titulo','FK_GradoMaximo','TelefonoCelular','TelefonoCasa','Email','Tutorias','NumeroEmpleado','FK_NumeroHoras','Laboratorio','Paquete',)
+			fields = ('Nombre','ApellidoPaterno','ApellidoMaterno','FK_Titulo','FK_GradoMaximo','TelefonoCelular','TelefonoCasa','Email','Tutorias','NumeroDocente','FK_NumeroHoras','Laboratorio','Paquete',)
 			widgets = {'Nombre':TextInput(attrs={'class': 'form-control','placeholder':'Ejemplo: "Laura"','id':'Nombre','required':'true','size': 10,' style' : ' width:  300px'}),
 			'ApellidoPaterno': TextInput(attrs={'class': 'form-control','placeholder':'Ejemplo: "Flores"','title':'ApellidoPaterno','required':'true','size': 10,' style' : ' width:  300px'}),
 			'ApellidoMaterno': TextInput(attrs={'class': 'form-control','placeholder': 'Ejemplo: "Valencia"','title':'Nombre','required':'true','size': 10,' style' : ' width:  300px'}),
@@ -149,7 +149,7 @@ class ProfesorForm(forms.ModelForm):
 			'TelefonoCelular':TextInput(attrs={'class': 'form-control','placeholder':'Ejemplo: "6643365026"','title':'TelefonoCelular','required':'true','size': 10,' style' : ' width:  300px'}),
 			'TelefonoCasa':TextInput(attrs={'class': 'form-control','placeholder':'Ejemplo: "6842332"','title':'TelefonoCasa','required':'true','size': 10,' style' : ' width:  300px'}),
 			'Email':TextInput(attrs={'class': 'form-control','placeholder':'Ejemplo: "pos@gmail.com"','title':'Email','required':'true','size': 10,' style' : ' width:  300px'}),
-			'NumeroEmpleado':TextInput(attrs={'class': 'form-control','placeholder':'Ejemplo: "256"','title':'NumeroEmpleado','required':'true','size': 10,' style' : ' width:  300px'}),
+			'NumeroDocente':TextInput(attrs={'class': 'form-control','placeholder':'Ejemplo: "256"','title':'NumeroDocente','required':'true','size': 10,' style' : ' width:  300px'}),
 			'FK_NumeroHoras': Select(attrs={'class':'form-control','style':'width: 21em;','title':'FK_NumeroHoras','required':'true'}),
 			}
 
@@ -163,7 +163,7 @@ class ProfesorDelForm(forms.Form):
 	    fields = '__all__'
 
 class ProfesorAutForm(forms.Form):
-	Nombre= forms.ModelChoiceField(widget=forms.Select(attrs={'class':'form-control','style':'width: 21em;','required':'true',}),queryset=Profesor.objects.all().filter(Autorizado=False)) 
+	Nombre= forms.ModelChoiceField(widget=forms.Select(attrs={'class':'form-control','style':'width: 21em;','required':'true',}),queryset=Profesor.objects.all().filter(Autorizado="No")) 
 
 	class Meta:
 	    model = Profesor
@@ -173,7 +173,7 @@ class ProfesorAutForm(forms.Form):
 
 class ProfesorReporteContacto(Table):
 	Autorizado = Column(field='Autorizado', header=u'Autorizado')
-	NumeroEmpleado = Column(field='NumeroEmpleado', header=u'N# Empleado')
+	NumeroDocente = Column(field='NumeroDocente', header=u'N# Docente')
 	Nombre = Column(field='Nombre', header=u'Nombre')
 	ApellidoPaterno = Column(field='ApellidoPaterno', header=u'Apellido paterno')
 	ApellidoMaterno = Column(field='ApellidoMaterno', header=u'Apellido materno')
@@ -186,7 +186,7 @@ class ProfesorReporteContacto(Table):
 
 class ProfesorReporteProfesionales(Table):
 	Autorizado = Column(field='Autorizado', header=u'Autorizado')
-	NumeroEmpleado = Column(field='NumeroEmpleado', header=u'N# Empleado')
+	NumeroDocente = Column(field='NumeroDocente', header=u'N# Empleado')
 	Nombre = Column(field='Nombre', header=u'Nombre')
 	ApellidoPaterno = Column(field='ApellidoPaterno', header=u'Apellido paterno')
 	ApellidoMaterno = Column(field='ApellidoMaterno', header=u'Apellido materno')
@@ -198,7 +198,7 @@ class ProfesorReporteProfesionales(Table):
 		model = Profesor
 
 class ProfesorReporteDisponibilidad(Table):
-	NumeroEmpleado = Column(field='NumeroEmpleado', header=u'N# Empleado')
+	NumeroDocente = Column(field='NumeroDocente', header=u'N# Empleado')
 	Nombre = Column(field='Nombre', header=u'Nombre')
 	ApellidoPaterno = Column(field='ApellidoPaterno', header=u'Apellido paterno')
 	ApellidoMaterno = Column(field='ApellidoMaterno', header=u'Apellido materno')
@@ -214,9 +214,9 @@ class ProfesorReporteDisponibilidad(Table):
 class MateriaForm(forms.ModelForm):
 	class Meta:
 			model = Materia
-			fields = ('Nombre','Serie','HorasTeoricas','HorasPracticas','Creditos','FK_Carrera',)
+			fields = ('Nombre','Clave','HorasTeoricas','HorasPracticas','Creditos','FK_Carrera',)
 			widgets = {'Nombre': TextInput(attrs={'class': 'form-control','placeholder':'Ingrese Nombre, Ejemplo: "Algebra"','title':'Nombre','required':'true','size': 10,' style' : ' width:  400px'}),
-			'Serie': TextInput(attrs={'class': 'form-control','placeholder':'Ingrese Serie, Ejemplo: "1B"','title':'Serie','required':'true','size': 10,' style' : ' width:  400px'}),
+			'Clave': TextInput(attrs={'class': 'form-control','placeholder':'Ingrese Clave, Ejemplo: "1B"','title':'Clave','required':'true','size': 10,' style' : ' width:  400px'}),
 			'HorasTeoricas': TextInput(attrs={'class': 'form-control','placeholder':'Ingrese Horas Teoricas, Ejemplo: "4"','title':'HorasTeoricas','required':'true','size': 10,' style' : ' width:  400px'}),
 			'HorasPracticas': TextInput(attrs={'class': 'form-control','placeholder':'Ingrese Horas Practicas, Ejemplo: "2"','title':'HorasPracticas','required':'true','size': 10,' style' : ' width:  400px'}),
 			'Creditos': TextInput(attrs={'class': 'form-control','placeholder':'Ingrese Creditos, Ejemplo: "6"','title':'Creditos','required':'true','size': 10,' style' : ' width:  400px'}),
@@ -225,7 +225,7 @@ class MateriaForm(forms.ModelForm):
 
 class MateriaReporte(Table):
 	Nombre = Column(field='Nombre', header=u'Nombre')
-	Serie = Column(field='Serie', header=u'Serie')
+	Clave = Column(field='Clave', header=u'Clave')
 	HorasTeoricas = Column(field='HorasTeoricas', header=u'Horas teoricas')
 	HorasPracticas = Column(field='HorasPracticas', header=u'Horas practicas')
 	Creditos = Column(field='Creditos', header=u'Creditos')

@@ -252,12 +252,11 @@ def formProfesor(request):
 		form = ProfesorForm(request.POST)
 		
 		if (form.is_valid()):
-			varV= form.cleaned_data['NumeroEmpleado']
-			objV = Profesor.objects.filter(NumeroEmpleado=varV)
+			varV= form.cleaned_data['NumeroDocente']
+			objV = Profesor.objects.filter(NumeroDocente=varV)
 			if objV:
-				form = ProfesorForm(request.POST)
 				ctx = {
-				"mensaje": "Profesor ya registrado, ingresar otro", "form": form
+				"mensaje": "Numero de docente ya registrado.", "form": form
 				}
 			else:
 				form.save()
@@ -266,7 +265,6 @@ def formProfesor(request):
 					"mensaje": "Guardado", "form": form
 				}
 		else:
-			form = ProfesorForm()
 			ctx = {
 				"mensaje": "Formulario incompleto", "form": form
 			}
@@ -285,8 +283,8 @@ def formProfesorAut(request):
 		if (form.is_valid()):
 			dato = str(form.cleaned_data['Nombre'])
 			datoP = dato.partition(" ")
-			formAut = Profesor.objects.get(NumeroEmpleado=datoP[0])
-			formAut.Autorizado = True
+			formAut = Profesor.objects.get(NumeroDocente=datoP[0])
+			formAut.Autorizado = "Si"
 			formAut.save()
 
 			form = ProfesorAutForm()
@@ -338,7 +336,7 @@ def imprimir(request):
 	header = Paragraph("Departamento de Ciencias Economico Administravivas", styles['Heading1'])
 	profes.append(header)
 	headings = ('# Empleado',' Nombre','A Paterno','A Materno','titulo','Grado','Celular','T Casa','Email','Tutorias','Horario','Lab','Paqueteria')
-	allprofes = [(p.NumeroEmpleado, p.Nombre , p.ApellidoPaterno, p.ApellidoMaterno, p.FK_Titulo, p.FK_GradoMaximo, p.TelefonoCelular, p.TelefonoCasa, p.Email, p.Tutorias, p.FK_NumeroHoras, p.Laboratorio, p.Paquete) for p in Profesor.objects.all()]
+	allprofes = [(p.NumeroDocente, p.Nombre , p.ApellidoPaterno, p.ApellidoMaterno, p.FK_Titulo, p.FK_GradoMaximo, p.TelefonoCelular, p.TelefonoCasa, p.Email, p.Tutorias, p.FK_NumeroHoras, p.Laboratorio, p.Paquete) for p in Profesor.objects.all()]
 	print allprofes
 	t = Table([headings]+ allprofes)
 	t.setStyle(TableStyle(
@@ -363,7 +361,7 @@ def formProfesorDel(request):
 		if (form.is_valid()):
 			dato = str(form.cleaned_data['Nombre'])
 			datoP = dato.partition(" ")
-			formDel = Profesor.objects.get(NumeroEmpleado=datoP[0])
+			formDel = Profesor.objects.get(NumeroDocente=datoP[0])
 			formDel.delete()
 
 			form = ProfesorDelForm()
@@ -397,8 +395,8 @@ def formMateria(request):
 		form = MateriaForm(request.POST)
 		
 		if (form.is_valid()):
-			varV= form.cleaned_data['Serie']
-			objV = Materia.objects.filter(Serie=varV)
+			varV= form.cleaned_data['Clave']
+			objV = Materia.objects.filter(Clave=varV)
 			if objV:
 				form = MateriaForm(request.POST)
 				reporte = MateriaReporte(Materia.objects.all())
@@ -479,7 +477,7 @@ def imprimirmateria(request):
 	header = Paragraph(" Departamento de Ciencias Economico Administravivas: Materias", styles['Heading2'])
 	materias.append(header)
 	headings = ('Nombre','Clave','HorasTeoricas','HorasPracticas','Creditos','Carrera')
-	allmaterias = [(m.Nombre,m.Serie,m.HorasTeoricas,m.HorasPracticas,m.Creditos,m.FK_Carrera) for m in Materia.objects.all()]
+	allmaterias = [(m.Nombre,m.Clave,m.HorasTeoricas,m.HorasPracticas,m.Creditos,m.FK_Carrera) for m in Materia.objects.all()]
 	print allmaterias
 	t = Table([headings]+ allmaterias)
 	t.setStyle(TableStyle(
@@ -514,7 +512,7 @@ def formProfesorMateria(request):
 
 		elif(formM.is_valid()):
 				datoP = Pro.partition(" ")
-				varValPro = Profesor.objects.get(NumeroEmpleado=datoP[0])
+				varValPro = Profesor.objects.get(NumeroDocente=datoP[0])
 				varValMat= formM.cleaned_data['FK_Materia']
 				objV = ProfesorMateria.objects.filter(FK_Profesor=varValPro).filter(FK_Materia=varValMat)
 				if objV:
@@ -536,7 +534,7 @@ def formProfesorMateria(request):
 
 		elif(Pro and Mat):
 			datoP = Pro.partition(" ")
-			objPro = Profesor.objects.get(NumeroEmpleado=datoP[0])
+			objPro = Profesor.objects.get(NumeroDocente=datoP[0])
 			obj = ProfesorMateria.objects.filter(FK_Profesor = objPro).filter(FK_Materia__Nombre = Mat)
 			obj.delete()
 			reporte = ProfesorMateria.objects.all().filter(FK_Profesor=objPro)
@@ -1036,7 +1034,7 @@ def formProfesorHora(request):
 		
 		elif (GDia and GHora and Pro):
 			datoP = Pro.partition(" ")
-			objPro = Profesor.objects.get(NumeroEmpleado=datoP[0])
+			objPro = Profesor.objects.get(NumeroDocente=datoP[0])
 			objGDia = Dia.objects.get(Nombre=GDia)
 			objGHora = Hora.objects.get(Nombre=GHora)
 			obj = ProfesorHora()
@@ -1508,7 +1506,7 @@ def formProfesorHora(request):
 
 		elif (EDia and EHora and Pro):
 			datoP = Pro.partition(" ")
-			objPro = Profesor.objects.get(NumeroEmpleado=datoP[0])
+			objPro = Profesor.objects.get(NumeroDocente=datoP[0])
 			obj = ProfesorHora.objects.filter(FK_Profesor = objPro).filter(FK_Hora__Nombre = EHora).filter(FK_Dia__Nombre = EDia)
 			obj.delete()
 
