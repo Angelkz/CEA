@@ -9,20 +9,8 @@ class login(TemplateView):
 def home(request):
 	return render(request, "ProyectB/index_view.html", {})
 
-def about(request):
-	return render(request, "ProyectB/about.html", {})
-
-def config(request):
-	return render(request, "ProyectB/config.html", {})
-
-def contact(request):
-	return render(request, "ProyectB/contact.html", {})
-
 def login(request):
 	return render_to_response('ProyectB/login.html',context_instance=RequestContext(request))
 
 def logout(request):
     logout(request)
-
-
-		

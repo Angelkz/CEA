@@ -18,6 +18,8 @@ from reportlab.lib.pagesizes import *
 from reportlab.platypus import Table
 from reportlab.pdfgen import canvas
 from reportlab.lib.units import inch
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import user_passes_test
 
 
 
@@ -55,6 +57,7 @@ def registroUsu(request):
 	ctx = 	{'form':formulario, 'mensaje':mensaje}
 	return render_to_response('Escuela/registroUsu.html',ctx,context_instance=RequestContext(request))
 
+@user_passes_test(lambda u: u.is_superuser)
 def formTitulo(request):
 	if request.method == 'POST':
 
@@ -90,6 +93,7 @@ def formTitulo(request):
 
 	return render(request, "Escuela/formTitulo_view.html", ctx)
 
+@user_passes_test(lambda u: u.is_superuser)
 def formTituloDel(request):
 	if request.method == 'POST':
 
@@ -119,6 +123,7 @@ def formTituloDel(request):
 
 	return render(request, "Escuela/formTituloDel_view.html", ctx)
 
+@user_passes_test(lambda u: u.is_superuser)
 def formGradoMaximo(request):
 	if request.method == 'POST':
 
@@ -154,6 +159,7 @@ def formGradoMaximo(request):
 
 	return render(request, "Escuela/formGradoMaximo_view.html", ctx)
 
+@user_passes_test(lambda u: u.is_superuser)
 def formGradoMaximoDel(request):
 	if request.method == 'POST':
 
@@ -183,6 +189,7 @@ def formGradoMaximoDel(request):
 
 	return render(request, "Escuela/formGradoMaximoDel_view.html", ctx)
 
+@user_passes_test(lambda u: u.is_superuser)
 def formCarrera(request):
 	if request.method == 'POST':
 
@@ -218,6 +225,7 @@ def formCarrera(request):
 
 	return render(request, "Escuela/formCarrera_view.html", ctx)
 
+@user_passes_test(lambda u: u.is_superuser)
 def formCarreraDel(request):
 	if request.method == 'POST':
 
@@ -247,6 +255,7 @@ def formCarreraDel(request):
 
 	return render(request, "Escuela/formCarreraDel_view.html", ctx)
 
+@login_required
 def formProfesor(request):
 	if request.method == 'POST':
 		form = ProfesorForm(request.POST)
@@ -275,6 +284,7 @@ def formProfesor(request):
 
 	return render(request, "Escuela/formProfesor_view.html", ctx)
 
+@user_passes_test(lambda u: u.is_superuser)
 def formProfesorAut(request):
 	if request.method == 'POST':
 
@@ -312,8 +322,8 @@ def formProfesorAut(request):
 
 	return render(request, "Escuela/formProfesorAut_view.html", ctx)
 
-
 #Reporte todos los profesores
+@user_passes_test(lambda u: u.is_superuser)
 def imprimir(request):
 	#c=canvas.Canvas("test.pdf", pagesize = A4)
 	#c.drawImage("static/images/1.png", 0, A4[1]/2, width=400, height=400)
@@ -353,6 +363,7 @@ def imprimir(request):
 	buff.close()
 	return response
 
+@user_passes_test(lambda u: u.is_superuser)
 def formProfesorDel(request):
 	if request.method == 'POST':
 
@@ -389,6 +400,7 @@ def formProfesorDel(request):
 
 	return render(request, "Escuela/formProfesorDel_view.html", ctx)
 
+@user_passes_test(lambda u: u.is_superuser)
 def formMateria(request):
 	if request.method == 'POST':
 
@@ -424,6 +436,7 @@ def formMateria(request):
 
 	return render(request, "Escuela/formMateria_view.html", ctx)
 
+@user_passes_test(lambda u: u.is_superuser)
 def formMateriaDel(request):
 	if request.method == 'POST':
 
@@ -454,7 +467,8 @@ def formMateriaDel(request):
 	return render(request, "Escuela/formMateriaDel_view.html", ctx)
 
 #pdf materia 
-#Reporte todos los profesores
+#Reporte todos las materias
+@user_passes_test(lambda u: u.is_superuser)
 def imprimirmateria(request):
 	#c=canvas.Canvas("test.pdf", pagesize = A4)
 	#c.drawImage("static/images/1.png", 0, A4[1]/2, width=400, height=400)
@@ -494,8 +508,8 @@ def imprimirmateria(request):
 	buf.close()
 	return response
 
+@login_required
 def formProfesorMateria(request):
-	
 	if request.method == 'POST':
 
 		formP = ProfesorMateriaConForm(request.POST)
@@ -535,7 +549,8 @@ def formProfesorMateria(request):
 		elif(Pro and Mat):
 			datoP = Pro.partition(" ")
 			objPro = Profesor.objects.get(NumeroDocente=datoP[0])
-			obj = ProfesorMateria.objects.filter(FK_Profesor = objPro).filter(FK_Materia__Nombre = Mat)
+			datoM = Mat.partition(" ")
+			obj = ProfesorMateria.objects.filter(FK_Profesor = objPro).filter(FK_Materia__Clave = datoM[0])
 			obj.delete()
 			reporte = ProfesorMateria.objects.all().filter(FK_Profesor=objPro)
 			ctx = {
@@ -555,6 +570,7 @@ def formProfesorMateria(request):
 
 	return render(request, "Escuela/formProfesorMateria_view.html", ctx)
 
+@login_required
 def formProfesorHora(request):
 	
 	if request.method == 'POST':

@@ -189,7 +189,7 @@ function soloEmail2(elemento) {
 					<!-- Collect the nav links, forms, and other content for toggling -->
 					<div class="collapse navbar-collapse nav-wil" id="bs-example-navbar-collapse-1">
 						<ul class="nav navbar-nav">
-							{% if user.is_authenticated %}
+							{% if user.is_superuser %}
 							<li class="dropdown">
 				                <a href="#" class="hvr-overline-from-center dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Profesor<span class="caret"></span></a>
 				                <ul class="dropdown-menu">
@@ -199,24 +199,27 @@ function soloEmail2(elemento) {
 				                   <li role="separator" class="divider"></li>
 				                  <li><a href="/profesormateria/">Ingresar materías disponibles por profesor</a></li>
 				                  <li><a href="/profesorhora/">Ingresar horas disponibles por profesor</a></li>
+				                  <li role="separator" class="divider"></li>
+				                <li><a href="">Reporte: Materias disponibles por profesor</a></li>
+				                <li><a href="">Reporte: Horarios disponibles por profesor</a></li>
+				                </li>
 				                </ul>
 				             </li>
-				             {% endif %}
-				             {% if user.is_authenticated %}
 				             <li class="dropdown">
 				                <a href="#" class="hvr-overline-from-center dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Horario<span class="caret"></span></a>
 				                <ul class="dropdown-menu">
 				                  <li><a href="/materia/">Agregar materias</a></li>
 				                  <li><a href="/materiadel/">Eliminación de materia</a></li>
 				                  <li role="separator" class="divider"></li>
-				                  <li><a href="/horariocarrera/">Crear horario de grupo</a></li>
-				                  <li><a href="/horariocarreradel/">Eliminar grupo de horario</li>
+				                  <li><a href="/horariocarrera/">Crear grupo</a></li>
+				                  <li><a href="/horariocarreradel/">Eliminar grupo</li>
 				                  <li role="separator" class="divider"></li>
-				                  <li><a href="/clasehora/">Agregar clases a un horario (Prox)</a></li>
+				                  <li><a href="/clasehora/">Agregar clases a un grupo</a></li>
+				                  <li role="separator" class="divider"></li>
+				                  <li><a href="">Reporte: Materias asignadas por profesor por periodo</a></li>
+				                  <li><a href="">Reporte: Grupos asignados por periodo</a></li>
 				                </ul>
 				             </li>
-				             {% endif %}
-				             {% if user.is_authenticated %}
 							<li class="dropdown">
 				                <a href="#" class="hvr-overline-from-center dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administración<span class="caret"></span></a>
 				                <ul class="dropdown-menu">
@@ -234,13 +237,39 @@ function soloEmail2(elemento) {
 				                  <li role="separator" class="divider"></li>
 				                  <li><a href="/salon/">Registrar salones</a></li>
 				                  <li><a href="/salondel/">Eliminar salon de clases</a></li>
+				                  <li role="separator" class="divider"></li>
+				                  <li><a href="">Reporte: Total de horas asignadas por profesor</a></li>
+				                <li><a href="">Reporte: Horas asignadas por materia</a>
 				                </ul>
 				             </li>
-				             {% endif %}
-				             {% if user.is_authenticated %}
+				             {% elif user.is_authenticated %}
+				             <li class="dropdown">
+				                <a href="#" class="hvr-overline-from-center dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Mi perfil<span class="caret"></span></a>
+				                <ul class="dropdown-menu">
+				                <li><a href="">Consultar si estoy registrado como profesor</a></li>
+				                <li><a href="">Registrame como profesor</a></li>
+				                <li role="separator" class="divider"></li>
+				                <li><a href="">Registrar mi perfil</a></li>
+				                <li><a href="">Actualizar mis datos</a></li>
+				                </ul>
+				             </li>
+				             <li class="dropdown">
+				                <a href="#" class="hvr-overline-from-center dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Disponiblidad<span class="caret"></span></a>
+				                <ul class="dropdown-menu">
+				                <li><a href="">Registrar mi disponibilidad de horario</a></li>
+				                <li><a href="">Registrame mi disponibilidad de materias</a></li>
+				                </ul>
+				             </li>
+				             <li class="dropdown">
+				                <a href="#" class="hvr-overline-from-center dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Horario<span class="caret"></span></a>
+				                <ul class="dropdown-menu">
+				                <li><a href="">Mostrar mi horario actual</a></li>
+				                <li><a href="">Mostrar mi historial de horario</a></li>
+				                </ul>
+				             </li>
 				             {% else %}
 							<li class="dropdown">
-				                <a href="/login/" class="hvr-overline-from-center dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">Perfil </a>
+				                <a href="/login/" class="hvr-overline-from-center dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">Inicia sesión </a>
 				             </li>
 				             {% endif %}
 						</ul>

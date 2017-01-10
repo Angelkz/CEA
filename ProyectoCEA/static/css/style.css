@@ -878,7 +878,7 @@ margin-top:50px;
 /*-- footer --*/
 .footer{
 padding:50px 0;
-background:#393939;
+background:rgb(5, 150, 155);
 }
 .footer-grid ul{
 padding:0;
@@ -1168,6 +1168,7 @@ padding:80px 0;
 
 .row{
 margin:0;
+
 }
 .ser-img{
 float:left;

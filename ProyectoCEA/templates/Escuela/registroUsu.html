@@ -11,7 +11,7 @@
 				{% csrf_token %}
 				<div class="container">
 					<hr>
-					<h2 class="intro-text text-center">Ingresa tu nombre y contraseña para registrarte</strong>
+					<h2 class="intro-text text-center">Ingresa tu nombre de usuario y contraseña para registrarte.</strong>
 					</h2>
 					<hr>
 					<center>
@@ -32,8 +32,9 @@
 							<h2 class="intro-text text-center">{{mensaje}}</strong>
 							</h2>
 							<br>
-							<input class="btn btn-info" type="submit" value="Registrar" form="idaddusuario"=>
-							<a class="btn" href="/login/">Regresar</a>
+							<input class="btn btn-primary btn-lg" type="submit" value="Registrar" form="idaddusuario"=>
+							<a href="/login/" class="btn btn-primary btn-lg">Regresar</a>
+							<br>
 							<br>
 							<br>
 						</center>

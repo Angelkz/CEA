@@ -5,6 +5,9 @@ from .forms import *
 from .models import *
 from apps.Escuela.forms import *
 from apps.Escuela.models import *
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import user_passes_test
+
 #para el pdf
 from django.db import connection
 from io import BytesIO
@@ -18,7 +21,7 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.units import inch
 
 
-
+@user_passes_test(lambda u: u.is_superuser)
 def formPeriodo(request):	
 	if request.method == 'POST':
 
@@ -53,6 +56,7 @@ def formPeriodo(request):
 
 	return render(request, "Horario/formPeriodo_view.html", ctx)
 
+@user_passes_test(lambda u: u.is_superuser)
 def formPeriodoDel(request):
 	if request.method == 'POST':
 
@@ -82,6 +86,7 @@ def formPeriodoDel(request):
 
 	return render(request, "Horario/formPeriodoDel_view.html", ctx)
 
+@user_passes_test(lambda u: u.is_superuser)
 def formSalon(request):
 	if request.method == 'POST':
 
@@ -116,6 +121,7 @@ def formSalon(request):
 
 	return render(request, "Horario/formSalon_view.html", ctx)
 
+@user_passes_test(lambda u: u.is_superuser)
 def formSalonDel(request):
 	if request.method == 'POST':
 
@@ -145,6 +151,7 @@ def formSalonDel(request):
 
 	return render(request, "Horario/formSalonDel_view.html", ctx)
 
+@user_passes_test(lambda u: u.is_superuser)
 #pdf salon
 def salones(request):
 	print "Genero pdf"
@@ -181,7 +188,7 @@ def salones(request):
 	return response
 
 
-
+@user_passes_test(lambda u: u.is_superuser)
 def formHorarioCarrera(request):
 	if request.method == 'POST':
 		form = HorarioCarreraForm(request.POST)
@@ -197,7 +204,7 @@ def formHorarioCarrera(request):
 				form = HorarioCarreraForm()
 				reporte = HorarioCarreraReporte(HorarioCarrera.objects.all())
 				ctx = {
-				"mensaje": "Serie de horario existente, ingresar otro", "form": form, "reporte": reporte
+				"mensaje": "Serie de grupo existente.", "form": form, "reporte": reporte
 				}
 			else:
 				obj.save()
@@ -219,6 +226,7 @@ def formHorarioCarrera(request):
 
 	return render(request, "Horario/formHorarioCarrera_view.html", ctx)
 
+@user_passes_test(lambda u: u.is_superuser)
 def formHorarioCarreraDel(request):
 	if request.method == 'POST':
 
@@ -248,6 +256,7 @@ def formHorarioCarreraDel(request):
 
 	return render(request, "Horario/formHorarioCarreraDel_view.html", ctx)
 
+@user_passes_test(lambda u: u.is_superuser)
 def formClaseHora(request):
 	
 	if request.method == 'POST':
