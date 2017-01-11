@@ -14,7 +14,7 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^pdf2',salones, name = 'imprimir2'),
     url(r'^pdf3',imprimirmateria, name = 'imprimir3'),
-    url(r'^pdf',imprimir, name = 'imprimir'),
+    
 ] 
 
 if settings.DEBUG:

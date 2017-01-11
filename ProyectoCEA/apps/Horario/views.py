@@ -169,7 +169,7 @@ def salones(request):
 	styles = getSampleStyleSheet()
 	header = Paragraph("Departamento de Ciencias Economico Adminsitrativas: Salones", styles['Heading1'])
 	salones.append(header)
-	headings = ('NUMERO DE SALON','CAPACIDADES POR GRUPO')
+	headings = ('Numero de salon','Capacidad')
 	allsalones = [(a.Nombre,a.Capacidad) for a in Salon.objects.all()]
 	print allsalones
 	t = Table([headings]+ allsalones)

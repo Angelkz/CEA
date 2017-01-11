@@ -1,6 +1,7 @@
 from django.shortcuts import render, RequestContext, render_to_response, redirect
 from .forms import *
 from .models import *
+from django.db.models import Count, Sum
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.views.generic import TemplateView,ListView
@@ -298,33 +299,55 @@ def formProfesorAut(request):
 			formAut.save()
 
 			form = ProfesorAutForm()
-			reporte1 = ProfesorReporteContacto(Profesor.objects.all())
-			reporte2 = ProfesorReporteProfesionales(Profesor.objects.all())
-			reporte3 = ProfesorReporteDisponibilidad(Profesor.objects.all())
 			ctx = {
-				"mensaje": "Autorizado", "form": form, "reporte1": reporte1, "reporte2": reporte2, "reporte3": reporte3
+				"mensaje": "Autorizado", "form": form,
 			}
 		else:
 			form = ProfesorAutForm()
-			reporte1 = ProfesorReporteContacto(Profesor.objects.all())
-			reporte2 = ProfesorReporteProfesionales(Profesor.objects.all())
-			reporte3 = ProfesorReporteDisponibilidad(Profesor.objects.all())
 			ctx = {
-				"mensaje": "Sin seleccion", "form": form, "reporte1": reporte1, "reporte2": reporte2, "reporte3": reporte3
+				"mensaje": "Sin seleccion", "form": form,
 			}
 
 	else:
 		form = ProfesorAutForm()
-		reporte1 = ProfesorReporteContacto(Profesor.objects.all())
-		reporte2 = ProfesorReporteProfesionales(Profesor.objects.all())
-		reporte3 = ProfesorReporteDisponibilidad(Profesor.objects.all())
-		ctx = { "form": form, "reporte1": reporte1, "reporte2": reporte2, "reporte3": reporte3 }
+		ctx = { "form": form }
 
 	return render(request, "Escuela/formProfesorAut_view.html", ctx)
 
-#Reporte todos los profesores
+@login_required
+def formProfesorRepCont(request):
+	reporte1 = ProfesorReporteContacto(Profesor.objects.all())
+	ctx = { "reporte1": reporte1}
+
+	return render(request, "Escuela/formProfesorRepCont_view.html", ctx)
+
 @user_passes_test(lambda u: u.is_superuser)
-def imprimir(request):
+def formProfesorRepProf(request):
+	reporte2 = ProfesorReporteProfesionales(Profesor.objects.all())
+	ctx = { "reporte2": reporte2}
+
+	return render(request, "Escuela/formProfesorRepProf_view.html", ctx)
+
+@user_passes_test(lambda u: u.is_superuser)
+def formProfesorRepDisp(request):
+	reporte3 = ProfesorReporteDisponibilidad(Profesor.objects.all())
+	ctx = { "reporte3": reporte3 }
+
+	return render(request, "Escuela/formProfesorRepDisp_view.html", ctx)
+
+@user_passes_test(lambda u: u.is_superuser)
+def formProfesorTotalRep(request):
+	reporteIni = ClaseHora.objects.all()
+	reporteFin = reporteIni.values('FK_Profesor').annotate(HorasAsignadas=Count('FK_Profesor')).order_by()
+	
+	reporte = ProfesorTotalReporte(reporteIni)
+	ctx = { "reporte": reporte}
+
+	return render(request, "Escuela/formProfesorTotalRep_view.html", ctx)
+
+#Reporte1 profesores
+@user_passes_test(lambda u: u.is_superuser)
+def imprimirProCont(request):
 	#c=canvas.Canvas("test.pdf", pagesize = A4)
 	#c.drawImage("static/images/1.png", 0, A4[1]/2, width=400, height=400)
 	#c.showPage()
@@ -345,8 +368,90 @@ def imprimir(request):
 	styles = getSampleStyleSheet()
 	header = Paragraph("Departamento de Ciencias Economico Administravivas", styles['Heading1'])
 	profes.append(header)
-	headings = ('# Empleado',' Nombre','A Paterno','A Materno','titulo','Grado','Celular','T Casa','Email','Tutorias','Horario','Lab','Paqueteria')
-	allprofes = [(p.NumeroDocente, p.Nombre , p.ApellidoPaterno, p.ApellidoMaterno, p.FK_Titulo, p.FK_GradoMaximo, p.TelefonoCelular, p.TelefonoCasa, p.Email, p.Tutorias, p.FK_NumeroHoras, p.Laboratorio, p.Paquete) for p in Profesor.objects.all()]
+	headings = ('Autorizado','# Docente','Nombre','A Paterno','A Materno','T Celular','T Casa','Email')
+	allprofes = [(p.Autorizado, p.NumeroDocente, p.Nombre , p.ApellidoPaterno, p.ApellidoMaterno, p.TelefonoCelular, p.TelefonoCasa, p.Email) for p in Profesor.objects.all().order_by('NumeroDocente')]
+	print allprofes
+	t = Table([headings]+ allprofes)
+	t.setStyle(TableStyle(
+		[
+			('GRID', (0, 0), (14, -1), 1, colors.green),
+            ('LINEBELOW', (0, 0), (-1, 0), 2, colors.darkgreen),
+            ('BACKGROUND', (0, 0), (-1, 0), colors.azure)
+		]
+	))
+	profes.append(t)
+	doc.pagesize = landscape(A4)
+	doc.build(profes)
+	response.write(buff.getvalue())
+	buff.close()
+	return response
+
+#Reporte2 profesores
+@user_passes_test(lambda u: u.is_superuser)
+def imprimirProProf(request):
+	#c=canvas.Canvas("test.pdf", pagesize = A4)
+	#c.drawImage("static/images/1.png", 0, A4[1]/2, width=400, height=400)
+	#c.showPage()
+	#c.save()
+
+	print "Genero pdf"
+	response = HttpResponse(content_type = 'application/pdf')
+	pdf_name = "profesores.pdf"
+	buff = BytesIO()
+	doc = SimpleDocTemplate(buff,
+							pagesizes= landscape(A4),
+							rightMargin=40,
+                            leftMargin=40,
+                            topMargin=60,
+                            bottomMargin=18,
+                            )
+	profes = []
+	styles = getSampleStyleSheet()
+	header = Paragraph("Departamento de Ciencias Economico Administravivas", styles['Heading1'])
+	profes.append(header)
+	headings = ('Autorizado','# Docente','Nombre','A Paterno','A Materno','Titulo','Grado Maximo','Numero de horas')
+	allprofes = [(p.Autorizado, p.NumeroDocente, p.Nombre , p.ApellidoPaterno, p.ApellidoMaterno, p.FK_Titulo, p.FK_GradoMaximo, p.FK_NumeroHoras) for p in Profesor.objects.all().order_by('NumeroDocente')]
+	print allprofes
+	t = Table([headings]+ allprofes)
+	t.setStyle(TableStyle(
+		[
+			('GRID', (0, 0), (14, -1), 1, colors.green),
+            ('LINEBELOW', (0, 0), (-1, 0), 2, colors.darkgreen),
+            ('BACKGROUND', (0, 0), (-1, 0), colors.azure)
+		]
+	))
+	profes.append(t)
+	doc.pagesize = landscape(A4)
+	doc.build(profes)
+	response.write(buff.getvalue())
+	buff.close()
+	return response
+
+#Reporte3 profesores
+@user_passes_test(lambda u: u.is_superuser)
+def imprimirProDisp(request):
+	#c=canvas.Canvas("test.pdf", pagesize = A4)
+	#c.drawImage("static/images/1.png", 0, A4[1]/2, width=400, height=400)
+	#c.showPage()
+	#c.save()
+
+	print "Genero pdf"
+	response = HttpResponse(content_type = 'application/pdf')
+	pdf_name = "profesores.pdf"
+	buff = BytesIO()
+	doc = SimpleDocTemplate(buff,
+							pagesizes= landscape(A4),
+							rightMargin=40,
+                            leftMargin=40,
+                            topMargin=60,
+                            bottomMargin=18,
+                            )
+	profes = []
+	styles = getSampleStyleSheet()
+	header = Paragraph("Departamento de Ciencias Economico Administravivas", styles['Heading1'])
+	profes.append(header)
+	headings = ('Autorizado','# Docente','Nombre','A Paterno','A Materno','Tutorias','Laboratorio','Paquete')
+	allprofes = [(p.Autorizado, p.NumeroDocente, p.Nombre , p.ApellidoPaterno, p.ApellidoMaterno, p.Tutorias, p.Laboratorio, p.Paquete) for p in Profesor.objects.all().order_by('NumeroDocente')]
 	print allprofes
 	t = Table([headings]+ allprofes)
 	t.setStyle(TableStyle(
@@ -444,8 +549,7 @@ def formMateriaDel(request):
 		
 		if (form.is_valid()):
 			dato = form.cleaned_data['Nombre']
-			formDel = Materia.objects.get(Nombre=dato)
-			formDel.delete()
+			dato.delete()
 
 			form = MateriaDelForm()
 			reporte = MateriaReporte(Materia.objects.all())
@@ -491,7 +595,7 @@ def imprimirmateria(request):
 	header = Paragraph(" Departamento de Ciencias Economico Administravivas: Materias", styles['Heading2'])
 	materias.append(header)
 	headings = ('Nombre','Clave','HorasTeoricas','HorasPracticas','Creditos','Carrera')
-	allmaterias = [(m.Nombre,m.Clave,m.HorasTeoricas,m.HorasPracticas,m.Creditos,m.FK_Carrera) for m in Materia.objects.all()]
+	allmaterias = [(m.Nombre,m.Clave,m.HorasTeoricas,m.HorasPracticas,m.Creditos,m.FK_Carrera) for m in Materia.objects.all().order_by('Nombre')]
 	print allmaterias
 	t = Table([headings]+ allmaterias)
 	t.setStyle(TableStyle(
@@ -548,9 +652,8 @@ def formProfesorMateria(request):
 
 		elif(Pro and Mat):
 			datoP = Pro.partition(" ")
-			objPro = Profesor.objects.get(NumeroDocente=datoP[0])
 			datoM = Mat.partition(" ")
-			obj = ProfesorMateria.objects.filter(FK_Profesor = objPro).filter(FK_Materia__Clave = datoM[0])
+			obj = ProfesorMateria.objects.filter(FK_Profesor = datoP[0]).filter(FK_Materia__Clave = datoM[0])
 			obj.delete()
 			reporte = ProfesorMateria.objects.all().filter(FK_Profesor=objPro)
 			ctx = {
@@ -569,6 +672,53 @@ def formProfesorMateria(request):
 		ctx = { "formP": formP, "fase": True }
 
 	return render(request, "Escuela/formProfesorMateria_view.html", ctx)
+
+@user_passes_test(lambda u: u.is_superuser)
+def formProfesorMateriaRep(request):
+	reporte = ProfesorMateriaReporte(ProfesorMateria.objects.all().order_by('FK_Profesor'))
+	ctx = { "reporte": reporte}
+
+	return render(request, "Escuela/formProfesorMateriaRep_view.html", ctx)
+
+@user_passes_test(lambda u: u.is_superuser)
+def imprimirProMat(request):
+	#c=canvas.Canvas("test.pdf", pagesize = A4)
+	#c.drawImage("static/images/1.png", 0, A4[1]/2, width=400, height=400)
+	#c.showPage()
+	#c.save()
+
+	print "Genero pdf"
+	response = HttpResponse(content_type = 'application/pdf')
+	pdf_name = "ProfesorMateria.pdf"
+	buf = BytesIO()
+	doc = SimpleDocTemplate(buf,
+							pagesizes= landscape(A4),
+							rightMargin=40,
+                            leftMargin=40,
+                            topMargin=60,
+                            bottomMargin=18,
+                            )
+	profesormateria = []
+	styles = getSampleStyleSheet()
+	header = Paragraph(" Departamento de Ciencias Economico Administravivas: Disponiblidad de materias por profesor", styles['Heading2'])
+	profesormateria.append(header)
+	headings = ('Profesor','Materia')
+	allprofesormateria = [(pf.FK_Profesor,pf.FK_Materia) for pf in ProfesorMateria.objects.all().order_by('FK_Profesor')]
+	print allprofesormateria
+	t = Table([headings]+ allprofesormateria)
+	t.setStyle(TableStyle(
+		[
+			('GRID', (0, 0), (14, -1), 1, colors.green),
+            ('LINEBELOW', (0, 0), (-1, 0), 2, colors.darkgreen),
+            ('BACKGROUND', (0, 0), (-1, 0), colors.azure)
+		]
+	))
+	profesormateria.append(t)
+	doc.pagesize = landscape(A4)
+	doc.build(profesormateria)
+	response.write(buf.getvalue())
+	buf.close()
+	return response
 
 @login_required
 def formProfesorHora(request):
@@ -1997,3 +2147,50 @@ def formProfesorHora(request):
 		ctx = { "formP": formP, "fase": True }
 
 	return render(request, "Escuela/formProfesorHora_view.html", ctx)
+
+@user_passes_test(lambda u: u.is_superuser)
+def formProfesorHoraRep(request):
+	reporte = ProfesorHoraReporte(ProfesorHora.objects.all().order_by('FK_Profesor'))
+	ctx = { "reporte": reporte}
+
+	return render(request, "Escuela/formProfesorHoraRep_view.html", ctx)
+
+@user_passes_test(lambda u: u.is_superuser)
+def imprimirProHor(request):
+	#c=canvas.Canvas("test.pdf", pagesize = A4)
+	#c.drawImage("static/images/1.png", 0, A4[1]/2, width=400, height=400)
+	#c.showPage()
+	#c.save()
+
+	print "Genero pdf"
+	response = HttpResponse(content_type = 'application/pdf')
+	pdf_name = "ProfesorHora.pdf"
+	buf = BytesIO()
+	doc = SimpleDocTemplate(buf,
+							pagesizes= landscape(A4),
+							rightMargin=40,
+                            leftMargin=40,
+                            topMargin=60,
+                            bottomMargin=18,
+                            )
+	profesorHora = []
+	styles = getSampleStyleSheet()
+	header = Paragraph(" Departamento de Ciencias Economico Administravivas: Disponiblidad de horas por profesor", styles['Heading2'])
+	profesorHora.append(header)
+	headings = ('Profesor','Dia','Hora' )
+	allprofesorHora = [(ph.FK_Profesor,ph.FK_Dia, ph.FK_Hora) for ph in ProfesorHora.objects.all().order_by('FK_Hora')]
+	print allprofesorHora
+	t = Table([headings]+ allprofesorHora)
+	t.setStyle(TableStyle(
+		[
+			('GRID', (0, 0), (14, -1), 1, colors.green),
+            ('LINEBELOW', (0, 0), (-1, 0), 2, colors.darkgreen),
+            ('BACKGROUND', (0, 0), (-1, 0), colors.azure)
+		]
+	))
+	profesorHora.append(t)
+	doc.pagesize = landscape(A4)
+	doc.build(profesorHora)
+	response.write(buf.getvalue())
+	buf.close()
+	return response

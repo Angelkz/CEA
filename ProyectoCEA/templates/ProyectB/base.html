@@ -199,9 +199,6 @@ function soloEmail2(elemento) {
 				                   <li role="separator" class="divider"></li>
 				                  <li><a href="/profesormateria/">Ingresar materías disponibles por profesor</a></li>
 				                  <li><a href="/profesorhora/">Ingresar horas disponibles por profesor</a></li>
-				                  <li role="separator" class="divider"></li>
-				                <li><a href="">Reporte: Materias disponibles por profesor</a></li>
-				                <li><a href="">Reporte: Horarios disponibles por profesor</a></li>
 				                </li>
 				                </ul>
 				             </li>
@@ -215,12 +212,25 @@ function soloEmail2(elemento) {
 				                  <li><a href="/horariocarreradel/">Eliminar grupo</li>
 				                  <li role="separator" class="divider"></li>
 				                  <li><a href="/clasehora/">Agregar clases a un grupo</a></li>
-				                  <li role="separator" class="divider"></li>
-				                  <li><a href="">Reporte: Materias asignadas por profesor por periodo</a></li>
-				                  <li><a href="">Reporte: Grupos asignados por periodo</a></li>
 				                </ul>
 				             </li>
-							<li class="dropdown">
+				             <li class="dropdown">
+				                <a href="#" class="hvr-overline-from-center dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reportes<span class="caret"></span></a>
+				                <ul class="dropdown-menu">
+				                <li><a href="/profesorrepcont/">Profesores (Datos de Contácto)</a></li>
+				                <li><a href="/profesorrepprof/">Profesores (Datos de Profesionales)</a></li>
+				                <li><a href="/profesorrepdisp/">Profesores (Datos de Disponibilidad)</a></li>
+				                <li><a href="/profesormateriarep/">Disponibilidad de materias por profesor</a></li>
+				                <li><a href="/profesorhorarep">Disponibilidad de horario por profesor</a></li>
+				                <li role="separator" class="divider"></li>
+				                <li><a href="">Materias asignadas por profesor</a></li>
+				                  <li><a href="">Grupos asignados por periodo</a></li>
+				                <li role="separator" class="divider"></li>
+				                <li><a href="/profesortotalrep/">Total de horas asignadas por profesor</a></li>
+				                <!-- <li><a href="">Horas asignadas por materia</a> -->
+				                </ul>
+				             </li>
+				             <li class="dropdown">
 				                <a href="#" class="hvr-overline-from-center dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administración<span class="caret"></span></a>
 				                <ul class="dropdown-menu">
 				                  <li><a href="/titulo/">Registrar títulos</a></li>
@@ -237,17 +247,14 @@ function soloEmail2(elemento) {
 				                  <li role="separator" class="divider"></li>
 				                  <li><a href="/salon/">Registrar salones</a></li>
 				                  <li><a href="/salondel/">Eliminar salon de clases</a></li>
-				                  <li role="separator" class="divider"></li>
-				                  <li><a href="">Reporte: Total de horas asignadas por profesor</a></li>
-				                <li><a href="">Reporte: Horas asignadas por materia</a>
 				                </ul>
 				             </li>
 				             {% elif user.is_authenticated %}
 				             <li class="dropdown">
 				                <a href="#" class="hvr-overline-from-center dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Mi perfil<span class="caret"></span></a>
 				                <ul class="dropdown-menu">
-				                <li><a href="">Consultar si estoy registrado como profesor</a></li>
-				                <li><a href="">Registrame como profesor</a></li>
+				                <li><a href="/profesorrepcont/">Consultar si estoy registrado como profesor</a></li>
+				                <li><a href="/profesor/">Registrame como profesor</a></li>
 				                <li role="separator" class="divider"></li>
 				                <li><a href="">Registrar mi perfil</a></li>
 				                <li><a href="">Actualizar mis datos</a></li>

@@ -172,7 +172,6 @@ class ProfesorAutForm(forms.Form):
 	    }
 
 class ProfesorReporteContacto(Table):
-	Autorizado = Column(field='Autorizado', header=u'Autorizado')
 	NumeroDocente = Column(field='NumeroDocente', header=u'N# Docente')
 	Nombre = Column(field='Nombre', header=u'Nombre')
 	ApellidoPaterno = Column(field='ApellidoPaterno', header=u'Apellido paterno')
@@ -186,7 +185,7 @@ class ProfesorReporteContacto(Table):
 
 class ProfesorReporteProfesionales(Table):
 	Autorizado = Column(field='Autorizado', header=u'Autorizado')
-	NumeroDocente = Column(field='NumeroDocente', header=u'N# Empleado')
+	NumeroDocente = Column(field='NumeroDocente', header=u'N# Docente')
 	Nombre = Column(field='Nombre', header=u'Nombre')
 	ApellidoPaterno = Column(field='ApellidoPaterno', header=u'Apellido paterno')
 	ApellidoMaterno = Column(field='ApellidoMaterno', header=u'Apellido materno')
@@ -197,8 +196,19 @@ class ProfesorReporteProfesionales(Table):
 	class Meta:
 		model = Profesor
 
+class ProfesorTotalReporte(Table):
+	NumeroDocente = Column(field='FK_Profesor.NumeroDocente', header=u'N# Docente',)
+	Nombre = Column(field='FK_Profesor.Nombre', header=u'Nombre')
+	ApellidoPaterno = Column(field='FK_Profesor.ApellidoPaterno', header=u'Apellido paterno')
+	ApellidoMaterno = Column(field='FK_Profesor.ApellidoMaterno', header=u'Apellido materno')
+	HorasAsignadas = Column(field='HorasAsignadas', header=u'Horas asignadas')
+	FK_NumeroHoras = Column(field='FK_Profesor.FK_NumeroHoras', header=u'Numero de horas')
+	
+	class Meta:
+		model = ClaseHora
+
 class ProfesorReporteDisponibilidad(Table):
-	NumeroDocente = Column(field='NumeroDocente', header=u'N# Empleado')
+	NumeroDocente = Column(field='NumeroDocente', header=u'N# Docente')
 	Nombre = Column(field='Nombre', header=u'Nombre')
 	ApellidoPaterno = Column(field='ApellidoPaterno', header=u'Apellido paterno')
 	ApellidoMaterno = Column(field='ApellidoMaterno', header=u'Apellido materno')
@@ -271,6 +281,14 @@ class ProfesorHoraForm(forms.ModelForm):
 			'FK_Dia':Select(attrs={'class':'form-control','style':'width: 15em;','title':'Dia','required':'true'}),
 			'FK_Hora':Select(attrs={'class':'form-control','style':'width: 15em;','title':'Hora','required':'true'}), 
 			}
+
+class ProfesorHoraReporte(Table):
+	Fecha = Column(field='FecAct', header=u'Fecha de act')
+	FK_Profesor = Column(field='FK_Profesor', header=u'Profesor')
+	FK_Dia = Column(field='FK_Dia', header=u'Dia')
+	FK_Hora = Column(field='FK_Hora', header=u'Hora')
+	class Meta:
+		model = ProfesorHora
 
 class ProfesorHoraConForm(forms.ModelForm):
 	class Meta:

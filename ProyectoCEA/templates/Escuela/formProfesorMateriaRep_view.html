@@ -12,20 +12,17 @@
 					<form method='POST' action=''>
 						<center>
 							{% csrf_token %}
+							<div class="panel panel-primary">
+							<div class="panel-heading"><strong>Reporte general de disponiblidad de profesores por materia.</strong></div>
 							<br>
-							<h2 class="intro-text text-center">Autorización de profesor:</strong>
-							</h2>
-							<br>
-							<h3 class="intro-text">Profesor: {{ form.Nombre }}</h3>
-							<br>
-							<h2 class="intro-text text-center"><strong>{{mensaje}}</strong>
-							<br>
-							<br>
-							<div class="form-actions">
-								<button type="submit" class="btn btn-lg btn-default">Autorizar</button>
-								<a class="btn  btn-lg btn-default" href="/index/">Regresar</a>
-							</h2>
+							<h4>
+							{% render_table reporte %}
+							</h4>
 							</div>
+							<br>
+							<br>
+								<a class="btn  btn-lg btn-default" href="/index/">Regresar</a>
+								<a class="btn  btn-lg btn-default" href="/pdfProMat/">Generar Reporte</a>
 						</center>
 						</form>
 					</div>
