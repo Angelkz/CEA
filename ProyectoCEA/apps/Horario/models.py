@@ -45,4 +45,4 @@ class ClaseHora(models.Model):
 	FecAct = models.DateTimeField(auto_now_add=True)
 
 	def __unicode__(self):
-		return u'%s %s %s' % (self.FK_Salon.Nombre, self.FK_Profesor.Nombre, self.FK_Materia.Nombre)
+		return u'%s %s %s %s %s' % (self.FK_HorarioCarrera, self.FK_Profesor.NumeroDocente, self.FK_Profesor.Nombre, self.FK_Materia.Nombre, self.FK_Salon.Nombre)

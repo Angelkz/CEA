@@ -5,6 +5,7 @@ from django.forms import ModelForm
 from django.utils.translation import ugettext_lazy as _
 from table import Table
 from table.columns import Column
+from table.utils import A
 
 
 class UsuarioForm(forms.Form):
@@ -197,12 +198,12 @@ class ProfesorReporteProfesionales(Table):
 		model = Profesor
 
 class ProfesorTotalReporte(Table):
-	NumeroDocente = Column(field='FK_Profesor.NumeroDocente', header=u'N# Docente',)
-	Nombre = Column(field='FK_Profesor.Nombre', header=u'Nombre')
-	ApellidoPaterno = Column(field='FK_Profesor.ApellidoPaterno', header=u'Apellido paterno')
-	ApellidoMaterno = Column(field='FK_Profesor.ApellidoMaterno', header=u'Apellido materno')
+	NumeroDocente = Column(field='FK_Profesor__NumeroDocente', header=u'N# Docente')
+	Nombre = Column(field='FK_Profesor__Nombre', header=u'Nombre')
+	ApellidoPaterno = Column(field='FK_Profesor__ApellidoPaterno', header=u'Apellido paterno')
+	ApellidoMaterno = Column(field='FK_Profesor__ApellidoMaterno', header=u'Apellido materno')
 	HorasAsignadas = Column(field='HorasAsignadas', header=u'Horas asignadas')
-	FK_NumeroHoras = Column(field='FK_Profesor.FK_NumeroHoras', header=u'Numero de horas')
+	FK_NumeroHoras = Column(field='FK_Profesor__FK_NumeroHoras__Nombre', header=u'Numero de horas')
 	
 	class Meta:
 		model = ClaseHora

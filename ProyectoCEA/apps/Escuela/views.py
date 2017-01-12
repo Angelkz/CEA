@@ -338,9 +338,11 @@ def formProfesorRepDisp(request):
 @user_passes_test(lambda u: u.is_superuser)
 def formProfesorTotalRep(request):
 	reporteIni = ClaseHora.objects.all()
-	reporteFin = reporteIni.values('FK_Profesor').annotate(HorasAsignadas=Count('FK_Profesor')).order_by()
+	reporteFin = reporteIni.values('FK_Profesor', 'FK_Profesor__NumeroDocente', 
+		'FK_Profesor__ApellidoPaterno', 'FK_Profesor__ApellidoMaterno', 
+		'FK_Profesor__Nombre', 'FK_Profesor__FK_NumeroHoras__Nombre').annotate(HorasAsignadas=Count('FK_Profesor')).order_by()
 	
-	reporte = ProfesorTotalReporte(reporteIni)
+	reporte = ProfesorTotalReporte(reporteFin)
 	ctx = { "reporte": reporte}
 
 	return render(request, "Escuela/formProfesorTotalRep_view.html", ctx)
@@ -2150,7 +2152,7 @@ def formProfesorHora(request):
 
 @user_passes_test(lambda u: u.is_superuser)
 def formProfesorHoraRep(request):
-	reporte = ProfesorHoraReporte(ProfesorHora.objects.all().order_by('FK_Profesor'))
+	reporte = ProfesorHoraReporte(ProfesorHora.objects.all().order_by('FK_Hora').order_by('FK_Profesor'))
 	ctx = { "reporte": reporte}
 
 	return render(request, "Escuela/formProfesorHoraRep_view.html", ctx)
@@ -2194,3 +2196,15 @@ def imprimirProHor(request):
 	response.write(buf.getvalue())
 	buf.close()
 	return response
+
+@user_passes_test(lambda u: u.is_superuser)
+def formAsigProMatRep(request):
+	if request.method == 'POST':
+		reporte = ProfesorHoraReporte(ProfesorHora.objects.all().order_by('FK_Hora').order_by('FK_Profesor'))
+		ctx = { "reporte": reporte}
+
+	else:
+		formP = ProfesorHoraConForm()
+		ctx = { "formP": formP, "fase": True }
+
+	return render(request, "Escuela/formAsigProMatRep_view.html", ctx)
